@@ -1,0 +1,78 @@
+# Deployment of Serverless DBT architecture #
+  
+steps:
+# Build the application container Image
+  - id: build_docker_image
+    name: gcr.io/cloud-builders/docker
+    entrypoint: /bin/bash
+    args:
+      - -c 
+      - |
+        docker build -t gcr.io/${_GCP_TARGET_PROJECT}/${_DBT_PROJECT_NAME} .
+
+# Push the container image to GCR Container registery
+  - id: push_image_to_container_registry
+    name: gcr.io/cloud-builders/docker
+    entrypoint: /bin/bash
+    args:
+      - -c 
+      - |
+        docker push gcr.io/${_GCP_TARGET_PROJECT}/${_DBT_PROJECT_NAME}
+
+# Deploy the image to Cloud Run
+# ! Be sure to set the number of CPU's the same as the number of workers in the Dockerfile
+  - id: deploy_to_cloud_run
+    name: gcr.io/cloud-builders/gcloud
+    entrypoint: /bin/bash
+    args:
+      - -c 
+      - |
+        gcloud run deploy ${_RUN_NAME}-${_ENV} \
+          --image gcr.io/${_GCP_TARGET_PROJECT}/${_DBT_PROJECT_NAME} \
+          --project ${_GCP_TARGET_PROJECT} \
+          --region ${_REGION} \
+          --set-env-vars USER=_dbt,DBT_TARGET=${_ENV}_target,DBT_PROJECT_NAME=${_DBT_PROJECT_NAME} \
+          --timeout 60m \
+          --service-account ${_SERVICE_ACCOUNT}
+        
+        # Get Cloud Run and Workflow URL's
+        #CLOUDRUN_URL=$(gcloud alpha run services describe ${cr-dbt-${_ENV}} --region ${_REGION} --project ${_GCP_TARGET_PROJECT} --format text | grep -e 'status.address.url:' | grep -o 'https://.*.run.app')
+ 
+# Deploy Cloud Workflow
+  - id: deploy_cloud_workflow
+    name: gcr.io/cloud-builders/gcloud
+    entrypoint: /bin/bash
+    args:
+      - -c 
+      - |
+        gcloud workflows deploy ${_WORKFLOW_NAME} \
+          --project ${_GCP_TARGET_PROJECT} \
+          --location ${_REGION} \
+          --service-account ${_SERVICE_ACCOUNT} \
+          --source workflow-dbt-run.yml
+
+
+  #install python depedencies
+  - id: python_dependencies
+    name: python
+    entrypoint: pip
+    args: ["install", "google-auth","pybase64","google-api-python-client","PyYAML", "--user"]
+
+  # schedule pipelines
+  - id: cloud_scheduler
+    name: python
+    entrypoint: python
+    args: ["./scripts/scheduler.py", "${_ENV}","${_SERVICE_ACCOUNT}","${_REGION}","${_GCP_TARGET_PROJECT}","${_RUN_NAME}","${_WORKFLOW_NAME}"] 
+
+
+substitutions:
+  _GCP_TARGET_PROJECT: df-dbtbase-dev-afd5
+  _DBT_PROJECT_NAME: ctl_dbt
+  _REGION: europe-west1
+  _SERVICE_ACCOUNT: svc-dbt-dta@df-dbtbase-dev-afd5.iam.gserviceaccount.com
+  _ENV: dev
+  _WORKFLOW_NAME: wf-dbt-run
+  _RUN_NAME: cr-dbt
+
+images:
+  - gcr.io/${_GCP_TARGET_PROJECT}/${_DBT_PROJECT_NAME}

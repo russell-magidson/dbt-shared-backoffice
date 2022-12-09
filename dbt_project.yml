@@ -1,0 +1,101 @@
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: 'dbt_base'
+version: '1.0.0'
+config-version: 2
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'dbt_base'
+
+# These configurations specify where dbt should look for different types of files.
+# The `model-paths` config, for example, states that models in this project can be
+# found in the "models/" directory. You probably won't need to change these!
+model-paths: ["models"]
+analysis-paths: ["analysis"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+target-path: "target"  # directory which will store compiled SQL files
+clean-targets:         # directories to be removed by `dbt clean`
+  - "target"
+  - "dbt_modules"
+
+
+# Configuring models
+# Full documentation: https://docs.getdbt.com/docs/configuring-models
+
+# In this example config, we tell dbt to build all models in the example/ directory
+# as tables. These settings can be overridden in the individual model files
+# using the `{{ config(...) }}` macro.
+
+vars:
+  # RAW - 00 Historic Datalake: Source
+  dataset_raw_prd: us-atlantaraw-prd-a628
+  dataset_raw_acc: us-atlantaraw-acc-36f2
+  dataset_raw_tst: us-atlantaraw-tst-013f
+  dataset_raw_dev: us-atlantaraw-dev-2fb8
+  # DL - 01 Historic Datalake: Source
+  dataset_dl_prd: us-atlantadl-prd-b32c
+  dataset_dl_acc: us-atlantadl-acc-170d
+  dataset_dl_tst: us-atlantadl-tst-3c82
+  dataset_dl_dev: us-atlantadl-dev-eb95
+  # STG - 02 Staging: Last Version of Data and Cleanings
+  dataset_stg_prd: us-atlantastg-prd-23b1
+  dataset_stg_acc: us-atlantastg-acc-df90
+  dataset_stg_tst: us-atlantastg-tst-19eb
+  dataset_stg_dev: us-atlantastg-dev-11cc
+  # DWH - 03 Data Warehouse: Dimensions and Facts
+  dataset_dwh_prd: us-atlantadwh-prd-e2d9
+  dataset_dwh_acc: us-atlantadwh-acc-4be2
+  dataset_dwh_tst: us-atlantadwh-tst-0d2a
+  dataset_dwh_dev: us-atlantadwh-dev-ac54
+  # DM - 04 Data marts ready for user or BI consumptions
+  dataset_dm_prd: us-atlantadm-prd-2f5c
+  dataset_dm_acc: us-atlantadm-acc-2f39
+  dataset_dm_tst: us-atlantadm-tst-62bc
+  dataset_dm_dev: us-atlantadm-dev-6e77
+
+
+models:
+  dbt_base:
+    +dataset: base
+    +materialized: table
+    # Config indicated by + and applies to all files under models/example/
+    00_raw:
+      +database: |
+        {%- if target.name == "prd_target" -%} us-atlantaraw-prd-a628
+        {%- elif target.name == "acc_target" -%} us-atlantaraw-acc-36f2
+        {%- elif target.name == "tst_target" -%} us-atlantaraw-tst-013f
+        {%- else -%} us-atlantaraw-dev-2fb8
+        {%- endif -%}
+    01_dl:
+      +database: |
+        {%- if target.name == "prd_target" -%} us-atlantadl-prd-b32c
+        {%- elif target.name == "acc_target" -%} us-atlantadl-acc-170d
+        {%- elif target.name == "tst_target" -%} us-atlantadl-tst-3c82
+        {%- else -%} us-atlantadl-dev-eb95
+        {%- endif -%}
+    02_stg:
+      +database: |
+        {%- if target.name == "prd_target" -%} us-atlantastg-prd-23b1
+        {%- elif target.name == "acc_target" -%} us-atlantastg-acc-df90
+        {%- elif target.name == "tst_target" -%} us-atlantastg-tst-19eb
+        {%- else -%} us-atlantastg-dev-11cc
+        {%- endif -%}
+    03_dwh:
+      +database: |
+        {%- if target.name == "prd_target" -%} us-atlantadwh-prd-e2d9
+        {%- elif target.name == "acc_target" -%} us-atlantadwh-acc-4be2
+        {%- elif target.name == "tst_target" -%} us-atlantadwh-tst-0d2a
+        {%- else -%} us-atlantadwh-dev-ac54
+        {%- endif -%}
+    04_dm:
+      +database: |
+        {%- if target.name == "prd_target"  -%} us-atlantadm-prd-2f5c
+        {%- elif target.name == "acc_target"  -%} us-atlantadm-acc-2f39
+        {%- elif target.name == "tst_target" -%} us-atlantadm-tst-62bc
+        {%- else -%} us-atlantadm-dev-6e77
+        {%- endif -%}

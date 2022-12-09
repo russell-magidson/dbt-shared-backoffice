@@ -1,0 +1,12 @@
+version: 2
+
+sources:
+  - name: dbt_source_example
+    project: | 
+      {%- if target.name == "prd_target" -%} us-atlantadl-prd-b32c
+      {%- elif target.name == "acc_target" -%} us-atlantadl-acc-170d
+      {%- else -%} us-atlantadl-dev-eb95
+      {%- endif -%}
+    schema: dbt_example
+    tables:
+      - name: DL__EXAMPLE

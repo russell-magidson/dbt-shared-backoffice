@@ -1,0 +1,8 @@
+svc-dbt-dta@xxx.iam.gserviceaccount.com
+svc-dbt-dta@xxx.iam.gserviceaccount.com
+
+Some basic steps
+git clone https://eugit.randstadgis.com/ssc-grp-df-dbt/dbt-{XX}.git
+cp -r dbt-de/* dbt-{XX} 
+git remote -v
+du -hs $(ls -A)

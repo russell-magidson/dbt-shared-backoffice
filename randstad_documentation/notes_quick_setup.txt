@@ -1,0 +1,44 @@
+DBT Set up
+
+=======================================
+1 - Open Google Cloud Shell: https://shell.cloud.google.com/
+2 - Press text "Open Home Folder"
+3 - Menu: File -> New Folder (name of the folder: "DBT")
+4 - Select the new folder in the "Explorer" (left side). Press right button and select "Open as Workspace"
+5 - Menu: Terminal -> New Terminal
+
+=======================================
+6 - DBT Opco Setup:In the "Cloud Shell" Terminal, insert the following instructions:
+
+# Clone the gitlab repo of the OPCO
+git clone https://eugit.randstadgis.com/ssc-grp-df-dbt/dbt-{opco2letters}.git #Replace {}
+
+# Second step: Create a virtual environment to add the libraries required by dbt and common pipelines
+python3 -m venv .venv
+source .venv/bin/activate
+pip3 install --upgrade pip
+pip3 install -r dbt-df/requirements.txt
+
+
+
+=======================================
+7 - Lets test DBT. In the "Cloud Shell" Terminal, insert the following instructions:
+cd dbt-{2letterscountry}
+8 - be sure that you are working in the branch you have decided
+git branch -M dev_{yourname} #Replace {}
+
+9 - And start
+./start_dbt.sh 
+
+
+
+# Testing if dbt is running as expected
+dbt run --select tag:zexample
+
+8 - if all is running ok, you shoud see in bigquery your own tables created
+
+https://console.cloud.google.com/bigquery?project=df-ctldl-dev-02a2
+https://console.cloud.google.com/bigquery?project=df-ctlstg-dev-0c60
+https://console.cloud.google.com/bigquery?project=df-ctldwh-dev-d604
+https://console.cloud.google.com/bigquery?project=df-ctldm-test-dev-9e32
+

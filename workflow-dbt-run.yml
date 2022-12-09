@@ -1,0 +1,114 @@
+# This workflow runs DBT
+# Workflow:
+#
+#   start >> dbt_debug >> dbt_test >> dbt_run >> finish
+#
+
+main:
+  params: [args]
+  steps:
+    - start:
+        assign:
+          - cloudRunServiceUrl: ${args.cloudRunServiceUrl}
+          - dbtCommandArgs: ${args.dbtCommandArgs}
+          - environment: ${args.env}
+
+    - dbt_debug:
+        call: callDbtService
+        args:
+          step: "dbt_debug"
+          url: ${cloudRunServiceUrl}
+          command:  ${"dbt debug"} 
+        result: stepResponse
+
+    - check_dbt_debug:
+        call: raiseExceptionIfError
+        args:
+          step: "check_dbt_debug"
+          errorMessage: "Error found while debugging models."
+          response: ${stepResponse}
+
+    - dbt_test:
+        call: callDbtService
+        args:
+          step: "dbt_test"
+          url: ${cloudRunServiceUrl}
+          command: ${"dbt test --select " + dbtCommandArgs}
+        result: stepResponse
+
+    - check_dbt_test:
+        call: raiseExceptionIfError
+        args:
+          step: "check_dbt_test"
+          errorMessage: "Error found while testing models."
+          response: ${stepResponse}
+
+    - dbt_run:
+        call: callDbtService
+        args:
+          step: "dbt_run"
+          url: ${cloudRunServiceUrl}
+          command: ${"dbt run --select " + dbtCommandArgs}
+        result: stepResponse
+
+    - check_dbt_run:
+        call: raiseExceptionIfError
+        args:
+          step: "check_dbt_run"
+          errorMessage: "Error found while running models."
+          response: ${stepResponse}
+
+    # Finish by returning ok status
+    - finish:
+        steps:
+          - setReturnValue:
+              assign:
+                - returnValue: {}
+                - returnValue.status: "ok"
+                - returnValue.message: "Execution completed successfully."
+          - exit:
+              return: ${returnValue}
+
+# Call the dbt service on cloud run
+callDbtService:
+  params: [step, url, command]
+  steps:
+    - logRequest:
+        call: sys.log
+        args:
+          text: ${"[" + step + "] Sending request to " + url + " -> " + command}
+    - sendRequest:
+        call: http.post
+        args:
+          url: ${url}
+          auth:
+            type: OIDC
+          body:
+            params:
+              cli: ${command}
+        result: response
+    - logCommandStatus:
+        call: sys.log
+        args:
+          text: ${"[" + step + "] dbt status:" + " " + response.body.result.status}
+    - logCommandOutput:
+        call: sys.log
+        args: 
+         text: ${"[" + step + "] dbt output:" + " " + json.encode_to_string(response.body.result.command_output)}
+    - returnResponse:
+        return: ${response}
+
+# Error handling within the flow
+raiseExceptionIfError:
+  params: [step, errorMessage, response]
+  steps:
+    - verifyResponse:
+        switch:
+          - condition: ${response.body.result.status != "ok"}
+            steps:
+              - exit:
+                  raise: 
+                    status: ${response.body.result.status}
+                    step: ${step}
+                    output: ${response.body.result.command_output}
+                    message: ${errorMessage}

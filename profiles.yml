@@ -1,0 +1,44 @@
+#Profiles configuration.
+dbt_base:
+  target: dev_target
+  outputs:
+    dev_target:
+      dataset: "dev_{{ env_var('USER', 'unknown')|lower|replace('_','') }}"
+      fixed_retries: 1
+      location: US
+      method: oauth
+      priority: interactive
+      project: us-atlantadbt-dev-94e0
+      threads: 3
+      timeout_seconds: 300
+      type: bigquery
+    tst_target:
+      dataset: tst
+      fixed_retries: 1
+      location: US
+      method: oauth
+      priority: interactive
+      project: us-atlantadbt-dev-94e0
+      threads: 3
+      timeout_seconds: 300
+      type: bigquery
+    acc_target:
+      dataset: acc
+      fixed_retries: 1
+      location: US
+      method: oauth
+      priority: interactive
+      project: us-atlantadbt-dev-94e0
+      threads: 3
+      timeout_seconds: 300
+      type: bigquery
+    prd_target:
+      dataset: prd
+      fixed_retries: 1
+      location: US
+      method: oauth
+      priority: interactive
+      project: us-atlantadbt-prd-1ad0
+      threads: 3
+      timeout_seconds: 300
+      type: bigquery
