@@ -1,7 +1,7 @@
 # Name your project! Project names should contain only lowercase characters
 # and underscores. A good package name should reflect your organization's
 # name or the intended use of these models
-name: 'dbt_base'
+name: 'bi_backoffice'
 version: '1.0.0'
 config-version: 2
 
@@ -24,6 +24,50 @@ clean-targets:         # directories to be removed by `dbt clean`
   - "dbt_modules"
 
 
+vars:
+  # RAW - 00 Historic Datalake: Source
+  # dataset_raw_prd: us-atlantaraw-prd-a628
+  # dataset_raw_acc: us-atlantaraw-acc-36f2
+  # dataset_raw_tst: us-atlantaraw-tst-013f
+  # dataset_raw_dev: us-atlantaraw-dev-2fb8
+  rand_rusaweb_dev: rand-rusaweb
+  rand_rusaweb_tst: rand-rusaweb
+  rand_rusaweb_acc: us-ergbq-qa-e523
+  rand_rusaweb_prd: us-ergbq-prd-3693
+  datalake_frontoffice_dev: us-datalakefo-qa-a298
+  datalake_frontoffice_tst: datalake-frontoffice
+  datalake_frontoffice_acc: datalake-frontoffice
+  datalake_frontoffice_prd: datalake-frontoffice
+  datalake_frontoffice_qa: us-ergbq-qa-e523
+  dataset_raw_prd: us-atldm-test-prd-99b5
+  dataset_raw_acc: us-atldm-test-qa-2114
+  dataset_raw_tst: us-atldm-test-dev-9198
+  dataset_raw_dev: us-atldm-test-dev-9198
+
+  # DL - 01 Historic Datalake: Source
+  # dataset_dl_prd: us-atlantadl-prd-b32c
+  # dataset_dl_acc: us-atlantadl-acc-170d
+  # dataset_dl_tst: us-atlantadl-tst-3c82
+  # dataset_dl_dev: us-atlantadl-dev-eb95
+  
+  # STG - 02 Staging: Last Version of Data and Cleanings
+  dataset_stg_prd: us-atlstg-prd-55a8
+  dataset_stg_acc: us-atlstg-qa-cd80
+  dataset_stg_tst: us-atlstg-dev-11c7
+  dataset_stg_dev: us-atlstg-dev-11c7
+
+  # DWH - 03 Data Warehouse: Dimensions and Facts
+  dataset_dwh_prd: us-atldwh-prd-60df
+  dataset_dwh_acc: us-atldwh-qa-e9af
+  dataset_dwh_tst: us-atldwh-dev-1165
+  dataset_dwh_dev: us-atldwh-dev-1165
+
+  # DM - 04 Data marts ready for user or BI consumptions
+  dataset_dm_prd: us-atldm-test-prd-99b5
+  dataset_dm_acc: us-atldm-test-qa-2114
+  dataset_dm_tst: us-atldm-test-dev-9198
+  dataset_dm_dev: us-atldm-test-dev-9198
+
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
 
@@ -31,71 +75,45 @@ clean-targets:         # directories to be removed by `dbt clean`
 # as tables. These settings can be overridden in the individual model files
 # using the `{{ config(...) }}` macro.
 
-vars:
-  # RAW - 00 Historic Datalake: Source
-  dataset_raw_prd: us-atlantaraw-prd-a628
-  dataset_raw_acc: us-atlantaraw-acc-36f2
-  dataset_raw_tst: us-atlantaraw-tst-013f
-  dataset_raw_dev: us-atlantaraw-dev-2fb8
-  # DL - 01 Historic Datalake: Source
-  dataset_dl_prd: us-atlantadl-prd-b32c
-  dataset_dl_acc: us-atlantadl-acc-170d
-  dataset_dl_tst: us-atlantadl-tst-3c82
-  dataset_dl_dev: us-atlantadl-dev-eb95
-  # STG - 02 Staging: Last Version of Data and Cleanings
-  dataset_stg_prd: us-atlantastg-prd-23b1
-  dataset_stg_acc: us-atlantastg-acc-df90
-  dataset_stg_tst: us-atlantastg-tst-19eb
-  dataset_stg_dev: us-atlantastg-dev-11cc
-  # DWH - 03 Data Warehouse: Dimensions and Facts
-  dataset_dwh_prd: us-atlantadwh-prd-e2d9
-  dataset_dwh_acc: us-atlantadwh-acc-4be2
-  dataset_dwh_tst: us-atlantadwh-tst-0d2a
-  dataset_dwh_dev: us-atlantadwh-dev-ac54
-  # DM - 04 Data marts ready for user or BI consumptions
-  dataset_dm_prd: us-atlantadm-prd-2f5c
-  dataset_dm_acc: us-atlantadm-acc-2f39
-  dataset_dm_tst: us-atlantadm-tst-62bc
-  dataset_dm_dev: us-atlantadm-dev-6e77
-
-
 models:
+  +materialized: table
+  +on_schema_change: "sync_all_columns"
   dbt_base:
     +dataset: base
-    +materialized: table
     # Config indicated by + and applies to all files under models/example/
     00_raw:
       +database: |
-        {%- if target.name == "prd_target" -%} us-atlantaraw-prd-a628
-        {%- elif target.name == "acc_target" -%} us-atlantaraw-acc-36f2
-        {%- elif target.name == "tst_target" -%} us-atlantaraw-tst-013f
-        {%- else -%} us-atlantaraw-dev-2fb8
+        {%- if target.name == "prd_target" -%} us-atldm-test-prd-99b5
+        {%- elif target.name == "acc_target" -%} us-atldm-test-qa-2114
+        {%- elif target.name == "tst_target" -%} us-atldm-test-dev-9198
+        {%- else -%}  us-atldm-test-dev-9198
         {%- endif -%}
     01_dl:
       +database: |
-        {%- if target.name == "prd_target" -%} us-atlantadl-prd-b32c
-        {%- elif target.name == "acc_target" -%} us-atlantadl-acc-170d
-        {%- elif target.name == "tst_target" -%} us-atlantadl-tst-3c82
-        {%- else -%} us-atlantadl-dev-eb95
+        {%- if target.name == "prd_target" -%} us-atldwh-prd-60df
+        {%- elif target.name == "acc_target" -%} us-atldwh-qa-e9af
+        {%- elif target.name == "tst_target" -%} us-atldwh-dev-1165
+        {%- else -%} us-atldwh-dev-1165
         {%- endif -%}
     02_stg:
       +database: |
-        {%- if target.name == "prd_target" -%} us-atlantastg-prd-23b1
-        {%- elif target.name == "acc_target" -%} us-atlantastg-acc-df90
-        {%- elif target.name == "tst_target" -%} us-atlantastg-tst-19eb
-        {%- else -%} us-atlantastg-dev-11cc
+        {%- if target.name == "prd_target" -%} us-atlstg-prd-55a8
+        {%- elif target.name == "acc_target" -%} us-atlstg-qa-cd80
+        {%- elif target.name == "tst_target" -%} us-atlstg-dev-11c7
+        {%- else -%} us-atlstg-dev-11c7
         {%- endif -%}
     03_dwh:
+      +materialized: incremental
       +database: |
-        {%- if target.name == "prd_target" -%} us-atlantadwh-prd-e2d9
-        {%- elif target.name == "acc_target" -%} us-atlantadwh-acc-4be2
-        {%- elif target.name == "tst_target" -%} us-atlantadwh-tst-0d2a
-        {%- else -%} us-atlantadwh-dev-ac54
+        {%- if target.name == "prd_target" -%} us-atldwh-prd-60df
+        {%- elif target.name == "acc_target" -%} us-atldwh-qa-e9af
+        {%- elif target.name == "tst_target" -%} us-atldwh-dev-1165
+        {%- else -%} us-atldwh-dev-1165
         {%- endif -%}
     04_dm:
       +database: |
-        {%- if target.name == "prd_target"  -%} us-atlantadm-prd-2f5c
-        {%- elif target.name == "acc_target"  -%} us-atlantadm-acc-2f39
-        {%- elif target.name == "tst_target" -%} us-atlantadm-tst-62bc
-        {%- else -%} us-atlantadm-dev-6e77
+        {%- if target.name == "prd_target"  -%} us-atldm-test-prd-99b5
+        {%- elif target.name == "acc_target"  -%} us-atldm-test-qa-2114
+        {%- elif target.name == "tst_target" -%} us-atldm-test-dev-9198
+        {%- else -%} us-atldm-test-dev-9198
         {%- endif -%}

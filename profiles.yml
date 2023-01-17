@@ -3,12 +3,14 @@ dbt_base:
   target: dev_target
   outputs:
     dev_target:
-      dataset: "dev_{{ env_var('USER', 'unknown')|lower|replace('_','') }}"
+      dataset: "dev_{{ env_var('USER', 'unknown')|lower }}"
+      # dataset: "dev_{{ env_var('USER', 'unknown')|lower|replace('_','') }}"
       fixed_retries: 1
       location: US
       method: oauth
       priority: interactive
-      project: us-atlantadbt-dev-94e0
+      # project: us-atlantadbt-dev-94e0
+      project: us-atlstg-dev-11c7
       threads: 3
       timeout_seconds: 300
       type: bigquery
@@ -18,7 +20,8 @@ dbt_base:
       location: US
       method: oauth
       priority: interactive
-      project: us-atlantadbt-dev-94e0
+      # project: us-atlantadbt-dev-94e0
+      project: us-atlstg-dev-11c7
       threads: 3
       timeout_seconds: 300
       type: bigquery
@@ -28,7 +31,8 @@ dbt_base:
       location: US
       method: oauth
       priority: interactive
-      project: us-atlantadbt-dev-94e0
+      # project: us-atlantadbt-dev-94e0
+      project: us-atlstg-qa-cd80
       threads: 3
       timeout_seconds: 300
       type: bigquery
@@ -38,7 +42,8 @@ dbt_base:
       location: US
       method: oauth
       priority: interactive
-      project: us-atlantadbt-prd-1ad0
+      # project: us-atlantadbt-prd-1ad0
+      project: s-atlstg-prd-55a8
       threads: 3
       timeout_seconds: 300
       type: bigquery
