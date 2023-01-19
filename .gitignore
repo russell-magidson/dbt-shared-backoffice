@@ -2,4 +2,5 @@
 /dbt_packages/
 /logs/
 /target/
+/version_updates/
 .user.yaml
