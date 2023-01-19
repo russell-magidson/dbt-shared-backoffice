@@ -1,6 +1,6 @@
-{% macro last_version_of_data_source(source_dataset,source_table,primary_keys,datetime_field='_dl_datetime') %}
+{% macro last_version_of_data_source(source_dataset,source_table,primary_keys,datetime_field='_dl_datetime', manual_changes=False) %}
 
-WITH LAST_VERSION_OF_DATA AS (
+WITH last_version_of_data_source AS (
     SELECT * EXCEPT(RANKORDER) FROM (
         SELECT *,
         ROW_NUMBER() OVER (PARTITION BY {{ primary_keys }}
@@ -8,7 +8,9 @@ WITH LAST_VERSION_OF_DATA AS (
         FROM   {{ source(source_dataset, source_table) }}
     ) WHERE RANKORDER = 1
 )
-
-SELECT * FROM LAST_VERSION_OF_DATA
-
+{% if not manual_changes %}
+SELECT * FROM last_version_of_data_source
+{% endif %}
 {% endmacro %}
+
+# if manual_changes=True then you have to add "SELECT * FROM last_version_of_data_source" after the macro

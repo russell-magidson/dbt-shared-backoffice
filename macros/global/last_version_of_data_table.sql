@@ -1,8 +1,8 @@
 
 
-{% macro last_version_of_data_table(tableref,primary_keys,datetime_field='_dl_datetime') %}
+{% macro last_version_of_data_table(tableref, primary_keys, datetime_field='_dl_datetime', manual_changes=False) %}
 
-WITH LAST_VERSION_OF_DATA AS (
+WITH last_version_of_data_table AS (
     SELECT * EXCEPT (_dl_isdeleted) FROM (
         SELECT * EXCEPT(RANKORDER) FROM (
             SELECT *,
@@ -13,6 +13,10 @@ WITH LAST_VERSION_OF_DATA AS (
     ) WHERE _dl_isdeleted = False
 )
 
-SELECT * FROM LAST_VERSION_OF_DATA
+{% if not manual_changes %}
+SELECT * FROM last_version_of_data_table
+{% endif %}
 
 {% endmacro %}
+
+# if manual_changes=True then you have to add "SELECT * FROM last_version_of_data_table" after the macro

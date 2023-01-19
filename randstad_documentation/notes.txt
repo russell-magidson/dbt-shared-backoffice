@@ -1,8 +1,9 @@
-svc-dbt-dta@xxx.iam.gserviceaccount.com
-svc-dbt-dta@xxx.iam.gserviceaccount.com
+svc-dbt-dta@df-dbtbasedbt-dev-xxxx.iam.gserviceaccount.com
+svc-dbt-prd@df-dbtbasedbt-prd-xxxx.iam.gserviceaccount.com
 
 Some basic steps
-git clone https://eugit.randstadgis.com/ssc-grp-df-dbt/dbt-{XX}.git
-cp -r dbt-de/* dbt-{XX} 
+git clone https://eugit.randstadgis.com/ssc-grp-df-dbt/dbt-{xx}.git
+cp -r base-dbt/* dbt-{xx}
+cp base-dbt/.gitignore dbt-{xx}
 git remote -v
 du -hs $(ls -A)

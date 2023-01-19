@@ -3,16 +3,14 @@ dbt_base:
   target: dev_target
   outputs:
     dev_target:
-      dataset: "dev_{{ env_var('USER', 'unknown')|lower }}"
-      # dataset: "dev_{{ env_var('USER', 'unknown')|lower|replace('_','') }}"
+      dataset: "dev_{{ env_var('USER', 'unknown')|lower|replace('_','') }}"
       fixed_retries: 1
       location: US
       method: oauth
       priority: interactive
-      # project: us-atlantadbt-dev-94e0
-      project: us-atlstg-dev-11c7
+      project: us-atlantadbt-dev-94e0
       threads: 3
-      timeout_seconds: 300
+      timeout_seconds: 600
       type: bigquery
     tst_target:
       dataset: tst
@@ -20,10 +18,9 @@ dbt_base:
       location: US
       method: oauth
       priority: interactive
-      # project: us-atlantadbt-dev-94e0
-      project: us-atlstg-dev-11c7
+      project: us-atlantadbt-dev-94e0
       threads: 3
-      timeout_seconds: 300
+      timeout_seconds: 600
       type: bigquery
     acc_target:
       dataset: acc
@@ -31,10 +28,9 @@ dbt_base:
       location: US
       method: oauth
       priority: interactive
-      # project: us-atlantadbt-dev-94e0
-      project: us-atlstg-qa-cd80
+      project: us-atlantadbt-dev-94e0
       threads: 3
-      timeout_seconds: 300
+      timeout_seconds: 600
       type: bigquery
     prd_target:
       dataset: prd
@@ -42,8 +38,7 @@ dbt_base:
       location: US
       method: oauth
       priority: interactive
-      # project: us-atlantadbt-prd-1ad0
-      project: s-atlstg-prd-55a8
+      project: us-atlantadbt-prd-1ad0
       threads: 3
-      timeout_seconds: 300
+      timeout_seconds: 600
       type: bigquery

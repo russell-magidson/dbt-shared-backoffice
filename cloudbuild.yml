@@ -33,6 +33,7 @@ steps:
           --region ${_REGION} \
           --set-env-vars USER=_dbt,DBT_TARGET=${_ENV}_target,DBT_PROJECT_NAME=${_DBT_PROJECT_NAME} \
           --timeout 60m \
+          --memory 1Gi \
           --service-account ${_SERVICE_ACCOUNT}
         
         # Get Cloud Run and Workflow URL's

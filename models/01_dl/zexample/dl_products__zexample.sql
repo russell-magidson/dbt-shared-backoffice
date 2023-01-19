@@ -1,8 +1,21 @@
-{% macro datalake_append_new_data(source_dataset, source_table, isversion=True, deletions=False) %}
+{{ config(
+    enabled=true,
+    schema="dl_zexample",
+    alias='dl_products',
+    materialized="incremental",
+    on_schema_change="append_new_columns",
+    tags=["zexample"],
+    partition_by={
+        "field": "_dl_dag_ts",
+        "data_type": "datetime",
+        "granularity": "day"
+    })
+}}
+
 
 WITH CURRENT_PRELOAD AS (
-    SELECT * {% if isversion %} EXCEPT (version) {% endif %}
-    FROM {{ source(source_dataset, source_table) }}
+    SELECT * 
+    FROM {{ source('dbt_source_example', 'products') }}
 ), CURRENT_LOAD AS (
     SELECT *,
     FARM_FINGERPRINT(FORMAT("%.1048500T", CURRENT_PRELOAD)) AS _dl_row_hash,
@@ -21,6 +34,3 @@ FROM CURRENT_LOAD as CL
 LEFT JOIN DATALAKE as DL USING (_dl_row_hash)
 WHERE DL._dl_row_hash is null
 {% endif %}
-
-
-{% endmacro %}
