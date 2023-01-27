@@ -1,0 +1,82 @@
+version: 2
+
+sources:
+  - name: datalake-frontoffice-fs_bo
+    project: | 
+      {%- if target.name == "prd_target" -%} datalake-frontoffice
+      {%- elif target.name == "acc_target" -%} datalake-frontoffice
+      {%- else -%} us-datalakefo-qa-a298
+      {%- endif -%}
+    schema: FS_BO
+    tables:
+      - name: ext_billing_adjustments_mapping
+      - name: PSMSGCATDEFN
+      - name: PSOPRDEFN
+      - name: PSXLATITEM
+      - name: PS_AFFL_VENDOR
+      - name: PS_BI_HDR
+      - name: PS_BI_LINE
+      - name: ps_ca_bill_plan
+      - name: PS_CA_CONTR_HDR
+      - name: PS_CA_DETAIL
+      - name: PS_CA_DETAIL_PROJ
+      - name: PS_CA_RATE
+      - name: PS_CR_ANALYST_TBL
+      - name: PS_CUSTOMER
+      - name: PS_CUST_CREDIT
+      - name: PS_CUST_OPTION
+      - name: ps_entry_reasn_tbl
+      - name: ps_entry_type_tbl
+      - name: PS_FO_ASGN_CMSN_DL
+      - name: PS_FO_PO_APPL_LOG
+      - name: PS_ITEM
+      - name: PS_ITEM_ACTIVITY
+      - name: PS_PAY_TRMS_TBL
+      - name: PS_PROJECT
+      - name: PS_PROJECT_MGR
+      - name: PS_PROJ_RESOURCE
+      - name: PS_PROJ_RESOURCE_PAS_ONLY
+      - name: PS_RNA_ACA_BI_LINE
+      - name: PS_RNA_ASGN_PO_TRK
+      - name: PS_RNA_CONTR_OFFER
+      - name: PS_RNA_CUSTDAT_TBL
+      - name: PS_RNA_CUST_LVLFLG
+      - name: PS_RNA_CUST_OPTION
+      - name: PS_RNA_CUST_PO_OPT
+      - name: PS_RNA_FO_PO_HDR
+      - name: PS_RNA_INTFCBICMP
+      - name: PS_RNA_INTFC_BI
+      - name: PS_RNA_SOR_DTL
+      - name: PS_RNA_UNAPTM_CARD
+      - name: PS_RNA_VMS_XREF
+      - name: PS_RS_ASSGN_DETAIL
+      - name: PS_RS_ASSIGNMENT
+      - name: PS_RS_GROUP_FLAGS
+      - name: PS_VI_AVE_MASTER 
+      - name: PS_VI_PAY_EARNINGS
+      - name: PS_VI_PC_ACT_VECTR
+      - name: PS_VI_V_EXPN_LINES
+      - name: PS_VI_V_TIME_CARD 
+      - name: PS_VI_V_TIME_LINES
+
+  - name: datalake-frontoffice-hr_bo
+    project: | 
+      {%- if target.name == "prd_target" -%} datalake-frontoffice
+      {%- elif target.name == "acc_target" -%} datalake-frontoffice
+      {%- else -%} us-datalakefo-qa-a298
+      {%- endif -%}
+    schema: HR_BO
+    tables:
+      - name: PSXLATITEM
+      - name: PS_ACTION_TABLE
+      - name: PS_ACTN_REASON_TBL
+
+  - name: datalake-frontoffice-rgs
+    project: | 
+      {%- if target.name == "prd_target" -%} datalake-frontoffice
+      {%- elif target.name == "acc_target" -%} datalake-frontoffice
+      {%- else -%} us-datalakefo-qa-a298
+      {%- endif -%}
+    schema: RGS
+    tables:
+      - name: PS_ASSIGNMENT

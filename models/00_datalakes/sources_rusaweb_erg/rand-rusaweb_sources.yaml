@@ -1,14 +1,17 @@
 version: 2
 
 sources:
-  - name: name_source_ergbq
+  - name: rand-rusaweb
     project: | 
       {%- if target.name == "prd_target" -%} us-ergbq-prd-3693
       {%- elif target.name == "acc_target" -%} us-ergbq-qa-e523
       {%- else -%} rand-rusaweb
       {%- endif -%}
-    schema: dataset_name_in_ergbq
+    schema: dims
     tables:
-      - name: products
-      - name: stores
-      - name: sales_orders
+      - name: DIM_DATE
+      - name: eBI_Fiscal_Calendar
+      - name: DIM_DEPT
+      - name: DIM_WEEK
+      - name: v_Dim_Branch
+      - name: vw_Week_Start_And_End_Dates
