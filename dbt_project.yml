@@ -31,34 +31,6 @@ clean-targets:         # directories to be removed by `dbt clean`
 # as tables. These settings can be overridden in the individual model files
 # using the `{{ config(...) }}` macro.
 
-vars:
-  # RAW - 00 Historic Datalake: Source
-  dataset_raw_prd: us-atlantaraw-prd-a628
-  dataset_raw_acc: us-atlantaraw-acc-36f2
-  dataset_raw_tst: us-atlantaraw-tst-013f
-  dataset_raw_dev: us-atlantaraw-dev-2fb8
-  # DL - 01 Historic Datalake: Source
-  dataset_dl_prd: us-atlantadl-prd-b32c
-  dataset_dl_acc: us-atlantadl-acc-170d
-  dataset_dl_tst: us-atlantadl-tst-3c82
-  dataset_dl_dev: us-atlantadl-dev-eb95
-  # STG - 02 Staging: Last Version of Data and Cleanings
-  dataset_stg_prd: us-atlantastg-prd-23b1
-  dataset_stg_acc: us-atlantastg-acc-df90
-  dataset_stg_tst: us-atlantastg-tst-19eb
-  dataset_stg_dev: us-atlantastg-dev-11cc
-  # DWH - 03 Data Warehouse: Dimensions and Facts
-  dataset_dwh_prd: us-atlantadwh-prd-e2d9
-  dataset_dwh_acc: us-atlantadwh-acc-4be2
-  dataset_dwh_tst: us-atlantadwh-tst-0d2a
-  dataset_dwh_dev: us-atlantadwh-dev-ac54
-  # DM - 04 Data marts ready for user or BI consumptions
-  dataset_dm_prd: us-atlantadm-prd-2f5c
-  dataset_dm_acc: us-atlantadm-acc-2f39
-  dataset_dm_tst: us-atlantadm-tst-62bc
-  dataset_dm_dev: us-atlantadm-dev-6e77
-
-
 models:
   dbt_base:
     +dataset: base
