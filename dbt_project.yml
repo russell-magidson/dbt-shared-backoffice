@@ -63,39 +63,28 @@ models:
   dbt_base:
     +dataset: base
     +materialized: table
-    # Config indicated by + and applies to all files under models/example/
-    00_raw:
-      +database: |
-        {%- if target.name == "prd_target" -%} us-atlantaraw-prd-a628
-        {%- elif target.name == "acc_target" -%} us-atlantaraw-acc-36f2
-        {%- elif target.name == "tst_target" -%} us-atlantaraw-tst-013f
-        {%- else -%} us-atlantaraw-dev-2fb8
-        {%- endif -%}
-    01_dl:
-      +database: |
-        {%- if target.name == "prd_target" -%} us-atlantadl-prd-b32c
-        {%- elif target.name == "acc_target" -%} us-atlantadl-acc-170d
-        {%- elif target.name == "tst_target" -%} us-atlantadl-tst-3c82
-        {%- else -%} us-atlantadl-dev-eb95
-        {%- endif -%}
-    02_stg:
-      +database: |
-        {%- if target.name == "prd_target" -%} us-atlantastg-prd-23b1
-        {%- elif target.name == "acc_target" -%} us-atlantastg-acc-df90
-        {%- elif target.name == "tst_target" -%} us-atlantastg-tst-19eb
-        {%- else -%} us-atlantastg-dev-11cc
-        {%- endif -%}
-    03_dwh:
-      +database: |
-        {%- if target.name == "prd_target" -%} us-atlantadwh-prd-e2d9
-        {%- elif target.name == "acc_target" -%} us-atlantadwh-acc-4be2
-        {%- elif target.name == "tst_target" -%} us-atlantadwh-tst-0d2a
-        {%- else -%} us-atlantadwh-dev-ac54
-        {%- endif -%}
-    04_dm:
-      +database: |
-        {%- if target.name == "prd_target"  -%} us-atlantadm-prd-2f5c
-        {%- elif target.name == "acc_target"  -%} us-atlantadm-acc-2f39
-        {%- elif target.name == "tst_target" -%} us-atlantadm-tst-62bc
-        {%- else -%} us-atlantadm-dev-6e77
-        {%- endif -%}
+    bc_case_template:
+      02_stg:
+        +database: |
+          {%- if target.name == "prd_target" -%} us-atlstg-prd-55a8
+          {%- elif target.name == "acc_target" -%} us-atlstg-qa-cd80
+          {%- else -%} us-atlstg-dev-11c7
+          {%- endif -%}
+      03_dwh:
+        +database: |
+          {%- if target.name == "prd_target" -%} us-atldwh-prd-60df
+          {%- elif target.name == "acc_target" -%} us-atldwh-qa-e9af
+          {%- else -%} us-atldwh-dev-1165
+          {%- endif -%}
+      04_dm_test:
+        +database: |
+          {%- if target.name == "prd_target"  -%} us-atldm-test-prd-99b5
+          {%- elif target.name == "acc_target"  -%} us-atldm-test-qa-2114
+          {%- else -%} us-atldm-test-dev-9198
+          {%- endif -%}
+      04_dm_kefo:
+        +database: |
+          {%- if target.name == "prd_target"  -%} datalake-frontoffice
+          {%- elif target.name == "acc_target"  -%} us-datalakefo-qa-a298
+          {%- else -%} us-atldm-test-dev-9198
+          {%- endif -%}

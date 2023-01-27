@@ -1,10 +1,11 @@
 version: 2
 
 sources:
-  - name: dbt_source_example
+  - name: name_source_atlanta
     project: | 
       {%- if target.name == "prd_target" -%} us-atlantaraw-prd-a628
       {%- elif target.name == "acc_target" -%} us-atlantaraw-acc-36f2
+      {%- elif target.name == "tst_target" -%} us-atlantaraw-tst-013f
       {%- else -%} us-atlantaraw-dev-2fb8
       {%- endif -%}
     schema: dbt_example_sales

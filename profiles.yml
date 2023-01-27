@@ -8,7 +8,7 @@ dbt_base:
       location: US
       method: oauth
       priority: interactive
-      project: us-atlantadbt-dev-94e0
+      project: us-atlstg-dev-11c7 #us-atlantadbt-dev-94e0
       threads: 3
       timeout_seconds: 600
       type: bigquery
@@ -18,7 +18,7 @@ dbt_base:
       location: US
       method: oauth
       priority: interactive
-      project: us-atlantadbt-dev-94e0
+      project: us-atlstg-dev-11c7 #us-atlantadbt-dev-94e0
       threads: 3
       timeout_seconds: 600
       type: bigquery
@@ -28,7 +28,7 @@ dbt_base:
       location: US
       method: oauth
       priority: interactive
-      project: us-atlantadbt-dev-94e0
+      project: us-atlstg-dev-11c7 #us-atlantadbt-dev-94e0
       threads: 3
       timeout_seconds: 600
       type: bigquery
@@ -38,7 +38,7 @@ dbt_base:
       location: US
       method: oauth
       priority: interactive
-      project: us-atlantadbt-prd-1ad0
+      project: us-atlstg-dev-11c7 #us-atlantadbt-prd-1ad0
       threads: 3
       timeout_seconds: 600
       type: bigquery

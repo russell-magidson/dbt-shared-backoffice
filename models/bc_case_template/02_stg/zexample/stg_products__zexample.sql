@@ -5,5 +5,4 @@
     tags = ["zexample"]
     ) }}
 
-SELECT *
-FROM {{ ref('lv_products__zexample') }}
+SELECT * FROM {{ source('name_source_atlanta', 'products') }}

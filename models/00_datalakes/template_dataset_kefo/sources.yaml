@@ -1,0 +1,14 @@
+version: 2
+
+sources:
+  - name: name_source_kefo
+    project: | 
+      {%- if target.name == "prd_target" -%} datalake-frontoffice
+      {%- elif target.name == "acc_target" -%} us-datalakefo-qa-a298
+      {%- else -%} us-datalakefo-qa-a298
+      {%- endif -%}
+    schema: dataset_name_in_kefo
+    tables:
+      - name: products
+      - name: stores
+      - name: sales_orders
