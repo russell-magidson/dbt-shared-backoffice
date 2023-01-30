@@ -33,55 +33,59 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 models:
   dbt_base:
-    +dataset: base
+    # +dataset: base
     +materialized: table
-    bc_case_template:
+    BackOffice_DeDup:
       02_stg:
+        +schema: staging_BI_BO
         +database: |
           {%- if target.name == "prd_target" -%} us-atlstg-prd-55a8
           {%- elif target.name == "acc_target" -%} us-atlstg-qa-cd80
           {%- else -%} us-atlstg-dev-11c7
           {%- endif -%}
       03_dwh:
+        +schema: data_warehouse_BI_BO
+        +materialized: incremental
         +database: |
           {%- if target.name == "prd_target" -%} us-atldwh-prd-60df
           {%- elif target.name == "acc_target" -%} us-atldwh-qa-e9af
           {%- else -%} us-atldwh-dev-1165
           {%- endif -%}
       04_dm:
+        +schema: data_mart_BI_BO
         +database: |
           {%- if target.name == "prd_target"  -%} us-atldm-test-prd-99b5
           {%- elif target.name == "acc_target"  -%} us-atldm-test-qa-2114
           {%- else -%} us-atldm-test-dev-9198
           {%- endif -%}
-      04_dm_front:
-        +database: |
-          {%- if target.name == "prd_target"  -%} datalake-frontoffice
-          {%- elif target.name == "acc_target"  -%} us-datalakefo-qa-a298
-          {%- else -%} us-atldm-test-dev-9198
-          {%- endif -%}
-    bc_BackOffice_DeDup:
-      02_stg:
-        +database: |
-          {%- if target.name == "prd_target" -%} us-atlstg-prd-55a8
-          {%- elif target.name == "acc_target" -%} us-atlstg-qa-cd80
-          {%- else -%} us-atlstg-dev-11c7
-          {%- endif -%}
-      03_dwh:
-        +database: |
-          {%- if target.name == "prd_target" -%} us-atldwh-prd-60df
-          {%- elif target.name == "acc_target" -%} us-atldwh-qa-e9af
-          {%- else -%} us-atldwh-dev-1165
-          {%- endif -%}
-      04_dm:
-        +database: |
-          {%- if target.name == "prd_target"  -%} us-atldm-test-prd-99b5
-          {%- elif target.name == "acc_target"  -%} us-atldm-test-qa-2114
-          {%- else -%} us-atldm-test-dev-9198
-          {%- endif -%}
-      04_dm_front:
-        +database: |
-          {%- if target.name == "prd_target"  -%} datalake-frontoffice
-          {%- elif target.name == "acc_target"  -%} us-datalakefo-qa-a298
-          {%- else -%} us-atldm-test-dev-9198
-          {%- endif -%}
+      # 04_dm_front:
+      #   +database: |
+      #     {%- if target.name == "prd_target"  -%} datalake-frontoffice
+      #     {%- elif target.name == "acc_target"  -%} us-datalakefo-qa-a298
+      #     {%- else -%} us-atldm-test-dev-9198
+      #     {%- endif -%}
+    # bc_case_template:
+    #   02_stg:
+    #     +database: |
+    #       {%- if target.name == "prd_target" -%} us-atlstg-prd-55a8
+    #       {%- elif target.name == "acc_target" -%} us-atlstg-qa-cd80
+    #       {%- else -%} us-atlstg-dev-11c7
+    #       {%- endif -%}
+    #   03_dwh:
+    #     +database: |
+    #       {%- if target.name == "prd_target" -%} us-atldwh-prd-60df
+    #       {%- elif target.name == "acc_target" -%} us-atldwh-qa-e9af
+    #       {%- else -%} us-atldwh-dev-1165
+    #       {%- endif -%}
+    #   04_dm:
+    #     +database: |
+    #       {%- if target.name == "prd_target"  -%} us-atldm-test-prd-99b5
+    #       {%- elif target.name == "acc_target"  -%} us-atldm-test-qa-2114
+    #       {%- else -%} us-atldm-test-dev-9198
+    #       {%- endif -%}
+    #   04_dm_front:
+    #     +database: |
+    #       {%- if target.name == "prd_target"  -%} datalake-frontoffice
+    #       {%- elif target.name == "acc_target"  -%} us-datalakefo-qa-a298
+    #       {%- else -%} us-atldm-test-dev-9198
+    #       {%- endif -%}

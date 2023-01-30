@@ -1,6 +1,5 @@
 {{ config(
     tags = ["psxlatitem_fs", "psxlatitem", "backoffice"], 
-    schema = 'rlm_stg_tables_None', 
     alias = 'psxlatitem_fs'
     )
 }}

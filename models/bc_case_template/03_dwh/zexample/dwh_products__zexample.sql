@@ -2,7 +2,8 @@
     schema="dm_zexample",
     alias='dm_products',
     materialized='table',
-    tags = ["zexample"]
+    tags = ["zexample"], 
+    enabled = false
     ) }}
 
 SELECT

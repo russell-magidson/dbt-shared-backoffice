@@ -1,19 +1,21 @@
 #Profiles configuration.
 dbt_base:
-  target: dev_target
+  target: sbx_target
   outputs:
-    dev_target:
-      dataset: "dev_{{ env_var('USER', 'unknown')|lower|replace('_','') }}"
+    sbx_target:
+      dataset: "sbxx_{{ env_var('USER', 'unknown') | lower | trim }}"
       fixed_retries: 1
       location: US
       method: oauth
       priority: interactive
-      project: us-atlstg-dev-11c7 #us-atlantadbt-dev-94e0
+      project: us-atlstg-dev-11c7
+      #us-atldm-test-dev-9198
+      #us-atlantadbt-dev-94e0
       threads: 3
       timeout_seconds: 600
       type: bigquery
     tst_target:
-      dataset: tst
+      dataset: "tstt_{{ env_var('USER', 'unknown') | lower | trim }}"
       fixed_retries: 1
       location: US
       method: oauth

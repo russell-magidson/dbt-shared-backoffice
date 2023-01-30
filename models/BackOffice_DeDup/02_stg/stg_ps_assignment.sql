@@ -1,6 +1,5 @@
 {{ config(
     tags = ["ps_assignment", "backoffice"], 
-    schema = 'rlm_stg_tables_None', 
     alias = 'ps_assignment'
     )
 }}

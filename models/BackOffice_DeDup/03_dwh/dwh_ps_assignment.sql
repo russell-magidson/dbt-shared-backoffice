@@ -1,7 +1,5 @@
 {{ config(
     tags = ["ps_assignment", "backoffice"], 
-    materialized = 'incremental', 
-    schema = 'rlm_dwh_tables_None', 
     alias = 'ps_assignment'
     )
 }}

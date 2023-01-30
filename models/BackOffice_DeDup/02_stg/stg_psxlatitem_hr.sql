@@ -1,6 +1,5 @@
 {{ config(
     tags = ["psxlatitem_hr", "psxlatitem", "backoffice"], 
-    schema = 'rlm_stg_tables_None', 
     alias = 'psxlatitem_hr'
     )
 }}

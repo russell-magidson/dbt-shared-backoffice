@@ -1,6 +1,5 @@
 {{ config(
     tags = ["ps_bi_hdr", "backoffice"], 
-    schema = 'rlm_stg_tables_None', 
     alias = 'ps_bi_hdr'
     )
 }}
