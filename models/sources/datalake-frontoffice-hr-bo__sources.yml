@@ -1,0 +1,15 @@
+version: 2
+
+sources:
+  - name: datalake-frontoffice-hr_bo
+    project: | 
+      {%- if target.name == "prd_target" -%} datalake-frontoffice
+      {%- elif target.name == "acc_target" -%} datalake-frontoffice
+      {%- else -%} us-datalakefo-qa-a298
+      {%- endif -%}
+    schema: HR_BO
+    tables:
+      - name: PSXLATITEM
+      - name: PS_ACTION_TABLE
+      - name: PS_ACTN_REASON_TBL
+
