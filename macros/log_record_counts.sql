@@ -2,6 +2,25 @@
 
 {{ 
     config( 
+
+        pre_hook = 
+            "create table if not exists {{ var( 'tblRecordCounts_location')}}
+            (
+            DataSet STRING,
+            TableName STRING,
+            devRowCount INT64,
+            qaRowCount INT64,
+            prdRowCount INT64,
+            dev_qa_DiffPct FLOAT64,
+            dev_prd_DiffPct FLOAT64,
+            qa_prd_DiffPct FLOAT64,
+            devTableLastModifiedTS TIMESTAMP,
+            qaTableLastModifiedTS TIMESTAMP,
+            prdTableLastModifiedTS TIMESTAMP,
+            insert_datetime TIMESTAMP
+            );
+            ", 
+
         post_hook = 
             "insert into {{ var( 'tblRecordCounts_location' )}}
             select * from {{ this }} " 
