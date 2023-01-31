@@ -17,7 +17,6 @@ test-paths: ["tests"]
 seed-paths: ["seeds"]
 macro-paths: ["macros"]
 snapshot-paths: ["snapshots"]
-
 target-path: "target"  # directory which will store compiled SQL files
 clean-targets:         # directories to be removed by `dbt clean`
   - "target"
@@ -33,55 +32,49 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 models:
   dbt_base:
-    # +dataset: base
     +materialized: table
+    +database: |
+      {%- if target.name == "prd_target" -%} us-atlstg-prd-55a8
+      {%- elif target.name == "acc_target" -%} us-atlstg-qa-cd80
+      {%- else -%} us-atlstg-dev-11c7
+      {%- endif -%}
     BackOffice_DeDup:
+      +tags: "BackOffice_DeDup"
       02_stg:
         +schema: staging_BackOffice_DeDup # Our custom schema
-        +database: |
-          {%- if target.name == "prd_target" -%} us-atlstg-prd-55a8
-          {%- elif target.name == "acc_target" -%} us-atlstg-qa-cd80
-          {%- else -%} us-atlstg-dev-11c7
-          {%- endif -%}
+        +tags: 
+          - "stg"
+          - "staging"
       03_dwh:
         +schema: data_warehouse_BackOffice_DeDup # Our custom schema
+        +tags: 
+          - "dwh"
+          - "data_warehouse"
         +materialized: incremental
-        +database: |
-          {%- if target.name == "prd_target" -%} us-atldwh-prd-60df
-          {%- elif target.name == "acc_target" -%} us-atldwh-qa-e9af
-          {%- else -%} us-atldwh-dev-1165
-          {%- endif -%}
       04_dm:
         +schema: data_mart_BackOffice_DeDup # Our custom schema
-        +database: |
-          {%- if target.name == "prd_target"  -%} us-atldm-test-prd-99b5
-          {%- elif target.name == "acc_target"  -%} us-atldm-test-qa-2114
-          {%- else -%} us-atldm-test-dev-9198
-          {%- endif -%}
+        +tags: 
+          - "dm"
+          - "data_mart"
 
     BI_BO:
+      +tags: "BackOffice_BI_BO"
       02_stg:
         +schema: staging_BO_BI # Our custom schema
-        +database: |
-          {%- if target.name == "prd_target" -%} us-atlstg-prd-55a8
-          {%- elif target.name == "acc_target" -%} us-atlstg-qa-cd80
-          {%- else -%} us-atlstg-dev-11c7
-          {%- endif -%}
+        +tags: 
+          - "stg"
+          - "staging"
       03_dwh:
         +schema: data_warehouse_BO_BI # Our custom schema
+        +tags: 
+          - "dwh"
+          - "data_warehouse"
         +materialized: incremental
-        +database: |
-          {%- if target.name == "prd_target" -%} us-atldwh-prd-60df
-          {%- elif target.name == "acc_target" -%} us-atldwh-qa-e9af
-          {%- else -%} us-atldwh-dev-1165
-          {%- endif -%}
       04_dm:
         +schema: data_mart_BO_BI # Our custom schema
-        +database: |
-          {%- if target.name == "prd_target"  -%} us-atldm-test-prd-99b5
-          {%- elif target.name == "acc_target"  -%} us-atldm-test-qa-2114
-          {%- else -%} us-atldm-test-dev-9198
-          {%- endif -%}
+        +tags: 
+          - "dm"
+          - "data_mart"
 
       # 04_dm_front:
       #   +database: |
