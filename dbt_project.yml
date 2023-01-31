@@ -29,13 +29,17 @@ clean-targets:         # directories to be removed by `dbt clean`
 # In this example config, we tell dbt to build all models in the example/ directory
 # as tables. These settings can be overridden in the individual model files
 # using the `{{ config(...) }}` macro.
+vars:
+  tblRecordCounts_location: "`rand-rusaweb.sbxx_russell_magidson_BI_Logs.tblRecordCounts`"
 
 models:
   dbt_base:
     +materialized: table
     +database: |
-      {%- if target.name == "prd_target" -%} us-atlstg-prd-55a8
+      {%- if target.name == "sbx_target" -%} us-atlstg-dev-11c7
+      {%- elif target.name == "tst_target" -%} us-atlstg-dev-11c7
       {%- elif target.name == "acc_target" -%} us-atlstg-qa-cd80
+      {%- elif target.name == "prd_target" -%} us-atlstg-prd-55a8
       {%- else -%} us-atlstg-dev-11c7
       {%- endif -%}
     BackOffice_DeDup:
@@ -75,6 +79,18 @@ models:
         +tags: 
           - "dm"
           - "data_mart"
+
+    BackOffice_DeDup_Logs:
+      +schema: BI_Logs
+      +tags: 
+        - "logs"
+        - "BI_BackOffice_Logs"
+
+    BI_BO_Logs:
+      +schema: BI_Logs
+      +tags: 
+        - "logs"
+        - "BI_BO_Logs"
 
       # 04_dm_front:
       #   +database: |
