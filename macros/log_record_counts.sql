@@ -30,20 +30,41 @@
 with devTables as (
     select dataset_id as devDataSet, table_id as devTableName, row_count as devRowCount 
         , TIMESTAMP_MILLIS(creation_time) AS devTableCreationTS, TIMESTAMP_MILLIS(last_modified_time) AS devTableLastModifiedTS
-    from `rand-rusaweb`.{{ schema }}.__TABLES__
+    from 
+        {%- if schema == "BI_BO" -%} `us-atldm-test-dev-9198.tst_data_mart_BI_BO`
+            {% elif schema == "BackOffice_DeDup "%} `rand-rusaweb.BI_DeDup`
+            {% elif schema == "PO_Assignments"%} `us-atldm-test-dev-9198.tst_data_mart_BI_PO_Assignments`
+            {% else %} `rand-rusaweb.BI_DeDup`
+        {%- endif -%}
+        .__TABLES__
     )
 , qaTables as (
     select dataset_id as qaDataSet, table_id as qaTableName, row_count as qaRowCount
         , TIMESTAMP_MILLIS(creation_time) AS qaTableCreationTS, TIMESTAMP_MILLIS(last_modified_time) AS qaTableLastModifiedTS
-    from `rand-rusaweb`.{{ schema }}.__TABLES__
+    from 
+        {%- if schema == "BI_BO" -%} `us-atldm-test-qa-2114.acc_data_mart_BI_BO`
+            {% elif schema == "BackOffice_DeDup "%} `us-ergbq-qa-e523.BI_DeDup`
+            {% elif schema == "PO_Assignments"%} `us-atldm-test-qa-2114.acc_data_mart_BI_PO_Assignments`
+            {% else %}  `us-ergbq-qa-e523.BI_DeDup`
+        {%- endif -%}
+        .__TABLES__
     )
 , prdTables as (
     select dataset_id as prdDataSet, table_id as prdTableName, row_count as prdRowCount
         , TIMESTAMP_MILLIS(creation_time) AS prdTableCreationTS, TIMESTAMP_MILLIS(last_modified_time) AS prdTableLastModifiedTS
-    from `rand-rusaweb`.{{ schema }}.__TABLES__
+    from 
+        {%- if schema == "BI_BO" -%} `us-atldm-test-prd-99b5.prd_data_mart_BI_BO`
+            {% elif schema == "BackOffice_DeDup "%} `us-ergbq-prd-3693.BI_DeDup`
+            {% elif schema == "PO_Assignments"%} `us-atldm-test-prd-99b5.prd_data_mart_BI_PO_Assignments`
+            {% else %} `us-ergbq-prd-3693.BI_DeDup`
+        {%- endif -%}
+        .__TABLES__
     )
 , finalData as (
-    select coalesce( devDataSet, qaDataSet, prdDataSet) as DataSet, coalesce( devTableName, qaTableName, prdTableName) as TableName
+    select 
+        "{{ schema }}" as DataSet
+        {# coalesce( prdDataSet, qaDataSet, devDataSet) as DataSet #}
+        , coalesce( prdTableName, qaTableName, devTableName) as TableName
         , devRowCount, qaRowCount, prdRowCount
         , devTableLastModifiedTS, qaTableLastModifiedTS, prdTableLastModifiedTS
     from devTables dev

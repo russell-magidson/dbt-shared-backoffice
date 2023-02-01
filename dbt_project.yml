@@ -29,8 +29,16 @@ clean-targets:         # directories to be removed by `dbt clean`
 # In this example config, we tell dbt to build all models in the example/ directory
 # as tables. These settings can be overridden in the individual model files
 # using the `{{ config(...) }}` macro.
+
 vars:
-  tblRecordCounts_location: "`rand-rusaweb.sbxx_russell_magidson_BI_Logs.tblRecordCounts`"
+  # Specify the fully qualified table name for tblRecordCounts
+  tblRecordCounts_location: |
+      {%- if target.name == "sbx_target" -%} `rand-rusaweb.sbxx_russell_magidson_BI_Logs.tblRecordCounts`
+      {%- elif target.name == "tst_target" -%} `rand-rusaweb.sbxx_russell_magidson_BI_Logs.tblRecordCounts_tst`
+      {%- elif target.name == "acc_target" -%} `rand-rusaweb.sbxx_russell_magidson_BI_Logs.tblRecordCounts_acc`
+      {%- elif target.name == "prd_target" -%} `rand-rusaweb.sbxx_russell_magidson_BI_Logs.tblRecordCounts_prd`
+      {%- else -%} us-atlstg-dev-11c7
+      {%- endif -%}
 
 models:
   dbt_base:
