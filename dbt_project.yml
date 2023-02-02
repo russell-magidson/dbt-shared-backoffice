@@ -31,13 +31,13 @@ clean-targets:         # directories to be removed by `dbt clean`
 # using the `{{ config(...) }}` macro.
 
 vars:
-  # Specify the fully qualified table name for tblRecordCounts
-  tblRecordCounts_location: |
+  # Specify the fully qualified table names for tblRecordCounts
+  tblRecordCounts_location_and_name: |
       {%- if target.name == "sbx_target" -%} `rand-rusaweb.sbxx_russell_magidson_BI_Logs.tblRecordCounts`
       {%- elif target.name == "tst_target" -%} `rand-rusaweb.sbxx_russell_magidson_BI_Logs.tblRecordCounts_tst`
       {%- elif target.name == "acc_target" -%} `rand-rusaweb.sbxx_russell_magidson_BI_Logs.tblRecordCounts_acc`
       {%- elif target.name == "prd_target" -%} `rand-rusaweb.sbxx_russell_magidson_BI_Logs.tblRecordCounts_prd`
-      {%- else -%} us-atlstg-dev-11c7
+      {%- else -%} `rand-rusaweb.sbxx_russell_magidson_BI_Logs.tblRecordCounts`
       {%- endif -%}
 
 models:
@@ -87,6 +87,23 @@ models:
         +tags: 
           - "dm"
           - "data_mart"
+
+    BI_BO_Keys:
+      +tags: 
+        - "keys"
+        - "BI_BO_Keys"
+      +materialized: incremental
+      +database: |        
+        {%-   if target.name == "sbx_target" -%} us-atldm-test-dev-9198 
+        {%- elif target.name == "tst_target" -%} us-atldm-test-dev-9198
+        {%- elif target.name == "acc_target" -%} us-atldm-test-qa-2114
+        {%- elif target.name == "prd_target" -%} us-atldm-test-prd-99b5
+        {%- else -%} us-atldm-test-dev-9198
+        {%- endif -%}
+      04_dm:
+        +schema: data_mart_BI_BO_Keys # Our custom schema
+        +tags: 
+          - "keys"
 
     BackOffice_DeDup_Logs:
       +schema: BI_Logs

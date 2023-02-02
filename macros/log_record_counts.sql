@@ -4,7 +4,7 @@
     config( 
 
         pre_hook = 
-            "create table if not exists {{ var( 'tblRecordCounts_location')}}
+            "create table if not exists {{ var( 'tblRecordCounts_location_and_name')}}
             (
             DataSet STRING,
             TableName STRING,
@@ -22,7 +22,7 @@
             ", 
 
         post_hook = 
-            "insert into {{ var( 'tblRecordCounts_location' )}}
+            "insert into {{ var( 'tblRecordCounts_location_and_name' )}}
             select * from {{ this }} " 
     )
 }}

@@ -1,17 +1,34 @@
 version: 2
 
 sources:
-  - name: rand-rusaweb
+  - name: rand-rusaweb-dims
     project: | 
-      {%- if target.name == "prd_target" -%} us-ergbq-prd-3693
+      {%-   if target.name == "sbx_target" -%} rand-rusaweb
+      {%- elif target.name == "tst_target" -%} rand-rusaweb
       {%- elif target.name == "acc_target" -%} us-ergbq-qa-e523
+      {%- elif target.name == "prd_target" -%} us-ergbq-prd-3693
       {%- else -%} rand-rusaweb
       {%- endif -%}
-    schema: dims
+    schema: Dims
     tables:
       - name: DIM_DATE
       - name: eBI_Fiscal_Calendar
       - name: DIM_DEPT
       - name: DIM_WEEK
       - name: v_Dim_Branch
+      - name: v_DIM_DEPT
       - name: vw_Week_Start_And_End_Dates
+
+  - name: rand-rusaweb-bi_backoffice
+    project: |
+      {%-   if target.name == "sbx_target" -%} rand-rusaweb
+      {%- elif target.name == "tst_target" -%} rand-rusaweb
+      {%- elif target.name == "acc_target" -%} us-ergbq-qa-e523
+      {%- elif target.name == "prd_target" -%} us-ergbq-prd-3693
+      {%- else -%} rand-rusaweb
+      {%- endif -%}
+    schema: BI_BackOffice
+    tables:
+      - name: vw_dim_customer
+      - name: vw_dim_department
+      - name: vw_fact_ar_balance

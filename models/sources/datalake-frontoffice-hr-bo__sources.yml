@@ -3,13 +3,41 @@ version: 2
 sources:
   - name: datalake-frontoffice-hr_bo
     project: | 
-      {%- if target.name == "prd_target" -%} datalake-frontoffice
+      {%- if target.name == "sbx_target" -%} us-datalakefo-qa-a298
+      {%- elif target.name == "tst_target" -%} us-datalakefo-qa-a298
       {%- elif target.name == "acc_target" -%} datalake-frontoffice
+      {%- elif target.name == "prd_target" -%} datalake-frontoffice
       {%- else -%} us-datalakefo-qa-a298
       {%- endif -%}
     schema: HR_BO
     tables:
       - name: PSXLATITEM
-      - name: PS_ACTION_TABLE
+      - name: PS_ACTION_TBL
       - name: PS_ACTN_REASON_TBL
-
+      - name: PS_ADDRESSES
+      - name: PS_BEN_DEFN_PGM
+      - name: PS_BEN_PROG_PARTIC
+      - name: PS_DEDUCTION_TBL
+      - name: PS_DIR_DEP_DISTRIB
+      - name: PS_EARNINGS_TBL
+      - name: PS_EMAIL_ADDRESSES
+      - name: PS_EMPLOYEES
+      - name: PS_EMPLOYMENT
+      - name: PS_JOB
+      - name: PS_JOBCODE_TBL
+      - name: PS_LEAVE_ACCRUAL
+      - name: PS_LEAVE_PLAN
+      - name: ps_leave_plan_tbl
+      - name: PS_NAMES
+      - name: PS_PAY_CHECK
+      - name: PS_PAY_DEDUCTION
+      - name: PS_PAY_EARNINGS
+      - name: PS_PAY_OTH_EARNS
+      - name: PS_PAY_TAX
+      - name: PS_PERSONAL_DATA
+      - name: PS_RNA_ACCR_RUNCTL
+      - name: PS_RNA_EMP_REPORTS
+      - name: PS_RNA_PSL_ACCRUAL
+      - name: PS_RNA_PSL_BP_TBL
+      - name: PS_RS_GL_INTFC_TBL
+      - name: PS_VI_PAY_OTH_EARN

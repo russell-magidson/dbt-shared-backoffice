@@ -1,0 +1,29 @@
+version: 2
+
+sources:
+  - name: bi_bo_keys
+    project: | 
+      {%-   if target.name == "sbx_target" -%} us-atldm-test-dev-9198
+      {%- elif target.name == "tst_target" -%} us-atldm-test-dev-9198
+      {%- elif target.name == "acc_target" -%} us-atldm-test-qa-2114
+      {%- elif target.name == "prd_target" -%} us-atldm-test-prd-99b5
+      {%- else -%} us-atldm-test-dev-9198
+      {%- endif -%}
+    schema: | 
+      {%-   if target.name == "sbx_target" -%} sbxx_{{ env_var( 'USER') }}_data_mart_BI_BO_Keys
+      {%- elif target.name == "tst_target" -%} tst_data_mart_BI_BO_Keys
+      {%- elif target.name == "acc_target" -%} acc_data_mart_BI_BO_Keys
+      {%- elif target.name == "prd_target" -%} prd_data_mart_BI_BO_Keys
+      {%- else -%} sbxx_{{ env_var( 'USER') }}data_mart_BI_BO_Keys
+      {%- endif -%}
+    tables:
+      - name: keys_customer
+        columns:
+          - name: cust_key
+            tests:
+              - unique
+      - name: keys_department
+      - name: keys_earning_code
+      - name: keys_employee
+      - name: keys_project
+      - name: keys_vendor
