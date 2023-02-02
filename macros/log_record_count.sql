@@ -1,10 +1,10 @@
-{% macro log_record_counts( schema = None, table_list = "n/a" ) -%}
+{% macro log_record_count( schema = None, table_list = "n/a" ) -%}
 
 {{ 
     config( 
 
         pre_hook = 
-            "create table if not exists {{ var( 'tblRecordCounts_location_and_name')}}
+            "create table if not exists {{ var( 'tblRecordCount_location')}}.tblRecordCount
             (
             DataSet STRING,
             TableName STRING,
@@ -22,7 +22,7 @@
             ", 
 
         post_hook = 
-            "insert into {{ var( 'tblRecordCounts_location_and_name' )}}
+            "insert into {{ var( 'tblRecordCount_location' )}}.tblRecordCount
             select * from {{ this }} " 
     )
 }}

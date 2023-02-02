@@ -1,5 +1,5 @@
 {# Log the record counts for BI_DeDup #}
-{{ log_record_counts( 
+{{ log_record_count( 
     'BackOffice_DeDup'
     , "
         'psoprdefn', 

@@ -31,13 +31,14 @@ clean-targets:         # directories to be removed by `dbt clean`
 # using the `{{ config(...) }}` macro.
 
 vars:
-  # Specify the fully qualified table names for tblRecordCounts
-  tblRecordCounts_location_and_name: |
-      {%- if target.name == "sbx_target" -%} `rand-rusaweb.sbxx_russell_magidson_BI_Logs.tblRecordCounts`
-      {%- elif target.name == "tst_target" -%} `rand-rusaweb.sbxx_russell_magidson_BI_Logs.tblRecordCounts_tst`
-      {%- elif target.name == "acc_target" -%} `rand-rusaweb.sbxx_russell_magidson_BI_Logs.tblRecordCounts_acc`
-      {%- elif target.name == "prd_target" -%} `rand-rusaweb.sbxx_russell_magidson_BI_Logs.tblRecordCounts_prd`
-      {%- else -%} `rand-rusaweb.sbxx_russell_magidson_BI_Logs.tblRecordCounts`
+  # Specify the location of tblRecordCount based on the environment
+  # Not sure how else we can specify this second target location other than a var or repeating it in all _Logs sections
+  tblRecordCount_location: |
+      {%- if target.name == "sbx_target" -%} `rand-rusaweb.sbxx_russell_magidson_BI_Logs`
+      {%- elif target.name == "tst_target" -%} `rand-rusaweb.sbxx_russell_magidson_BI_Logs`
+      {%- elif target.name == "acc_target" -%} `rand-rusaweb.sbxx_russell_magidson_BI_Logs`
+      {%- elif target.name == "prd_target" -%} `rand-rusaweb.sbxx_russell_magidson_BI_Logs`
+      {%- else -%} `rand-rusaweb.sbxx_russell_magidson_BI_Logs`
       {%- endif -%}
 
 models:
