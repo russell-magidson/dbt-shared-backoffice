@@ -44,58 +44,50 @@ vars:
 models:
   dbt_base:
     +materialized: table
-    +database: |
-      {%- if target.name == "sbx_target" -%} us-atlstg-dev-11c7
-      {%- elif target.name == "tst_target" -%} us-atlstg-dev-11c7
-      {%- elif target.name == "acc_target" -%} us-atlstg-qa-cd80
-      {%- elif target.name == "prd_target" -%} us-atlstg-prd-55a8
-      {%- else -%} us-atlstg-dev-11c7
-      {%- endif -%}
-    BackOffice_DeDup:
-      +tags: "backoffice_dedup"
-      02_stg:
+    02_stg:
+      +database: |
+        {%- if target.name == "sbx_target" -%} us-atlstg-dev-11c7
+        {%- elif target.name == "tst_target" -%} us-atlstg-dev-11c7
+        {%- elif target.name == "acc_target" -%} us-atlstg-qa-cd80
+        {%- elif target.name == "prd_target" -%} us-atlstg-prd-55a8
+        {%- else -%} us-atlstg-dev-11c7
+        {%- endif -%}
+      +tags: 
+        - "stg"
+        - "staging"
+      BackOffice_DeDup:
         +schema: staging_BackOffice_DeDup # Our custom schema
-        +tags: 
-          - "stg"
-          - "staging"
-      03_dwh:
-        +schema: data_warehouse_BackOffice_DeDup # Our custom schema
-        +tags: 
-          - "dwh"
-          - "data_warehouse"
-        +materialized: incremental
-      04_dm:
-        +schema: data_mart_BackOffice_DeDup # Our custom schema
-        +tags: 
-          - "dm"
-          - "data_mart"
+        +tags:
+          - "backoffice_dedup"
+          - "dedup"
+      BI_BO:
+        +schema: staging_BI_BO # Our custom schema
+        +tags:
+          - "bi_bo"
 
-    BI_BO:
-      +tags: 
-        - "backoffice_bi_bo"
-        - "bi_bo"
-      02_stg:
-        +schema: staging_BO_BI # Our custom schema
-        +tags: 
-          - "stg"
-          - "staging"
-      03_dwh:
-        +schema: data_warehouse_BO_BI # Our custom schema
-        +tags: 
-          - "dwh"
-          - "data_warehouse"
-        +materialized: incremental
-      04_dm:
-        +schema: data_mart_BO_BI # Our custom schema
-        +tags: 
-          - "dm"
-          - "data_mart"
-
-    BI_BO_Keys:
-      +tags: 
-        - "keys"
-        - "bi_bo_keys"
+    03_dwh:
       +materialized: incremental
+      +database: |        
+        {%-   if target.name == "sbx_target" -%} us-atldwh-dev-1165 
+        {%- elif target.name == "tst_target" -%} us-atldwh-dev-1165 
+        {%- elif target.name == "acc_target" -%} us-atldwh-qa-e9af
+        {%- elif target.name == "prd_target" -%} us-atldwh-prd-60df
+        {%- else -%} us-atldwh-dev-1165
+        {%- endif -%}
+      +tags: 
+        - "dwh"
+        - "data_warehouse"
+      BackOffice_DeDup:
+        +schema: data_warehouse_BackOffice_DeDup # Our custom schema
+        +tags:
+          - "backoffice_dedup"
+          - "dedup"
+      BI_BO:
+        +schema: data_warehouse_BI_BO # Our custom schema
+        +tags: 
+          - "bi_bo"
+
+    04_dm:
       +database: |        
         {%-   if target.name == "sbx_target" -%} us-atldm-test-dev-9198 
         {%- elif target.name == "tst_target" -%} us-atldm-test-dev-9198
@@ -103,19 +95,32 @@ models:
         {%- elif target.name == "prd_target" -%} us-atldm-test-prd-99b5
         {%- else -%} us-atldm-test-dev-9198
         {%- endif -%}
-      04_dm:
+      +tags: 
+        - "dm"
+        - "data_mart"
+      BackOffice_DeDup:
+        +schema: data_mart_BackOffice_DeDup # Our custom schema
+        +tags: 
+          - "backoffice_dedup"
+          - "dedup"
+      BI_BO:
+        +schema: data_mart_BI_BO # Our custom schema
+        +tags: 
+          - "backoffice_bi_bo"
+          - "bi_bo"
+      BI_BO_Keys:
+        +materialized: incremental
         +schema: data_mart_BI_BO_Keys # Our custom schema
         +tags: 
           - "keys"
-
-    BackOffice_DeDup_Logs:
-      +schema: BI_Logs  # Common table for all record counts
-      +tags: 
-        - "logs"
-        - "bi_logs"
-
-    BI_BO_Logs:
-      +schema: BI_Logs  # Common table for all record counts
-      +tags: 
-        - "logs"
-        - "bi_logs"
+          - "bi_bo_keys"
+      BackOffice_DeDup_Logs:
+        +schema: BI_Logs  # Common table for all record counts
+        +tags: 
+          - "logs"
+          - "bi_logs"
+      BI_BO_Logs:
+        +schema: BI_Logs  # Common table for all record counts
+        +tags: 
+          - "logs"
+          - "bi_logs"
