@@ -8,7 +8,7 @@
     {%- if target.name == "sbx_target" -%}
         sbxx_{{ env_var( 'USER') }}_{{ custom_schema_name }} 
 
-    {%- elif target.name == "tst_target" -%}
+    {%- elif target.name == "dev_target" -%}
         tstt_{{ custom_schema_name }} 
 
     {%- elif target.name == "acc_target" -%}

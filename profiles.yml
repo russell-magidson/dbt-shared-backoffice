@@ -14,7 +14,7 @@ dbt_base:
       threads: 3
       timeout_seconds: 600
       type: bigquery
-    tst_target:
+    dev_target:
       dataset: tst_not_used # unused - default schema
       fixed_retries: 1
       location: US

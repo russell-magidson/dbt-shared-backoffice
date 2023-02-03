@@ -4,7 +4,7 @@ sources:
   - name: bi_dedup
     project: | 
       {%- if target.name == "sbx_target" -%} rand-rusaweb
-      {%- elif target.name == "tst_target" -%} rand-rusaweb
+      {%- elif target.name == "dev_target" -%} rand-rusaweb
       {%- elif target.name == "acc_target" -%} us-ergbq-qa-e523
       {%- elif target.name == "prd_target" -%} us-ergbq-prd-3693
       {%- else -%} rand-rusaweb
