@@ -103,6 +103,11 @@ models:
         +tags: 
           - "backoffice_dedup"
           - "dedup"
+      BackOffice_DeDup_Logs:
+        +schema: BI_Logs  # Common table for all record counts
+        +tags: 
+          - "logs"
+          - "bi_logs"
       BI_BO:
         +schema: data_mart_BI_BO # Our custom schema
         +tags: 
@@ -114,11 +119,6 @@ models:
         +tags: 
           - "keys"
           - "bi_bo_keys"
-      BackOffice_DeDup_Logs:
-        +schema: BI_Logs  # Common table for all record counts
-        +tags: 
-          - "logs"
-          - "bi_logs"
       BI_BO_Logs:
         +schema: BI_Logs  # Common table for all record counts
         +tags: 
