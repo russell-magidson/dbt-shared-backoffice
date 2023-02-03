@@ -9,13 +9,13 @@
         sbxx_{{ env_var( 'USER') }}_{{ custom_schema_name }} 
 
     {%- elif target.name == "tst_target" -%}
-        tstt_{{ env_var( 'USER') }}_{{ custom_schema_name }} 
+        tstt_{{ custom_schema_name }} 
 
     {%- elif target.name == "acc_target" -%}
-        accc_{{ env_var( 'USER') }}_{{ custom_schema_name }} 
+        accc_{{ custom_schema_name }} 
 
     {%- elif target.name == "prd_target" -%}
-1        prdd_{{ env_var( 'USER') }}_{{ custom_schema_name }} 
+1        prdd_{{ custom_schema_name }} 
 
     {%- else -%} 
         {# We don't want these to kick in so we'll set a prefix to allow us to find the tables #}

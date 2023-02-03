@@ -10,11 +10,11 @@ sources:
       {%- else -%} us-atldm-test-dev-9198
       {%- endif -%}
     schema: | 
-      {%- if target.name == "sbx_target" -%} tst_data_mart_BI_BO
+      {%- if target.name == "sbx_target" -%} sbx_{{ env_var( 'USER') }}_data_mart_BI_BO
       {%- elif target.name == "tst_target" -%} tst_data_mart_BI_BO
       {%- elif target.name == "acc_target" -%} acc_data_mart_BI_BO
       {%- elif target.name == "prd_target" -%} prd_data_mart_BI_BO
-      {%- else -%} sbx_data_mart_BI_BO
+      {%- else -%} sbx_{{ env_var( 'USER') }}_data_mart_BI_BO
       {%- endif -%}
     tables:
       - name: department_dynamic_hierarchy

@@ -1,3 +1,11 @@
+{# Wait until all of the dependencies are done before generating our record counts #}
+-- depends_on: {{ ref('dm_ps_assignment') }}
+-- depends_on: {{ ref('dm_ps_bi_hdr') }}
+-- depends_on: {{ ref('dm_psxlatitem_fs') }}
+-- depends_on: {{ ref('dm_psxlatitem_hr') }}
+
+{{ config( tags = ["recordcount"] ) }}
+
 {# Log the record counts for BI_DeDup #}
 {{ log_record_count( 
     'BackOffice_DeDup'
