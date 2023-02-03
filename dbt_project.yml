@@ -34,11 +34,11 @@ vars:
   # Specify the location of tblRecordCount table based on the environment
   # Not sure how else we can specify this second target location since we perform an INSERT into the table
   tblRecordCount_location: |
-      {%- if target.name == "sbx_target" -%} `us-atldm-test-dev-9198.sbxx_{{ env_var( 'USER') }}_data_mart_BI_Logs`
-      {%- elif target.name == "tst_target" -%} `us-atldm-test-dev-9198.tstt_data_mart_BI_Logs`
-      {%- elif target.name == "acc_target" -%} `us-atldm-test-qa-2114.accc_data_martBI_Logs`
-      {%- elif target.name == "prd_target" -%} `us-atldm-test-prd-99b5.prdd_data_martBI_Logs`
-      {%- else -%} `us-atldm-test-dev-9198.sbxx_{{ env_var( 'USER') }}_data_martBI_Logs`
+      {%- if target.name == "sbx_target" -%} `us-atldm-test-dev-9198.sbxx_{{ env_var( 'USER') }}_BI_Logs`
+      {%- elif target.name == "tst_target" -%} `us-atldm-test-dev-9198.tstt_BI_Logs`
+      {%- elif target.name == "acc_target" -%} `us-atldm-test-qa-2114.accc_BI_Logs`
+      {%- elif target.name == "prd_target" -%} `us-atldm-test-prd-99b5.prdd_BI_Logs`
+      {%- else -%} `us-atldm-test-dev-9198.sbxx_{{ env_var( 'USER') }}_BI_Logs`
       {%- endif -%}
 
 models:
@@ -108,6 +108,7 @@ models:
         +tags: 
           - "logs"
           - "bi_logs"
+          - "record_count"
       BI_BO:
         +schema: data_mart_BI_BO # Our custom schema
         +tags: 
@@ -124,3 +125,4 @@ models:
         +tags: 
           - "logs"
           - "bi_logs"
+          - "record_count"
