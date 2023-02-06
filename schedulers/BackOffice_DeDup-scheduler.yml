@@ -24,6 +24,6 @@ schedules:
  - name: BackOffice_DeDup-scheduler_0_8
    cron_schedule: "0 8 * * *"
    description: "BackOffice DeDup scheduler 0 8"
-   select: ""
+   select: "models/*"
    time_zone: "America/New_York"
    dbt_profile: dev
