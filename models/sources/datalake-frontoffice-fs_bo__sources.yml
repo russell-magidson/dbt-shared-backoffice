@@ -2,9 +2,11 @@ version: 2
 
 sources:
   - name: datalake-frontoffice-fs_bo
+      # {%- if target.name == "sbx_target" -%} us-datalakefo-qa-a298 
+      # {%- elif target.name == "dev_target" -%} us-datalakefo-qa-a298 
     project: | 
-      {%- if target.name == "sbx_target" -%} us-datalakefo-qa-a298
-      {%- elif target.name == "dev_target" -%} us-datalakefo-qa-a298
+      {%- if target.name == "sbx_target" -%} datalake-frontoffice
+      {%- elif target.name == "dev_target" -%} datalake-frontoffice
       {%- elif target.name == "acc_target" -%} datalake-frontoffice
       {%- elif target.name == "prd_target" -%} datalake-frontoffice
       {%- else -%} us-datalakefo-qa-a298
@@ -60,4 +62,4 @@ sources:
       - name: PS_VI_V_EXPN_LINES
       - name: PS_VI_V_TIME_CARD 
       - name: PS_VI_V_TIME_LINES
-
+      - name: psxlatitem_fs
