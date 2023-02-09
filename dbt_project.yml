@@ -55,11 +55,13 @@ models:
       +tags: 
         - "stg"
         - "staging"
+
       BackOffice_DeDup:
         +schema: staging_BackOffice_DeDup # Our custom schema
         +tags:
           - "backoffice_dedup"
           - "dedup"
+
       BI_BO:
         +schema: staging_BI_BO # Our custom schema
         +tags:
@@ -77,11 +79,13 @@ models:
       +tags: 
         - "dwh"
         - "data_warehouse"
+
       BackOffice_DeDup:
         +schema: data_warehouse_BackOffice_DeDup # Our custom schema
         +tags:
           - "backoffice_dedup"
           - "dedup"
+
       BI_BO:
         +schema: data_warehouse_BI_BO # Our custom schema
         +tags: 
@@ -98,31 +102,49 @@ models:
       +tags: 
         - "dm"
         - "data_mart"
+
       BackOffice_DeDup:
         +schema: data_mart_BackOffice_DeDup # Our custom schema
         +tags: 
           - "backoffice_dedup"
           - "dedup"
+
       BackOffice_DeDup_Logs:
         +schema: BI_Logs  # Common table for all record counts
         +tags: 
           - "logs"
-          - "bi_logs"
+          - "bi_log"
           - "record_count"
-      BI_BO:
+
+      BI_BO_DimFact:
         +schema: data_mart_BI_BO # Our custom schema
         +tags: 
           - "backoffice_bi_bo"
           - "bi_bo"
+          - "dim"
+
       BI_BO_Keys:
         +materialized: incremental
         +schema: data_mart_BI_BO_Keys # Our custom schema
         +tags: 
           - "keys"
           - "bi_bo_keys"
+
       BI_BO_Logs:
         +schema: BI_Logs  # Common table for all record counts
         +tags: 
           - "logs"
-          - "bi_logs"
+          - "bi_log"
           - "record_count"
+
+      BI_BO_rand:
+        +database: |        
+          {%-   if target.name == "sbx_target" -%} rand-rusaweb
+          {%- elif target.name == "dev_target" -%} rand-rusaweb
+          {%- elif target.name == "acc_target" -%} us-ergbq-qa-e523
+          {%- elif target.name == "prd_target" -%} us-ergbq-prd-3693
+          {%- else -%} rand-rusaweb
+          {%- endif -%}
+        +schema: "sbxx_SharedDimFact"
+        +tags:
+          - "dim"

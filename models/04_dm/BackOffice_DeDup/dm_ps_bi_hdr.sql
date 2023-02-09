@@ -1,6 +1,6 @@
-{# create or replace table raw.rand_rusaweb.BI_DeDup.ps_assignment as #}
 {{ config(
-    tags = ["ps_bi_hdr", "backoffice"]
+    tags = ["ps_bi_hdr", "backoffice"], 
+    alias = "ps_bi_hdr"
     )
 }}
 
