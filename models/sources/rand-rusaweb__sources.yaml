@@ -1,0 +1,146 @@
+version: 2
+
+sources:
+  - name: rand-rusaweb-dims
+    project: | 
+      {%-   if target.name == "sbx_target" -%} rand-rusaweb
+      {%- elif target.name == "dev_target" -%} rand-rusaweb
+      {%- elif target.name == "acc_target" -%} us-ergbq-qa-e523
+      {%- elif target.name == "prd_target" -%} us-ergbq-prd-3693
+      {%- else -%} rand-rusaweb
+      {%- endif -%}
+    schema: Dims
+    tables:
+      - name: DIM_DATE
+      - name: eBI_Fiscal_Calendar
+      - name: DIM_DEPT
+      - name: DIM_WEEK
+      - name: v_Dim_Branch
+      - name: v_DIM_DEPT
+      - name: vw_Week_Start_And_End_Dates
+
+  - name: rand-rusaweb-utils
+    project: |
+      {%-   if target.name == "sbx_target" -%} rand-rusaweb
+      {%- elif target.name == "dev_target" -%} rand-rusaweb
+      {%- elif target.name == "acc_target" -%} us-ergbq-qa-e523
+      {%- elif target.name == "prd_target" -%} us-ergbq-prd-3693
+      {%- else -%} rand-rusaweb
+      {%- endif -%}
+    schema: Utils
+    tables: 
+      - name: vw_Latest_FS_Cust_Option
+      - name: vw_Latest_FS_CR_Analyst_Tbl
+
+  - name: rand-rusaweb-dso
+    project: |
+      {%-   if target.name == "sbx_target" -%} rand-rusaweb
+      {%- elif target.name == "dev_target" -%} rand-rusaweb
+      {%- elif target.name == "acc_target" -%} us-ergbq-qa-e523
+      {%- elif target.name == "prd_target" -%} us-ergbq-prd-3693
+      {%- else -%} rand-rusaweb
+      {%- endif -%}
+    schema: DSO 
+    tables: 
+      - name: STG_AR_ANALYST_MGR
+      - name: PS_RNA_CUST_LVLFLG
+
+  - name: rand-rusaweb-backoffice
+    project: |
+      {%-   if target.name == "sbx_target" -%} rand-rusaweb
+      {%- elif target.name == "dev_target" -%} rand-rusaweb
+      {%- elif target.name == "acc_target" -%} us-ergbq-qa-e523
+      {%- elif target.name == "prd_target" -%} us-ergbq-prd-3693
+      {%- else -%} rand-rusaweb
+      {%- endif -%}
+    schema: BI_BackOffice
+    tables:
+      - name: dim_branch
+      - name: dim_customer
+      - name: dim_date 
+      - name: dim_department 
+      - name: dim_employee 
+      - name: vw_dim_customer
+      - name: vw_dim_date 
+      - name: vw_dim_department
+      - name: vw_fact_ar_balance
+      - name: vw_tableau_entitlements
+
+  - name: rand-rusaweb-dedup
+    project: |
+      {%-   if target.name == "sbx_target" -%} rand-rusaweb
+      {%- elif target.name == "dev_target" -%} rand-rusaweb
+      {%- elif target.name == "acc_target" -%} us-ergbq-qa-e523
+      {%- elif target.name == "prd_target" -%} us-ergbq-prd-3693
+      {%- else -%} rand-rusaweb
+      {%- endif -%}
+    schema: BI_DeDup
+    tables: 
+      - name: table_name
+      - name: bu_manager_nxtlvl_mgr_live
+      - name: ps_action_tbl
+      - name: ps_actn_reason_tbl
+      - name: ps_assignment
+      - name: ps_ben_defn_pgm
+      - name: ps_ben_prog_partic
+      - name: ps_bi_hdr
+      - name: ps_bi_hdr_line
+      - name: ps_bi_line
+      - name: ps_ca_contr_hdr
+      - name: ps_ca_detail
+      - name: ps_cr_analyst_tbl
+      - name: ps_cust_address
+      - name: ps_cust_credit
+      - name: ps_cust_option
+      - name: ps_customer
+      - name: ps_deduction_tbl
+      - name: ps_dir_dep_distrib
+      - name: ps_earnings_tbl
+      - name: ps_employment
+      - name: ps_fo_po_appl_log
+      - name: ps_item
+      - name: ps_item_activity
+      - name: ps_job
+      - name: ps_job_employee_level
+      - name: ps_jobcode_tbl
+      - name: ps_jobtitle
+      - name: ps_leave_accrual
+      - name: ps_leave_plan
+      - name: ps_leave_plan_tbl
+      - name: ps_names
+      - name: ps_pay_check
+      - name: ps_pay_deduction
+      - name: ps_pay_earnings
+      - name: ps_pay_oth_earn
+      - name: ps_pay_tax
+      - name: ps_pay_trms_tbl
+      - name: ps_personal_data
+      - name: ps_proj_resource
+      - name: ps_proj_resource_pas_only
+      - name: ps_project
+      - name: ps_rdm_revcost_dtl
+      - name: ps_rna_asgn_po_trk
+      - name: ps_rna_bh_plac_stg
+      - name: ps_rna_cont_tm_prj
+      - name: ps_rna_contr_team
+      - name: ps_rna_cust_option
+      - name: ps_rna_emp_prl_stg
+      - name: ps_rna_psl_accrual
+      - name: ps_rna_psl_bp_tbl
+      - name: ps_rna_pymnt_term
+      - name: ps_rna_sor_dtl
+      - name: ps_rna_unaptm_card
+      - name: ps_rna_vms_xref
+      - name: ps_rs_assgn_detail
+      - name: ps_rs_assignment
+      - name: ps_rs_gl_intfc_tbl
+      - name: ps_vi_ave_master
+      - name: ps_vi_pay_earnings
+      - name: ps_vi_pay_oth_earn
+      - name: ps_vi_pc_act_vectr
+      - name: ps_vi_v_expn_lines
+      - name: ps_vi_v_time_card
+      - name: ps_vi_v_time_lines
+      - name: psoprdefn
+      - name: psxlatitem_fs
+      - name: psxlatitem_hr
