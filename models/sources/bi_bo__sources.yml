@@ -25,7 +25,6 @@ sources:
       - name: dim_department
       - name: dim_earning_code
       - name: dim_employee
-      - name: dim_vendor
       - name: ext_billing_adjustments_mapping
       - name: ext_payment_terms_extended
       - name: ext_table_refresh_schedule
