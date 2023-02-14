@@ -11,7 +11,6 @@ sources:
       {%- endif -%}
     schema: BI_DeDup
     tables:
-      - name: table_id
       - name: bu_manager_nxtlvl_mgr_live
       - name: ps_action_tbl
       - name: ps_actn_reason_tbl
@@ -77,4 +76,5 @@ sources:
       - name: ps_vi_v_time_card
       - name: ps_vi_v_time_lines
       - name: psoprdefn
-      - name: psxlatitem
+      - name: psxlatitem_fs
+      - name: psxlatitem_hr

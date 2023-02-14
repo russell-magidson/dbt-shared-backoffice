@@ -62,10 +62,11 @@ models:
           - "backoffice_dedup"
           - "dedup"
 
-      BI_BO:
+      BI_BO_Dim_Fact:
         +schema: staging_BI_BO # Our custom schema
         +tags:
           - "bi_bo"
+          - "dim"
 
     03_dwh:
       +materialized: incremental
@@ -86,10 +87,11 @@ models:
           - "backoffice_dedup"
           - "dedup"
 
-      BI_BO:
+      BI_BO_Dim_Fact:
         +schema: data_warehouse_BI_BO # Our custom schema
         +tags: 
           - "bi_bo"
+          - "dim"
 
     04_dm:
       +database: |        
@@ -109,10 +111,9 @@ models:
           - "backoffice_dedup"
           - "dedup"
 
-      BI_BO_DimFact:
+      BI_BO_Dim_Fact:
         +schema: data_mart_BI_BO # Our custom schema
         +tags: 
-          - "backoffice_bi_bo"
           - "bi_bo"
           - "dim"
 
