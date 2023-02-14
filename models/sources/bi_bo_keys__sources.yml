@@ -20,10 +20,18 @@ sources:
       - name: keys_customer
         columns:
           - name: cust_key
+            description: Surrogate key for dim_customer
             tests:
               - unique
       - name: keys_department
-      - name: keys_earning_code
+        columns:
+          - name: dept_key
+            description: Surrogate key for dim_department
+            tests:
+              - unique
       - name: keys_employee
-      - name: keys_project
-      - name: keys_vendor
+        columns:
+          - name: employee_key
+            description: Surrogate key for dim_employee
+            tests:
+              - unique
