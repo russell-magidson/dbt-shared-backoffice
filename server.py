@@ -4,7 +4,7 @@ import subprocess
 from urllib.parse import quote
 
 import flask
-from flask import request
+from flask import request, json
 
 
 app = flask.Flask(__name__)
@@ -12,11 +12,17 @@ app = flask.Flask(__name__)
 
 def get_response(result, arguments, target, project_dir, request):
     # Format the response
-    list_result = (result.stdout).split("\n")
+    import sys
+    output_list = (result.stdout).replace('"',"").replace("'","")
+    output_list_size = (sys.getsizeof(output_list))/1024
+    list_result = output_list.split("\n")
+
     if 'TOTAL' in list_result[-2]:
         summary_result = {y[0]:int(y[1]) for y in [x.split('=') for x in (list_result[-2].split())[2:]]}
     else:
         summary_result = {'PASS': 0, 'WARN': 0, 'ERROR': 0, 'SKIP': 0, 'TOTAL': 0}
+    
+    if output_list_size > 245.0: list_result = [line for line in list_result if 'START ' not in line]
     response = {
         "result": {
             "status": "ok" if result.returncode == 0 else "error",
@@ -30,7 +36,7 @@ def get_response(result, arguments, target, project_dir, request):
     }
     app.logger.info("Command output: {}".format(response["result"]["command_output"]))
     app.logger.info("Command status: {}".format(response["result"]["status"]))
-    print(str(response))
+    print(response)
     app.logger.info(
         "Finished processing request on endpoint {}".format(request.base_url)
     )

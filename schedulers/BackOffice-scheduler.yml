@@ -1,0 +1,29 @@
+schedules:
+
+#  - name: BackOffice_DeDup-scheduler_10_10
+#    cron_schedule: "10 10 * * *"
+#    description: "BackOffice DeDup scheduler 10 10"
+#    select: "tag:dedup"
+#    time_zone: "America/New_York"
+#    dbt_profile: dev
+
+ - name: BackOffice_run_all_models_dev
+   cron_schedule: "0 8 * * *"
+   description: "BackOffice DeDup scheduler 0 8 dev"
+   select: "models/*"
+   time_zone: "America/New_York"
+   dbt_profile: dev
+
+ - name: BackOffice_run_all_models_acc
+   cron_schedule: "15 8 * * *"
+   description: "BackOffice DeDup scheduler 30 8 acc"
+   select: "models/*"
+   time_zone: "America/New_York"
+   dbt_profile: acc
+
+ - name: BackOffice_run_all_models_prd
+   cron_schedule: "30 8 * * *"
+   description: "BackOffice DeDup scheduler 0 9 prd"
+   select: "models/*"
+   time_zone: "America/New_York"
+   dbt_profile: prd

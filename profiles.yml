@@ -1,44 +1,46 @@
 #Profiles configuration.
 dbt_base:
-  target: dev_target
+  target: sbx_target
   outputs:
-    dev_target:
-      dataset: "dev_{{ env_var('USER', 'unknown')|lower|replace('_','') }}"
+    sbx_target:
+      schema: sbx_not_used # unused - default schema
       fixed_retries: 1
       location: US
       method: oauth
       priority: interactive
-      project: us-atlantadbt-dev-94e0
+      # project: us-atlstg-dev-11c7
+      #us-atldm-test-dev-9198
+      #us-atlantadbt-dev-94e0
       threads: 3
       timeout_seconds: 600
       type: bigquery
-    tst_target:
-      dataset: tst
+    dev_target:
+      dataset: tst_not_used # unused - default schema
       fixed_retries: 1
       location: US
       method: oauth
       priority: interactive
-      project: us-atlantadbt-dev-94e0
+      # project: us-atlstg-dev-11c7 #us-atlantadbt-dev-94e0 # specified in dbt_project.yml
       threads: 3
       timeout_seconds: 600
       type: bigquery
     acc_target:
-      dataset: acc
+      dataset: acc_not_used # unused - default schema
       fixed_retries: 1
       location: US
       method: oauth
       priority: interactive
-      project: us-atlantadbt-dev-94e0
+      # project: us-atlstg-dev-11c7 #us-atlantadbt-dev-94e0 # specified in dbt_project.yml
       threads: 3
       timeout_seconds: 600
       type: bigquery
     prd_target:
-      dataset: prd
+      dataset: prd_not_used # unused - default schema
       fixed_retries: 1
       location: US
       method: oauth
       priority: interactive
-      project: us-atlantadbt-prd-1ad0
+      # project: us-atlstg-dev-11c7 #us-atlantadbt-prd-1ad0 # specified in dbt_project.yml
       threads: 3
       timeout_seconds: 600
       type: bigquery

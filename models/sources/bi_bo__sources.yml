@@ -1,0 +1,55 @@
+version: 2
+
+sources:
+  - name: bi_bo
+    project: | 
+      {%- if target.name == "sbx_target" -%} us-atldm-test-dev-9198
+      {%- elif target.name == "dev_target" -%} us-atldm-test-dev-9198
+      {%- elif target.name == "acc_target" -%} us-atldm-test-qa-2114
+      {%- elif target.name == "prd_target" -%} us-atldm-test-prd-99b5
+      {%- else -%} us-atldm-test-dev-9198
+      {%- endif -%}
+    schema: | 
+      {%- if target.name == "sbx_target" -%} sbx_{{ env_var( 'USER') }}_data_mart_BI_BO
+      {%- elif target.name == "dev_target" -%} tst_data_mart_BI_BO
+      {%- elif target.name == "acc_target" -%} acc_data_mart_BI_BO
+      {%- elif target.name == "prd_target" -%} prd_data_mart_BI_BO
+      {%- else -%} sbx_{{ env_var( 'USER') }}_data_mart_BI_BO
+      {%- endif -%}
+    tables:
+      - name: department_dynamic_hierarchy
+      - name: department_search
+      - name: department_search_all_levels
+      - name: dim_customer
+      - name: dim_date
+      - name: dim_department
+      - name: dim_earning_code
+      - name: dim_employee
+      - name: ext_billing_adjustments_mapping
+      - name: ext_payment_terms_extended
+      - name: ext_table_refresh_schedule
+      - name: fact_active_po_assignments
+      - name: fact_invoice
+      - name: fact_invoice_summary
+      - name: fact_invoice_summary_no_uom
+      - name: fact_pas_contracts_with_limits
+      - name: fact_pas_olt_detail
+      - name: fact_po_issue_detail
+      - name: vw_dim_branch
+      - name: vw_dim_customer
+      - name: vw_dim_date
+      - name: vw_dim_department
+      - name: vw_dim_earning_code
+      - name: vw_dim_employee
+      - name: vw_dim_vendor
+      - name: vw_ext_billing_adjustments_mapping
+      - name: vw_ext_payment_terms_extended
+      - name: vw_ext_table_refresh_schedule
+      - name: vw_fact_active_po_assignments
+      - name: vw_fact_invoice
+      - name: vw_fact_invoice_summary
+      - name: vw_fact_invoice_summary_no_uom
+      - name: vw_fact_pas_contracts_with_limits
+      - name: vw_fact_pas_olt_detail
+      - name: vw_fact_po_issue_detail
+
