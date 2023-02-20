@@ -14,52 +14,140 @@ sources:
     schema: FS_BO
     tables:
       - name: ext_billing_adjustments_mapping
+        config:
+          enabled: false
       - name: PSMSGCATDEFN
+        config:
+          enabled: false
       - name: PSOPRDEFN
+        config:
+          enabled: false
       - name: PSXLATITEM
       - name: PS_AFFL_VENDOR
+        config:
+          enabled: false
       - name: PS_BI_HDR
       - name: PS_BI_LINE
+        config:
+          enabled: false
       - name: ps_ca_bill_plan
+        config:
+          enabled: false
       - name: PS_CA_CONTR_HDR
+        config:
+          enabled: false
       - name: PS_CA_DETAIL
+        config:
+          enabled: false
       - name: PS_CA_DETAIL_PROJ
+        config:
+          enabled: false
       - name: PS_CA_RATE
+        config:
+          enabled: false
       - name: PS_CR_ANALYST_TBL
+        config:
+          enabled: false
       - name: PS_CUSTOMER
+        config:
+          enabled: false
       - name: PS_CUST_CREDIT
+        config:
+          enabled: false
       - name: PS_CUST_OPTION
+        config:
+          enabled: false
       - name: ps_entry_reasn_tbl
+        config:
+          enabled: false
       - name: ps_entry_type_tbl
+        config:
+          enabled: false
       - name: PS_FO_ASGN_CMSN_DL
+        config:
+          enabled: false
       - name: PS_FO_PO_APPL_LOG
+        config:
+          enabled: false
       - name: PS_ITEM
+        config:
+          enabled: false
       - name: PS_ITEM_ACTIVITY
+        config:
+          enabled: false
       - name: PS_PAY_TRMS_TBL
+        config:
+          enabled: false
       - name: PS_PROJECT
+        config:
+          enabled: false
       - name: PS_PROJECT_MGR
+        config:
+          enabled: false
       - name: PS_PROJ_RESOURCE
+        config:
+          enabled: false
       - name: PS_PROJ_RESOURCE_PAS_ONLY
+        config:
+          enabled: false
       - name: PS_RNA_ACA_BI_LINE
+        config:
+          enabled: false
       - name: PS_RNA_ASGN_PO_TRK
+        config:
+          enabled: false
       - name: PS_RNA_CONTR_OFFER
+        config:
+          enabled: false
       - name: PS_RNA_CUSTDAT_TBL
       - name: PS_RNA_CUST_LVLFLG
       - name: PS_RNA_CUST_OPTION
+        config:
+          enabled: false
       - name: PS_RNA_CUST_PO_OPT
       - name: PS_RNA_FO_PO_HDR
+        config:
+          enabled: false
       - name: PS_RNA_INTFCBICMP
+        config:
+          enabled: false
       - name: PS_RNA_INTFC_BI
+        config:
+          enabled: false
       - name: PS_RNA_SOR_DTL
+        config:
+          enabled: false
       - name: PS_RNA_UNAPTM_CARD
+        config:
+          enabled: false
       - name: PS_RNA_VMS_XREF
+        config:
+          enabled: false
       - name: PS_RS_ASSGN_DETAIL
+        config:
+          enabled: false
       - name: PS_RS_ASSIGNMENT
+        config:
+          enabled: false
       - name: PS_RS_GROUP_FLAGS
       - name: PS_VI_AVE_MASTER 
+        config:
+          enabled: false
       - name: PS_VI_PAY_EARNINGS
+        config:
+          enabled: false
       - name: PS_VI_PC_ACT_VECTR
+        config:
+          enabled: false
       - name: PS_VI_V_EXPN_LINES
+        config:
+          enabled: false
       - name: PS_VI_V_TIME_CARD 
+        config:
+          enabled: false
       - name: PS_VI_V_TIME_LINES
+        config:
+          enabled: false
       - name: psxlatitem_fs
+        config:
+          enabled: false

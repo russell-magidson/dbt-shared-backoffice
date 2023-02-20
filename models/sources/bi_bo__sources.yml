@@ -10,46 +10,116 @@ sources:
       {%- else -%} us-atldm-test-dev-9198
       {%- endif -%}
     schema: | 
-      {%- if target.name == "sbx_target" -%} sbx_{{ env_var( 'USER') }}_data_mart_BI_BO
-      {%- elif target.name == "dev_target" -%} tst_data_mart_BI_BO
-      {%- elif target.name == "acc_target" -%} acc_data_mart_BI_BO
-      {%- elif target.name == "prd_target" -%} prd_data_mart_BI_BO
-      {%- else -%} sbx_{{ env_var( 'USER') }}_data_mart_BI_BO
+      {%- if target.name == "sbx_target" -%} sbxx_{{ env_var( 'USER') }}_data_mart_BI_BO
+      {%- elif target.name == "dev_target" -%} tstt_data_mart_BI_BO
+      {%- elif target.name == "acc_target" -%} accc_data_mart_BI_BO
+      {%- elif target.name == "prd_target" -%} prdd_data_mart_BI_BO
+      {%- else -%} sbxx_{{ env_var( 'USER') }}_data_mart_BI_BO
       {%- endif -%}
     tables:
       - name: department_dynamic_hierarchy
+        config:
+          enabled: false
       - name: department_search
+        config:
+          enabled: false
       - name: department_search_all_levels
+        config:
+          enabled: false
       - name: dim_customer
-      - name: dim_date
+        config:
+          enabled: false
+      - name: dim_date 
+        config:
+          enabled: false
       - name: dim_department
+        config:
+          enabled: false
       - name: dim_earning_code
+        config:
+          enabled: false
       - name: dim_employee
+        config:
+          enabled: false
       - name: ext_billing_adjustments_mapping
+        config:
+          enabled: false
       - name: ext_payment_terms_extended
+        config:
+          enabled: false
       - name: ext_table_refresh_schedule
+        config:
+          enabled: false
       - name: fact_active_po_assignments
+        config:
+          enabled: false
       - name: fact_invoice
+        config:
+          enabled: false
       - name: fact_invoice_summary
+        config:
+          enabled: false
       - name: fact_invoice_summary_no_uom
+        config:
+          enabled: false
       - name: fact_pas_contracts_with_limits
+        config:
+          enabled: false
       - name: fact_pas_olt_detail
+        config:
+          enabled: false
       - name: fact_po_issue_detail
+        config:
+          enabled: false
       - name: vw_dim_branch
+        config:
+          enabled: false
       - name: vw_dim_customer
+        config:
+          enabled: false
       - name: vw_dim_date
+        config:
+          enabled: false
       - name: vw_dim_department
+        config:
+          enabled: false
       - name: vw_dim_earning_code
+        config:
+          enabled: false
       - name: vw_dim_employee
+        config:
+          enabled: false
       - name: vw_dim_vendor
+        config:
+          enabled: false
       - name: vw_ext_billing_adjustments_mapping
+        config:
+          enabled: false
       - name: vw_ext_payment_terms_extended
+        config:
+          enabled: false
       - name: vw_ext_table_refresh_schedule
+        config:
+          enabled: false
       - name: vw_fact_active_po_assignments
+        config:
+          enabled: false
       - name: vw_fact_invoice
+        config:
+          enabled: false
       - name: vw_fact_invoice_summary
+        config:
+          enabled: false
       - name: vw_fact_invoice_summary_no_uom
+        config:
+          enabled: false
       - name: vw_fact_pas_contracts_with_limits
+        config:
+          enabled: false
       - name: vw_fact_pas_olt_detail
+        config:
+          enabled: false
       - name: vw_fact_po_issue_detail
+        config:
+          enabled: false
 

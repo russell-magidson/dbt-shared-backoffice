@@ -1,5 +1,5 @@
 {{ config(
-    tags = ["dim_date", "backoffice"], 
+    tags = ["dim_date", "backoffice", "rand-rusaweb"], 
     alias = "dim_date"
     )
 }}

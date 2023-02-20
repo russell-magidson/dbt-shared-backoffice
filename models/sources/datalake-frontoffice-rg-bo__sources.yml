@@ -12,13 +12,29 @@ sources:
     schema: RG_BO
     tables:
       - name: PS_RNA_BH_PLAC_STG
+        config:
+          enabled: false
       - name: PS_RNA_CONTR_OWNER
+        config:
+          enabled: false
       - name: PS_RNA_CONTR_TEAM
+        config:
+          enabled: false
       - name: PS_RNA_CONT_TM_PRJ
+        config:
+          enabled: false
       - name: PS_RNA_CR_CONFG
+        config:
+          enabled: false
       - name: PS_RNA_EMP_PRL_STG
+        config:
+          enabled: false
       - name: PS_RNA_EXT_PS_XREF
+        config:
+          enabled: false
       - name: PS_RNA_PROJ_REQ
+        config:
+          enabled: false
         columns: 
           - name: ADDRESS_SEQ_NUM
           - name: ADDR_SEQ_NUM_BILL
@@ -66,3 +82,5 @@ sources:
           - name: START_DT DATE NOT NULL
           - name: SUPERVISOR_ID
       - name: PS_RNA_PROJ_TEAM
+        config:
+          enabled: false

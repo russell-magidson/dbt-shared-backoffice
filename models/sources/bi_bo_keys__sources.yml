@@ -11,9 +11,9 @@ sources:
       {%- endif -%}
     schema: | 
       {%-   if target.name == "sbx_target" -%} sbxx_{{ env_var( 'USER') }}_data_mart_BI_BO_Keys
-      {%- elif target.name == "dev_target" -%} tst_data_mart_BI_BO_Keys
-      {%- elif target.name == "acc_target" -%} acc_data_mart_BI_BO_Keys
-      {%- elif target.name == "prd_target" -%} prd_data_mart_BI_BO_Keys
+      {%- elif target.name == "dev_target" -%} tstt_data_mart_BI_BO_Keys
+      {%- elif target.name == "acc_target" -%} accc_data_mart_BI_BO_Keys
+      {%- elif target.name == "prd_target" -%} prdd_data_mart_BI_BO_Keys
       {%- else -%} sbxx_{{ env_var( 'USER') }}_data_mart_BI_BO_Keys
       {%- endif -%}
     tables:
