@@ -1,7 +1,5 @@
 {{ 
-    config( 
-        alias = "keys_customer" 
-    )
+    config( alias = "keys_customer" )
 }}
 
 {#
@@ -17,19 +15,19 @@
 WITH maxKey AS (  
 SELECT max( cust_key) + 1 AS next_key_id 
 
-    from {{ source( 'bi_bo_keys', 'keys_customer') }}
+    from {{ source( 'ebi_keys', 'keys_customer') }}
 ) 
 
 select distinct cust_id as customer_id, 
     ( ( SELECT next_key_id from maxKey) + DENSE_RANK() OVER (ORDER BY cust_id asc) ) AS cust_key,  
     current_timestamp() AS insert_datetime 
 
-    from {{ source( 'bi_dedup', 'ps_customer') }}
+    from {{ source( 'ebi_dedup', 'ps_customer') }}
 
     where 1=1 
       and cust_id IS NOT NULL
       and cust_id NOT IN ( 
           select customer_id 
           
-          from {{ source( 'bi_bo_keys', 'keys_customer') }}
+          from {{ source( 'ebi_keys', 'keys_customer') }}
           )

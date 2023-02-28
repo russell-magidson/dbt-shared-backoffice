@@ -1,7 +1,7 @@
 version: 2
 
 sources:
-  - name: bi_dedup
+  - name: ebi_dedup
 
     freshness: 
       warn_after: 
@@ -17,7 +17,15 @@ sources:
       {%- else -%} rand-rusaweb
       {%- endif -%}
 
-    schema: BI_DeDup
+    # schema: eBI_DeDup
+    # schema: eBI_russell_magidson_eBI_DeDup
+    schema: |
+      {%-   if target.name == "sbx_target" -%} sbx_{{ env_var( 'USER') }}_eBI_DeDup 
+      {%- elif target.name == "dev_target" -%} eBI_DeDup 
+      {%- elif target.name == "acc_target" -%} eBI_DeDup
+      {%- elif target.name == "prd_target" -%} eBI_DeDup 
+      {%- else -%} sbx_{{ env_var( 'USER') }}_eBI_DeDup
+      {%- endif -%}
 
     tables:
       - name: bu_manager_nxtlvl_mgr_live
@@ -151,8 +159,6 @@ sources:
         config:
           enabled: false
       - name: ps_rna_cust_option
-        config:
-          enabled: false
       - name: ps_rna_emp_prl_stg
         config:
           enabled: false

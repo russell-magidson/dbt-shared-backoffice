@@ -6,7 +6,7 @@
     {%- set default_schema = target.schema -%}
 
     {%- if target.name == "sbx_target" -%}
-        eBI_{{ env_var( 'USER') }}_{{ custom_schema_name }} 
+        sbx_{{ env_var( 'USER') }}_{{ custom_schema_name }} 
 
     {%- elif target.name == "dev_target" -%}
         eBI_{{ custom_schema_name }} 

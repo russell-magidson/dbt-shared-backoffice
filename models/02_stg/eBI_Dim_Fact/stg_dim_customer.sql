@@ -102,54 +102,42 @@ select distinct
 from {{ source( 'rand-rusaweb-dedup', 'ps_customer')}} as c
 
 left join {{ source( 'datalake-frontoffice-fs_bo', 'PS_RNA_CUSTDAT_TBL')}} as d 
-{# left join raw.datalake_frontoffice.FS_BO.PS_RNA_CUSTDAT_TBL as d  #}
     on c.cust_id = d.cust_id
 
 left join {{ source( 'rand-rusaweb-dedup', 'ps_customer')}} as corp
-{# LEFT JOIN raw.rand_rusaweb.BI_DeDup.ps_customer as corp  #}
     on c.corporate_cust_id = corp.cust_id
 
 left join {{ source( 'datalake-frontoffice-fs_bo', 'PS_RNA_CUST_PO_OPT')}} as o
-{# LEFT JOIN raw.datalake_frontoffice.FS_BO.PS_RNA_CUST_PO_OPT as o  #}
     on c.cust_id = o.cust_id and c.setid = o.setid
 
 left join {{ source( 'rand-rusaweb-dedup', 'psxlatitem_fs')}} as x
-{# LEFT JOIN raw.rand_rusaweb.BI_DeDup.psxlatitem_fs as x  #}
     on trim( x.fieldvalue) = trim( o.RNA_TRACKING_FUNDS) and x.fieldname = 'RNA_TRACKING_FUNDS'
 
 left join {{ source( 'rand-rusaweb-utils', 'vw_Latest_FS_Cust_Option')}} as pso
-{# LEFT JOIN raw.rand_rusaweb.Utils.vw_Latest_FS_Cust_Option as pso #}
         ON c.CUST_ID = pso.CUST_ID
 
 left join {{ source( 'rand-rusaweb-dedup', 'ps_rna_pymnt_term')}} as pterm
-{# LEFT JOIN raw.rand_rusaweb.BI_DeDup.ps_rna_pymnt_term as pterm #}
         ON pso.pymnt_terms_cd = pterm.pymnt_terms_cd
 
 left join {{ source( 'rand-rusaweb-utils', 'vw_Latest_FS_CR_Analyst_Tbl')}} as pscat
-{# LEFT JOIN raw.rand_rusaweb.Utils.vw_Latest_FS_CR_Analyst_Tbl as pscat #}
         ON pso.CR_ANALYST = pscat.CR_ANALYST
 
 left join {{ source( 'rand-rusaweb-dso', 'STG_AR_ANALYST_MGR')}} as sam
-{# LEFT JOIN raw.rand_rusaweb.DSO.STG_AR_ANALYST_MGR as sam #}
         ON pso.CR_ANALYST = sam.CR_ANALYST
 
 left join {{ source( 'datalake-frontoffice-fs_bo', 'PS_RS_GROUP_FLAGS')}} as psgf
-{# LEFT JOIN raw.datalake_frontoffice.FS_BO.PS_RS_GROUP_FLAGS as psgf #}
         ON c.CORPORATE_CUST_ID = psgf.CORPORATE_CUST_ID
         AND psgf.CORPORATE_SETID = 'SHARE'
 
 left join {{ source( 'datalake-frontoffice-fs_bo', 'PS_RNA_CUST_LVLFLG')}} as psrcl
-{# LEFT JOIN raw.datalake_frontoffice.FS_BO.PS_RNA_CUST_LVLFLG as psrcl #}
         ON c.CUST_ID = psrcl.CUST_ID
         AND psrcl.RNA_FLAG_NAME = 'NSO'
 
 left join {{ source( 'rand-rusaweb-dedup', 'ps_cust_credit')}} as cxcredit
-{# LEFT JOIN raw.rand_rusaweb.BI_DeDup.ps_cust_credit AS cxcredit #}
         ON c.setid = cxcredit.setid
         AND c.cust_id = cxcredit.cust_id
 
-inner join {{ source( 'bi_bo_keys', 'keys_customer')}} as cKey
-{# inner join BI_BO_Keys.data_mart.test.keys_customer as cKey #}
+inner join {{ source( 'ebi_keys', 'keys_customer')}} as cKey
         on  c.CUST_ID = cKey.customer_id
 
 LEFT JOIN item_activity iact

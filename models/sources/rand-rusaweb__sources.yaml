@@ -106,7 +106,16 @@ sources:
       {%- elif target.name == "prd_target" -%} us-ergbq-prd-3693
       {%- else -%} rand-rusaweb
       {%- endif -%}
-    schema: BI_DeDup
+    # schema: eBI_DeDup
+    # schema: eBI_russell_magidson_eBI_DeDup
+    schema: | 
+      {%- if target.name == "sbx_target" -%} sbx_{{ env_var( 'USER') }}_eBI_DeDup
+      {%- elif target.name == "dev_target" -%} eBI_DeDup
+      {%- elif target.name == "acc_target" -%} eBI_DeDup
+      {%- elif target.name == "prd_target" -%} eBI_DeDup
+      {%- else -%} sbx_{{ env_var( 'USER') }}_eBI_DeDup
+      {%- endif -%}
+    
     tables: 
       - name: table_name
         config:
@@ -171,8 +180,6 @@ sources:
         config:
           enabled: false
       - name: ps_item
-        config:
-          enabled: false
       - name: ps_item_activity
       - name: ps_job
         config:
@@ -214,8 +221,6 @@ sources:
         config:
           enabled: false
       - name: ps_pay_trms_tbl
-        config:
-          enabled: false
       - name: ps_personal_data
         config:
           enabled: false

@@ -1,7 +1,5 @@
 {{ 
-    config( 
-        alias = "keys_department" 
-    )
+    config( alias = "keys_department" )
 }}
 
 {#
@@ -18,7 +16,7 @@
 WITH maxKey AS (  
 SELECT max( dept_key) + 1 AS next_key_id 
 
-    from {{ source( 'bi_bo_keys', 'keys_department') }} 
+    from {{ source( 'ebi_keys', 'keys_department') }} 
 ) 
 
 select distinct unit, 
@@ -31,5 +29,5 @@ select distinct unit,
       and unit IS NOT NULL
       and unit NOT IN ( 
           select unit 
-          from {{ source( 'bi_bo_keys', 'keys_department') }}  
+          from {{ source( 'ebi_keys', 'keys_department') }}  
           )

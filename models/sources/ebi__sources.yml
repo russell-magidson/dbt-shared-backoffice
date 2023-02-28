@@ -1,7 +1,7 @@
 version: 2
 
 sources:
-  - name: bi_bo
+  - name: eBI
     project: | 
       {%- if target.name == "sbx_target" -%} us-atldm-test-dev-9198
       {%- elif target.name == "dev_target" -%} us-atldm-test-dev-9198
@@ -10,11 +10,11 @@ sources:
       {%- else -%} us-atldm-test-dev-9198
       {%- endif -%}
     schema: | 
-      {%- if target.name == "sbx_target" -%} eBI_{{ env_var( 'USER') }}_data_mart_BI_BO
-      {%- elif target.name == "dev_target" -%} eBI_data_mart_BI_BO
-      {%- elif target.name == "acc_target" -%} eBI_data_mart_BI_BO
-      {%- elif target.name == "prd_target" -%} eBI_data_mart_BI_BO
-      {%- else -%} eBI_{{ env_var( 'USER') }}_data_mart_BI_BO
+      {%- if target.name == "sbx_target" -%} sbx_{{ env_var( 'USER') }}_data_mart_eBI
+      {%- elif target.name == "dev_target" -%} eBI_data_mart_eBI
+      {%- elif target.name == "acc_target" -%} eBI_data_mart_eBI
+      {%- elif target.name == "prd_target" -%} eBI_data_mart_eBI
+      {%- else -%} sbx_{{ env_var( 'USER') }}_data_mart_eBI
       {%- endif -%}
     tables:
       - name: department_dynamic_hierarchy

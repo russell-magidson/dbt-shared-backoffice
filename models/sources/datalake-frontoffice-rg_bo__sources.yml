@@ -1,7 +1,7 @@
 version: 2
 
 sources:
-  - name: datalake-frontoffice-rg-bo
+  - name: datalake-frontoffice-rg_bo
     project: | 
       {%- if target.name == "sbx_target" -%} us-datalakefo-qa-a298
       {%- elif target.name == "dev_target" -%} us-datalakefo-qa-a298
@@ -24,8 +24,6 @@ sources:
         config:
           enabled: false
       - name: PS_RNA_CR_CONFG
-        config:
-          enabled: false
       - name: PS_RNA_EMP_PRL_STG
         config:
           enabled: false

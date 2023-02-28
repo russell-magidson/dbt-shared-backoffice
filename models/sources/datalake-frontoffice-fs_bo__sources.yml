@@ -49,11 +49,7 @@ sources:
         config:
           enabled: false
       - name: PS_CUSTOMER
-        config:
-          enabled: false
       - name: PS_CUST_CREDIT
-        config:
-          enabled: false
       - name: PS_CUST_OPTION
         config:
           enabled: false
@@ -70,14 +66,8 @@ sources:
         config:
           enabled: false
       - name: PS_ITEM
-        config:
-          enabled: false
       - name: PS_ITEM_ACTIVITY
-        config:
-          enabled: false
       - name: PS_PAY_TRMS_TBL
-        config:
-          enabled: false
       - name: PS_PROJECT
         config:
           enabled: false
@@ -102,8 +92,6 @@ sources:
       - name: PS_RNA_CUSTDAT_TBL
       - name: PS_RNA_CUST_LVLFLG
       - name: PS_RNA_CUST_OPTION
-        config:
-          enabled: false
       - name: PS_RNA_CUST_PO_OPT
       - name: PS_RNA_FO_PO_HDR
         config:

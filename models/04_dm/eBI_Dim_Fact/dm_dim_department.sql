@@ -1,6 +1,7 @@
 {{ config(
-    tags = ["dim_department", "backoffice"], 
-    alias = "dim_department"
+    tags = ["dim_department", "backoffice"]
+    , alias = "dim_department"
+    , enabled = false
     )
 }}
 
