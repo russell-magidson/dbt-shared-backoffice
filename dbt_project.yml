@@ -34,11 +34,11 @@ vars:
   # Specify the location of tblRecordCount table based on the environment
   # Not sure how else we can specify this second target location since we perform an INSERT into the table
   tblRecordCount_location: |
-      {%- if target.name == "sbx_target" -%} `us-atldm-test-dev-9198.sbxx_{{ env_var( 'USER') }}_BI_Logs`
-      {%- elif target.name == "dev_target" -%} `us-atldm-test-dev-9198.tstt_BI_Logs`
-      {%- elif target.name == "acc_target" -%} `us-atldm-test-qa-2114.accc_BI_Logs`
-      {%- elif target.name == "prd_target" -%} `us-atldm-test-prd-99b5.prdd_BI_Logs`
-      {%- else -%} `us-atldm-test-dev-9198.sbxx_{{ env_var( 'USER') }}_BI_Logs`
+      {%- if target.name == "sbx_target" -%} `us-atldm-test-dev-9198.sbx_{{ env_var( 'USER') }}_eBI_Logs`
+      {%- elif target.name == "dev_target" -%} `us-atldm-test-dev-9198.eBI_eBI_Logs`
+      {%- elif target.name == "acc_target" -%} `us-atldm-test-qa-2114.eBI_eBI_Logs`
+      {%- elif target.name == "prd_target" -%} `us-atldm-test-prd-99b5.eBI_eBI_Logs`
+      {%- else -%} `us-atldm-test-dev-9198.sbx_{{ env_var( 'USER') }}_eBI_Logs`
       {%- endif -%}
 
 models:
@@ -46,7 +46,7 @@ models:
     +materialized: table
     02_stg:
       +database: |
-        {%- if target.name == "sbx_target" -%} us-atlstg-dev-11c7
+        {%-   if target.name == "sbx_target" -%} us-atlstg-dev-11c7
         {%- elif target.name == "dev_target" -%} us-atlstg-dev-11c7
         {%- elif target.name == "acc_target" -%} us-atlstg-qa-cd80
         {%- elif target.name == "prd_target" -%} us-atlstg-prd-55a8
@@ -57,15 +57,15 @@ models:
         - "staging"
 
       BackOffice_DeDup:
-        +schema: staging_BackOffice_DeDup # Our custom schema
+        +schema: staging_BackOffice_DeDup 
         +tags:
           - "backoffice_dedup"
           - "dedup"
 
-      BI_BO_Dim_Fact:
-        +schema: staging_BI_BO # Our custom schema
+      eBI_Dim_Fact:
+        +schema: staging_eBI 
         +tags:
-          - "bi_bo"
+          - "ebi"
           - "dim"
 
     03_dwh:
@@ -80,17 +80,18 @@ models:
       +tags: 
         - "dwh"
         - "data_warehouse"
+      +schema: NoneNoSchemaName
 
       BackOffice_DeDup:
-        +schema: data_warehouse_BackOffice_DeDup # Our custom schema
+        +schema: data_warehouse_BackOffice_DeDup 
         +tags:
           - "backoffice_dedup"
           - "dedup"
 
-      BI_BO_Dim_Fact:
-        +schema: data_warehouse_BI_BO # Our custom schema
-        +tags: 
-          - "bi_bo"
+      eBI_Dim_Fact:
+        +schema: data_warehouse_eBI 
+        +tags:
+          - "ebi"
           - "dim"
 
     04_dm:
@@ -106,25 +107,6 @@ models:
         - "data_mart"
 
       BackOffice_DeDup:
-        +schema: data_mart_BackOffice_DeDup # Our custom schema
-        +tags: 
-          - "backoffice_dedup"
-          - "dedup"
-
-      BI_BO_Dim_Fact:
-        +schema: data_mart_BI_BO # Our custom schema
-        +tags: 
-          - "bi_bo"
-          - "dim"
-
-      BI_BO_Keys:
-        +materialized: incremental
-        +schema: data_mart_BI_BO_Keys # Our custom schema
-        +tags: 
-          - "keys"
-          - "bi_bo_keys"
-
-      BI_BO_rand:
         +database: |        
           {%-   if target.name == "sbx_target" -%} rand-rusaweb
           {%- elif target.name == "dev_target" -%} rand-rusaweb
@@ -132,13 +114,39 @@ models:
           {%- elif target.name == "prd_target" -%} us-ergbq-prd-3693
           {%- else -%} rand-rusaweb
           {%- endif -%}
-        +schema: "sbxx_SharedDimFact"
+        +schema: eBI_DeDup 
+        +tags: 
+          - "backoffice_dedup"
+          - "dedup"
+
+      eBI_Dim_Fact:
+        +schema: data_mart_eBI 
+        +tags: 
+          - "ebi"
+          - "dim"
+
+      eBI_Keys:
+        +materialized: incremental
+        +schema: data_mart_eBI_Keys 
+        +tags: 
+          - "keys"
+          - "ebi_keys"
+
+      eBI_rand:
+        +database: |        
+          {%-   if target.name == "sbx_target" -%} rand-rusaweb
+          {%- elif target.name == "dev_target" -%} rand-rusaweb
+          {%- elif target.name == "acc_target" -%} us-ergbq-qa-e523
+          {%- elif target.name == "prd_target" -%} us-ergbq-prd-3693
+          {%- else -%} rand-rusaweb
+          {%- endif -%}
+        +schema: "eBI_SharedDimFact"
         +tags:
           - "dim"
 
       Logs:
-        +schema: BI_Logs  # Common table for all record counts
+        +schema: eBI_Logs  # Common table for all record counts
         +tags: 
           - "logs"
-          - "bi_log"
+          - "ebi_log"
           - "record_count"

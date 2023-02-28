@@ -1,7 +1,7 @@
 version: 2
 
 sources:
-  - name: bi_bo_keys
+  - name: ebi_keys
     project: | 
       {%-   if target.name == "sbx_target" -%} us-atldm-test-dev-9198
       {%- elif target.name == "dev_target" -%} us-atldm-test-dev-9198
@@ -10,11 +10,11 @@ sources:
       {%- else -%} us-atldm-test-dev-9198
       {%- endif -%}
     schema: | 
-      {%-   if target.name == "sbx_target" -%} sbxx_{{ env_var( 'USER') }}_data_mart_BI_BO_Keys
-      {%- elif target.name == "dev_target" -%} tst_data_mart_BI_BO_Keys
-      {%- elif target.name == "acc_target" -%} acc_data_mart_BI_BO_Keys
-      {%- elif target.name == "prd_target" -%} prd_data_mart_BI_BO_Keys
-      {%- else -%} sbxx_{{ env_var( 'USER') }}_data_mart_BI_BO_Keys
+      {%-   if target.name == "sbx_target" -%} sbx_{{ env_var( 'USER') }}_data_mart_eBI_Keys
+      {%- elif target.name == "dev_target" -%} eBI_data_mart_eBI_Keys
+      {%- elif target.name == "acc_target" -%} eBI_data_mart_eBI_Keys
+      {%- elif target.name == "prd_target" -%} eBI_data_mart_eBI_Keys
+      {%- else -%} sbx_{{ env_var( 'USER') }}_data_mart_eBI_Keys
       {%- endif -%}
     tables:
       - name: keys_customer

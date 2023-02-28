@@ -1,12 +1,15 @@
-{# Log the record counts for BI_BO #}
+{# Log the record counts for ebi #}
 
 {# Wait until all of the dependencies are done before generating our record counts #}
 {# -- depends_on: {{ ref('dm_ps_assignment') }} #}
  
-{{ config( tags = ["recordcount"] ) }}
+{{ config( tags = ["recordcount"]
+    , enabled = false 
+    ) 
+}}
 
 {{ log_record_count( 
-    'BI_BO'
+    'eBI'
     , "
     'dim_customer', 
     'dim_date', 

@@ -1,5 +1,5 @@
 {{ config(
-    tags = ["ps_bi_hdr", "stg_ps_bi_hdr", "backoffice"], 
+    tags = ["ps_bi_hdr", "dedup", "backoffice"], 
     alias = 'ps_bi_hdr'
     )
 }}

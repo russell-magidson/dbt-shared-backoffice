@@ -1,5 +1,5 @@
 {{ config(
-    tags = ["ps_assignment", "stg_ps_assignment", "backoffice"], 
+    tags = ["ps_assignment", "dedup", "backoffice"], 
     alias = 'ps_assignment'
     )
 }}

@@ -1,5 +1,5 @@
 {{ config(
-    tags = ["psxlatitem_fs", "stg_psxlatitem_fs", "psxlatitem", "backoffice"], 
+    tags = ["psxlatitem_fs", "dedup", "backoffice"], 
     alias = 'psxlatitem_fs'
     )
 }}

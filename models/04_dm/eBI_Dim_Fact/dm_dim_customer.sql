@@ -1,6 +1,7 @@
 {{ config(
-    tags = ["dim_customer", "backoffice"], 
-    alias = "dim_customer"
+    tags = ["dim_customer", "backoffice"]
+    , alias = "dim_customer"
+    , enabled = false
     )
 }}
 

@@ -1,0 +1,21 @@
+version: 2
+
+# models:
+
+  # - name: dm_dim_customer
+  #   columns:
+  #     - name: cust_key
+  #       tests:
+  #         - relationships:
+  #             to: ref( 'dm_keys_customer')
+  #             field: cust_key
+
+  # - name: dm_dim_date
+
+  # - name: dm_dim_department
+  #   columns: 
+  #     - name: dept_key
+  #       tests:
+  #         - relationships:
+  #             to: ref( 'dm_keys_department')
+  #             field: dept_key

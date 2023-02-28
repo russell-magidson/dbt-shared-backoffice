@@ -4,9 +4,12 @@
 -- depends_on: {{ ref('dm_psxlatitem_fs') }}
 -- depends_on: {{ ref('dm_psxlatitem_hr') }}
 
-{{ config( tags = ["recordcount", "backoffice"] ) }}
+{{ config( tags = ["recordcount", "backoffice"] 
+    , enabled = false
+    ) 
+}}
 
-{# Log the record counts for BI_DeDup #}
+{# Log the record counts for eBI_DeDup #}
 {{ log_record_count( 
     'BackOffice_DeDup'
     , "

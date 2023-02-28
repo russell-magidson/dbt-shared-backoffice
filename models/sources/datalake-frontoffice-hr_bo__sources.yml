@@ -13,31 +13,87 @@ sources:
     tables:
       - name: PSXLATITEM
       - name: PS_ACTION_TBL
+        config:
+          enabled: false
       - name: PS_ACTN_REASON_TBL
+        config:
+          enabled: false
       - name: PS_ADDRESSES
+        config:
+          enabled: false
       - name: PS_BEN_DEFN_PGM
+        config:
+          enabled: false
       - name: PS_BEN_PROG_PARTIC
+        config:
+          enabled: false
       - name: PS_DEDUCTION_TBL
+        config:
+          enabled: false
       - name: PS_DIR_DEP_DISTRIB
+        config:
+          enabled: false
       - name: PS_EARNINGS_TBL
+        config:
+          enabled: false
       - name: PS_EMAIL_ADDRESSES
+        config:
+          enabled: false
       - name: PS_EMPLOYEES
+        config:
+          enabled: false
       - name: PS_EMPLOYMENT
+        config:
+          enabled: false
       - name: PS_JOB
       - name: PS_JOBCODE_TBL
+        config:
+          enabled: false
       - name: PS_LEAVE_ACCRUAL
+        config:
+          enabled: false
       - name: PS_LEAVE_PLAN
+        config:
+          enabled: false
       - name: ps_leave_plan_tbl
+        config:
+          enabled: false
       - name: PS_NAMES
+        config:
+          enabled: false
       - name: PS_PAY_CHECK
+        config:
+          enabled: false
       - name: PS_PAY_DEDUCTION
+        config:
+          enabled: false
       - name: PS_PAY_EARNINGS
+        config:
+          enabled: false
       - name: PS_PAY_OTH_EARNS
+        config:
+          enabled: false
       - name: PS_PAY_TAX
+        config:
+          enabled: false
       - name: PS_PERSONAL_DATA
+        config:
+          enabled: false
       - name: PS_RNA_ACCR_RUNCTL
+        config:
+          enabled: false
       - name: PS_RNA_EMP_REPORTS
+        config:
+          enabled: false
       - name: PS_RNA_PSL_ACCRUAL
+        config:
+          enabled: false
       - name: PS_RNA_PSL_BP_TBL
+        config:
+          enabled: false
       - name: PS_RS_GL_INTFC_TBL
+        config:
+          enabled: false
       - name: PS_VI_PAY_OTH_EARN
+        config:
+          enabled: false

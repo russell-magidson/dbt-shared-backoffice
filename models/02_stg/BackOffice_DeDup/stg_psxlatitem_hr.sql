@@ -1,5 +1,5 @@
 {{ config(
-    tags = ["psxlatitem_hr", "stg_psxlatitem_hr", "psxlatitem", "backoffice"], 
+    tags = ["psxlatitem_hr", "dedup", "backoffice"], 
     alias = 'psxlatitem_hr'
     )
 }}

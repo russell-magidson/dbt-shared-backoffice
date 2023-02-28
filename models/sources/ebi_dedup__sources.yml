@@ -1,125 +1,33 @@
 version: 2
 
 sources:
-  - name: rand-rusaweb-dims
+  - name: ebi_dedup
+
+    freshness: 
+      warn_after: 
+        count: 1
+        period: minute
+    loaded_at_field: source_insert_datetime
+
     project: | 
-      {%-   if target.name == "sbx_target" -%} rand-rusaweb
+      {%- if target.name == "sbx_target" -%} rand-rusaweb
       {%- elif target.name == "dev_target" -%} rand-rusaweb
       {%- elif target.name == "acc_target" -%} us-ergbq-qa-e523
       {%- elif target.name == "prd_target" -%} us-ergbq-prd-3693
       {%- else -%} rand-rusaweb
       {%- endif -%}
-    schema: Dims
-    tables:
-      - name: DIM_DATE
-      - name: eBI_Fiscal_Calendar
-        config:
-          enabled: false
-      - name: DIM_DEPT
-      - name: DIM_WEEK
-        config:
-          enabled: false
-      - name: v_Dim_Branch
-        config:
-          enabled: false
-      - name: v_DIM_DEPT
-        config:
-          enabled: false
-      - name: vw_Week_Start_And_End_Dates
-        config:
-          enabled: false
 
-  - name: rand-rusaweb-utils
-    project: |
-      {%-   if target.name == "sbx_target" -%} rand-rusaweb
-      {%- elif target.name == "dev_target" -%} rand-rusaweb
-      {%- elif target.name == "acc_target" -%} us-ergbq-qa-e523
-      {%- elif target.name == "prd_target" -%} us-ergbq-prd-3693
-      {%- else -%} rand-rusaweb
-      {%- endif -%}
-    schema: Utils
-    tables: 
-      - name: vw_Latest_FS_Cust_Option
-      - name: vw_Latest_FS_CR_Analyst_Tbl
-
-  - name: rand-rusaweb-dso
-    project: |
-      {%-   if target.name == "sbx_target" -%} rand-rusaweb
-      {%- elif target.name == "dev_target" -%} rand-rusaweb
-      {%- elif target.name == "acc_target" -%} us-ergbq-qa-e523
-      {%- elif target.name == "prd_target" -%} us-ergbq-prd-3693
-      {%- else -%} rand-rusaweb
-      {%- endif -%}
-    schema: DSO 
-    tables: 
-      - name: STG_AR_ANALYST_MGR
-      - name: PS_RNA_CUST_LVLFLG
-        config:
-          enabled: false
-
-  - name: rand-rusaweb-backoffice
-    project: |
-      {%-   if target.name == "sbx_target" -%} rand-rusaweb
-      {%- elif target.name == "dev_target" -%} rand-rusaweb
-      {%- elif target.name == "acc_target" -%} us-ergbq-qa-e523
-      {%- elif target.name == "prd_target" -%} us-ergbq-prd-3693
-      {%- else -%} rand-rusaweb
-      {%- endif -%}
-    schema: BI_BackOffice
-    tables:
-      - name: dim_branch
-        config:
-          enabled: false
-      - name: dim_customer
-        config:
-          enabled: false
-      - name: dim_date 
-        config:
-          enabled: false
-      - name: dim_department 
-        config:
-          enabled: false
-      - name: dim_employee 
-        config:
-          enabled: false
-      - name: vw_dim_customer
-        config:
-          enabled: false
-      - name: vw_dim_date 
-        config:
-          enabled: false
-      - name: vw_dim_department
-        config:
-          enabled: false
-      - name: vw_fact_ar_balance
-        config:
-          enabled: false
-      - name: vw_tableau_entitlements
-        config:
-          enabled: false
-
-  - name: rand-rusaweb-dedup
-    project: |
-      {%-   if target.name == "sbx_target" -%} rand-rusaweb
-      {%- elif target.name == "dev_target" -%} rand-rusaweb
-      {%- elif target.name == "acc_target" -%} us-ergbq-qa-e523
-      {%- elif target.name == "prd_target" -%} us-ergbq-prd-3693
-      {%- else -%} rand-rusaweb
-      {%- endif -%}
     # schema: eBI_DeDup
     # schema: eBI_russell_magidson_eBI_DeDup
-    schema: | 
-      {%- if target.name == "sbx_target" -%} sbx_{{ env_var( 'USER') }}_eBI_DeDup
-      {%- elif target.name == "dev_target" -%} eBI_DeDup
+    schema: |
+      {%-   if target.name == "sbx_target" -%} sbx_{{ env_var( 'USER') }}_eBI_DeDup 
+      {%- elif target.name == "dev_target" -%} eBI_DeDup 
       {%- elif target.name == "acc_target" -%} eBI_DeDup
-      {%- elif target.name == "prd_target" -%} eBI_DeDup
+      {%- elif target.name == "prd_target" -%} eBI_DeDup 
       {%- else -%} sbx_{{ env_var( 'USER') }}_eBI_DeDup
       {%- endif -%}
-    
-    tables: 
-      - name: table_name
-        config:
-          enabled: false
+
+    tables:
       - name: bu_manager_nxtlvl_mgr_live
         config:
           enabled: false
@@ -130,8 +38,6 @@ sources:
         config:
           enabled: false
       - name: ps_assignment
-        config:
-          enabled: false
       - name: ps_ben_defn_pgm
         config:
           enabled: false
@@ -139,8 +45,6 @@ sources:
         config:
           enabled: false
       - name: ps_bi_hdr
-        config:
-          enabled: false
       - name: ps_bi_hdr_line
         config:
           enabled: false
@@ -160,6 +64,8 @@ sources:
         config:
           enabled: false
       - name: ps_cust_credit
+        config:
+          enabled: false
       - name: ps_cust_option
         config:
           enabled: false
@@ -180,10 +86,12 @@ sources:
         config:
           enabled: false
       - name: ps_item
-      - name: ps_item_activity
-      - name: ps_job
         config:
           enabled: false
+      - name: ps_item_activity
+        config:
+          enabled: false
+      - name: ps_job
       - name: ps_job_employee_level
         config:
           enabled: false
@@ -221,6 +129,8 @@ sources:
         config:
           enabled: false
       - name: ps_pay_trms_tbl
+        config:
+          enabled: false
       - name: ps_personal_data
         config:
           enabled: false
@@ -259,6 +169,8 @@ sources:
         config:
           enabled: false
       - name: ps_rna_pymnt_term
+        config:
+          enabled: false
       - name: ps_rna_sor_dtl
         config:
           enabled: false
@@ -303,5 +215,3 @@ sources:
           enabled: false
       - name: psxlatitem_fs
       - name: psxlatitem_hr
-        config:
-          enabled: false

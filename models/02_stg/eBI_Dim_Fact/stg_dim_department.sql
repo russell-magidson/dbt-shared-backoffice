@@ -58,5 +58,5 @@ SELECT
 
 from {{ source( 'rand-rusaweb-dims', 'DIM_DEPT')}} as dept
 
-inner join {{ source( 'bi_bo_keys', 'keys_department')}} as keys
+inner join {{ source( 'ebi_keys', 'keys_department')}} as keys
   on dept.UNIT = keys.unit 
