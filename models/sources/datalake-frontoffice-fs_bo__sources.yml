@@ -28,14 +28,10 @@ sources:
           enabled: false
       - name: PS_BI_HDR
       - name: PS_BI_LINE
-        config:
-          enabled: false
       - name: ps_ca_bill_plan
         config:
           enabled: false
       - name: PS_CA_CONTR_HDR
-        config:
-          enabled: false
       - name: PS_CA_DETAIL
         config:
           enabled: false

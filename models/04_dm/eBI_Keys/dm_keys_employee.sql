@@ -1,5 +1,13 @@
 {{ 
-    config( alias = "keys_employee" )
+    config( alias = "keys_employee" 
+    , pre_hook = 
+        "
+        create table if not exists {{ var( 'keys_table_location') }}.keys_employee
+            as (
+            select 'N/A' as employee_id, -1 employee_key, current_timestamp() as insert_datetime
+            ) 
+        "
+    )   
 }}
 
 WITH maxKey AS (  

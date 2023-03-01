@@ -1,17 +1,14 @@
 {{ 
-    config( alias = "keys_department" )
+    config( alias = "keys_department" 
+    , pre_hook = 
+        "
+        create table if not exists {{ var( 'keys_table_location') }}.keys_department
+            as ( 
+            select 'N/A' as unit, -1 dept_key, current_timestamp() as insert_datetime
+            )
+        " 
+    )
 }}
-
-{#
-#     "Can't use the pre_hook and have a test (eg. Unique) defined on the cust_key column
-#        pre_hook = 
-#            "
-#            create table if not exists {{ var( 'keys_table_location') }}.keys_department
-#                as ( 
-#                select 'N/A' as unit, -1 dept_key, current_timestamp() as insert_datetime
-#                )
-# "           " 
-#}
 
 WITH maxKey AS (  
 SELECT max( dept_key) + 1 AS next_key_id 

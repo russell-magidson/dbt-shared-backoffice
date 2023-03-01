@@ -34,8 +34,6 @@ sources:
         config:
           enabled: false
       - name: PS_EARNINGS_TBL
-        config:
-          enabled: false
       - name: PS_EMAIL_ADDRESSES
         config:
           enabled: false

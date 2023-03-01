@@ -1,16 +1,14 @@
 {{ 
-    config( alias = "keys_customer" )
+    config( alias = "keys_customer" 
+    , pre_hook = 
+        "
+        create table if not exists {{ var( 'keys_table_location') }}.keys_customer
+            as ( 
+            select 'N/A' as customer_id, -1 cust_key, current_timestamp() as insert_datetime
+            ) 
+        "
+    )
 }}
-
-{#
-#"Can't use the pre_hook and have a test (eg. Unique) defined on the cust_key column
-#    pre_hook = 
-#        create table if not exists {{ var( 'keys_table_location') }}.keys_customer
-#            as ( 
-#            select 'N/A' as customer_id, -1 cust_key, current_timestamp() as insert_datetime
-#            )
-#"
-#}
 
 WITH maxKey AS (  
 SELECT max( cust_key) + 1 AS next_key_id 
