@@ -12,3 +12,4 @@ sources:
     schema: RGS
     tables:
       - name: PS_ASSIGNMENT
+      - name: PS_CUST_ADDRESS
