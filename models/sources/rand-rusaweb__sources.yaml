@@ -57,16 +57,37 @@ sources:
         config:
           enabled: false
 
-  - name: rand-rusaweb-backoffice
+  - name: rand-rusaweb-federated-tables
+    project: rand-rusaweb
+    schema: Federated_Tables
+    tables: 
+      - name: Accounting_Holidays
+      - name: Payment_Terms_Extended
+      - name: Table_Refresh_Schedule
+
+  - name: rand-rusaweb-shared-dim-fact
     project: |
-      {%-   if target.name == "sbx_target" -%} rand-rusaweb
+      {%-   if target.name == "sbx_target" -%} us-atldm-test-dev-9198
       {%- elif target.name == "dev_target" -%} rand-rusaweb
       {%- elif target.name == "acc_target" -%} us-ergbq-qa-e523
       {%- elif target.name == "prd_target" -%} us-ergbq-prd-3693
       {%- else -%} rand-rusaweb
       {%- endif -%}
-    schema: BI_BackOffice
+
+    schema: | 
+      {%- if target.name == "sbx_target" -%} sbx_{{ env_var( 'USER') }}_eBI_DimFact
+      {%- elif target.name == "dev_target" -%} eBI_DimFact
+      {%- elif target.name == "acc_target" -%} eBI_DimFact
+      {%- elif target.name == "prd_target" -%} eBI_DimFact
+      {%- else -%} sbx_{{ env_var( 'USER') }}_eBI_DimFact
+      {%- endif -%}
+
     tables:
+      - name: department_dynamic_hierarchy
+      - name: department_search
+      - name: department_search_all_levels
+        config: 
+          enabled: false 
       - name: dim_branch
         config:
           enabled: false
@@ -77,11 +98,7 @@ sources:
         config:
           enabled: false
       - name: dim_department 
-        config:
-          enabled: false
       - name: dim_employee 
-        config:
-          enabled: false
       - name: vw_dim_customer
         config:
           enabled: false
@@ -100,7 +117,7 @@ sources:
 
   - name: rand-rusaweb-dedup
     project: |
-      {%-   if target.name == "sbx_target" -%} rand-rusaweb
+      {%-   if target.name == "sbx_target" -%} us-atldm-test-dev-9198
       {%- elif target.name == "dev_target" -%} rand-rusaweb
       {%- elif target.name == "acc_target" -%} us-ergbq-qa-e523
       {%- elif target.name == "prd_target" -%} us-ergbq-prd-3693
@@ -182,14 +199,10 @@ sources:
       - name: ps_item
       - name: ps_item_activity
       - name: ps_job
-        config:
-          enabled: false
       - name: ps_job_employee_level
         config:
           enabled: false
       - name: ps_jobcode_tbl
-        config:
-          enabled: false
       - name: ps_jobtitle
         config:
           enabled: false
@@ -203,8 +216,6 @@ sources:
         config:
           enabled: false
       - name: ps_names
-        config:
-          enabled: false
       - name: ps_pay_check
         config:
           enabled: false
@@ -299,8 +310,6 @@ sources:
         config:
           enabled: false
       - name: psoprdefn
-        config:
-          enabled: false
       - name: psxlatitem_fs
       - name: psxlatitem_hr
         config:

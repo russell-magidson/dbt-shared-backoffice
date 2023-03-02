@@ -68,8 +68,8 @@ models:
         +tags:
           - "dedup"
 
-      eBI_Dim_Fact:
-        +schema: staging_eBI 
+      eBI_DimFact:
+        +schema: staging_eBI_DimFact 
         +tags:
           - "dim"
 
@@ -91,8 +91,8 @@ models:
         +tags:
           - "dedup"
 
-      eBI_Dim_Fact:
-        +schema: data_warehouse_eBI 
+      eBI_DimFact:
+        +schema: data_warehouse_eBI_DimFact 
         +tags:
           - "dim"
 
@@ -109,7 +109,7 @@ models:
 
       eBI_DeDup:
         +database: |        
-          {%-   if target.name == "sbx_target" -%} rand-rusaweb
+          {%-   if target.name == "sbx_target" -%} us-atldm-test-dev-9198
           {%- elif target.name == "dev_target" -%} rand-rusaweb
           {%- elif target.name == "acc_target" -%} us-ergbq-qa-e523
           {%- elif target.name == "prd_target" -%} us-ergbq-prd-3693
@@ -119,29 +119,46 @@ models:
         +tags: 
           - "dedup"
 
-      eBI_Dim_Fact:
-        +schema: data_mart_eBI 
-        +tags: 
+      eBI_DimFact:
+        +database: |        
+          {%-   if target.name == "sbx_target" -%} us-atldm-test-dev-9198 
+          {%- elif target.name == "dev_target" -%} us-atldm-test-dev-9198
+          {%- elif target.name == "acc_target" -%} us-atldm-test-qa-2114
+          {%- elif target.name == "prd_target" -%} us-atldm-test-prd-99b5
+          {%- else -%} us-atldm-test-dev-9198
+          {%- endif -%}
+        +schema: "eBI_DimFact"
+        +tags:
           - "dim"
+          - "rand"
+          - "backoffice"
+
+      eBI_DimFact_rand:
+        +database: |        
+          {%-   if target.name == "sbx_target" -%} us-atldm-test-dev-9198
+          {%- elif target.name == "dev_target" -%} rand-rusaweb
+          {%- elif target.name == "acc_target" -%} us-ergbq-qa-e523
+          {%- elif target.name == "prd_target" -%} us-ergbq-prd-3693
+          {%- else -%} rand-rusaweb
+          {%- endif -%}
+        # +schema: "eBI_DimFact_Shared"
+        +schema: |
+          {%-   if target.name == "sbx_target" -%} _eBI_DimFact_rand
+          {%- elif target.name == "dev_target" -%} eBI_DimFact
+          {%- elif target.name == "acc_target" -%} eBI_DimFact
+          {%- elif target.name == "prd_target" -%} eBI_DimFact
+          {%- else -%} _eBI_DimFact_rand
+          {%- endif -%}
+        +tags:
+          - "dim"
+          - "rand"
+          - "backoffice"
 
       eBI_Keys:
         +materialized: incremental
         +schema: data_mart_eBI_Keys 
         +tags: 
           - "keys"
-
-      eBI_rand:
-        +database: |        
-          {%-   if target.name == "sbx_target" -%} rand-rusaweb
-          {%- elif target.name == "dev_target" -%} rand-rusaweb
-          {%- elif target.name == "acc_target" -%} us-ergbq-qa-e523
-          {%- elif target.name == "prd_target" -%} us-ergbq-prd-3693
-          {%- else -%} rand-rusaweb
-          {%- endif -%}
-        +schema: "eBI_SharedDimFact"
-        +tags:
-          - "dim"
-          - "rand"
 
       eBI_Logs:
         +schema: eBI_Logs  # Common table for all record counts

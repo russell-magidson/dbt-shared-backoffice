@@ -10,7 +10,7 @@ sources:
     loaded_at_field: source_insert_datetime
 
     project: | 
-      {%- if target.name == "sbx_target" -%} rand-rusaweb
+      {%- if target.name == "sbx_target" -%} us-atldm-test-dev-9198
       {%- elif target.name == "dev_target" -%} rand-rusaweb
       {%- elif target.name == "acc_target" -%} us-ergbq-qa-e523
       {%- elif target.name == "prd_target" -%} us-ergbq-prd-3693

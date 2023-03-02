@@ -4,6 +4,8 @@
     )
 }}
 
+-- DEPENDS ON {{ ref( 'dm_ps_rna_pymnt_term')}}
+
 SELECT
         business_unit
         ,cust_id

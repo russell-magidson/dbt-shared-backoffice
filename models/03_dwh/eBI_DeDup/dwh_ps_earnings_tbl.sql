@@ -1,6 +1,5 @@
 {{ config(
     tags = ["ps_earnings_tbl"], 
-    materialized = 'incremental', 
     alias = 'ps_earnings_tbl'
     )
 }}
