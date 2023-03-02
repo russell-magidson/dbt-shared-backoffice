@@ -20,8 +20,6 @@ sources:
         config:
           enabled: false
       - name: PSOPRDEFN
-        config:
-          enabled: false
       - name: PSXLATITEM
       - name: PS_AFFL_VENDOR
         config:
@@ -65,8 +63,6 @@ sources:
       - name: PS_ITEM_ACTIVITY
       - name: PS_PAY_TRMS_TBL
       - name: PS_PROJECT
-        config:
-          enabled: false
       - name: PS_PROJECT_MGR
         config:
           enabled: false
@@ -111,24 +107,14 @@ sources:
         config:
           enabled: false
       - name: PS_RS_ASSIGNMENT
-        config:
-          enabled: false
       - name: PS_RS_GROUP_FLAGS
-      - name: PS_VI_AVE_MASTER 
-        config:
-          enabled: false
+      - name: PS_VI_AVE_MASTER
       - name: PS_VI_PAY_EARNINGS
-        config:
-          enabled: false
       - name: PS_VI_PC_ACT_VECTR
         config:
           enabled: false
       - name: PS_VI_V_EXPN_LINES
-        config:
-          enabled: false
       - name: PS_VI_V_TIME_CARD 
-        config:
-          enabled: false
       - name: PS_VI_V_TIME_LINES
         config:
           enabled: false

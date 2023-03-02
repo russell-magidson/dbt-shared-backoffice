@@ -1,6 +1,5 @@
 {{ config(
     tags = ["ps_customer"], 
-    materialized = 'incremental', 
     alias = 'ps_customer'
     )
 }}

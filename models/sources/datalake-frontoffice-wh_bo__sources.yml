@@ -1,0 +1,29 @@
+version: 2
+
+sources:
+  - name: datalake-frontoffice-wh_bo
+      # {%- if target.name == "sbx_target" -%} us-datalakefo-qa-a298 
+      # {%- elif target.name == "dev_target" -%} us-datalakefo-qa-a298 
+    project: | 
+      {%- if target.name == "sbx_target" -%} datalake-frontoffice
+      {%- elif target.name == "dev_target" -%} datalake-frontoffice
+      {%- elif target.name == "acc_target" -%} datalake-frontoffice
+      {%- elif target.name == "prd_target" -%} datalake-frontoffice
+      {%- else -%} us-datalakefo-qa-a298
+      {%- endif -%}
+    schema: WH_BO
+    tables:
+      - name: PS_RDM_REVCOST_DTL
+      - name: PS_RDM_REVCOST_EXT
+        config:
+          enabled: false
+      - name: 0PS_RDM_REVCOST_SUM
+        config:
+          enabled: false
+      - name: PS_RDM_REVSH_ALL
+        config:
+          enabled: false
+      - name: PS_RNA_DEPT_DTL
+        config:
+          enabled: false
+

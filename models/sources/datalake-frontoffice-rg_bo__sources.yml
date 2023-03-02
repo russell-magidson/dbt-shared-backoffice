@@ -12,8 +12,6 @@ sources:
     schema: RG_BO
     tables:
       - name: PS_RNA_BH_PLAC_STG
-        config:
-          enabled: false
       - name: PS_RNA_CONTR_OWNER
         config:
           enabled: false
