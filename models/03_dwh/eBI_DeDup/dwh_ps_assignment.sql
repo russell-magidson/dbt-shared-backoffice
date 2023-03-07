@@ -1,6 +1,11 @@
 {{ config(
     tags = ["ps_assignment"], 
-    alias = 'ps_assignment'
+    alias = 'ps_assignment', 
+    partition_by = { 
+        "field": "insert_datetime", 
+        "data_type": "timestamp", 
+        "granularity": "day"
+    }
     )
 }}
 

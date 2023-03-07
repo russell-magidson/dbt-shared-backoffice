@@ -420,9 +420,9 @@ SELECT
         ,bil.temp_invoice
         ,bil.source_insert_datetime
 
-FROM {{ ref( 'dm_ps_bi_hdr')}} as bih
+FROM {{ ref( 'stg_ps_bi_hdr')}} as bih
 
-INNER JOIN {{ ref( 'dm_ps_bi_line')}} as bil 
+INNER JOIN {{ ref( 'stg_ps_bi_line')}} as bil
     ON bih.business_unit = bil.business_unit 
     AND bih.invoice = bil.invoice
     

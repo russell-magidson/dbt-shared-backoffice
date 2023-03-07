@@ -3,11 +3,11 @@ version: 2
 sources:
   - name: datalake-frontoffice-rg_bo
     project: | 
-      {%- if target.name == "sbx_target" -%} us-datalakefo-qa-a298
+      {%- if target.name == "sbx_target" -%} datalake-frontoffice
       {%- elif target.name == "dev_target" -%} us-datalakefo-qa-a298
       {%- elif target.name == "acc_target" -%} datalake-frontoffice
       {%- elif target.name == "prd_target" -%} datalake-frontoffice
-      {%- else -%} us-datalakefo-qa-a298
+      {%- else -%} datalake-frontoffice
       {%- endif -%}
     schema: RG_BO
     tables:
