@@ -5,7 +5,7 @@
 -- depends_on: {{ ref('dm_psxlatitem_hr') }}
 
 {{ config( tags = ["recordcount", "backoffice"] 
-    , enabled = false
+    , enabled = false 
     ) 
 }}
 

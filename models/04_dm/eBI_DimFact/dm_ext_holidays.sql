@@ -5,7 +5,7 @@
 }}
 
 select *
-from {{ ref( 'dwh_ext_holidays')}}
-where insert_datetime = ( SELECT max( insert_datetime)
+from {{ ref( 'stg_ext_holidays')}}
+{# where insert_datetime = ( SELECT max( insert_datetime)
                         from {{ ref( 'dwh_ext_holidays')}}
-                        )
+                        ) #}

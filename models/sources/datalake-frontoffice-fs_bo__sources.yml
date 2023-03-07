@@ -2,14 +2,12 @@ version: 2
 
 sources:
   - name: datalake-frontoffice-fs_bo
-      # {%- if target.name == "sbx_target" -%} us-datalakefo-qa-a298 
-      # {%- elif target.name == "dev_target" -%} us-datalakefo-qa-a298 
     project: | 
       {%- if target.name == "sbx_target" -%} datalake-frontoffice
-      {%- elif target.name == "dev_target" -%} datalake-frontoffice
+      {%- elif target.name == "dev_target" -%} us-datalakefo-qa-a298
       {%- elif target.name == "acc_target" -%} datalake-frontoffice
       {%- elif target.name == "prd_target" -%} datalake-frontoffice
-      {%- else -%} us-datalakefo-qa-a298
+      {%- else -%} datalake-frontoffice
       {%- endif -%}
     schema: FS_BO
     tables:

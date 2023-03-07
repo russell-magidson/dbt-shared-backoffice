@@ -1,6 +1,11 @@
 {{ config(
     tags = ["ps_bi_hdr_line"], 
-    alias = 'ps_bi_hdr_line'
+    alias = 'ps_bi_hdr_line', 
+    partition_by = { 
+        "field": "insert_datetime", 
+        "data_type": "timestamp", 
+        "granularity": "day"
+    }
     )
 }}
 

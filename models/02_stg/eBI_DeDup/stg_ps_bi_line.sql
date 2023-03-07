@@ -282,4 +282,5 @@ JOIN {{ source( 'datalake-frontoffice-fs_bo', 'PS_BI_LINE')}} as bil
     AND bih.invoice = bil.invoice
     
 WHERE bih.invoice_dt > '2019-12-29' OR bih.invoice_dt IS NULL
+
 QUALIFY ROW_NUMBER() OVER (PARTITION BY bil.business_unit, bil.invoice, bil.line_seq_num ORDER BY bil.last_update_dttm DESC) = 1
