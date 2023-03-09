@@ -48,4 +48,4 @@ SELECT
 
 FROM {{ source( 'datalake-frontoffice-fs_bo', 'PS_CUST_CREDIT') }} 
     
-QUALIFY ROW_NUMBER() OVER (PARTITION BY cust_id, setid ORDER BY effdt DESC) = 1
+QUALIFY ROW_NUMBER() OVER (PARTITION BY cust_id, setid ORDER BY effdt DESC, date_last_maint DESC) = 1

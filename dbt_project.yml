@@ -143,11 +143,11 @@ models:
           {%- endif -%}
         # +schema: "eBI_DimFact_Shared"
         +schema: |
-          {%-   if target.name == "sbx_target" -%} _eBI_DimFact_rand
+          {%-   if target.name == "sbx_target" -%} eBI_DimFact_rand
           {%- elif target.name == "dev_target" -%} eBI_DimFact
           {%- elif target.name == "acc_target" -%} eBI_DimFact
           {%- elif target.name == "prd_target" -%} eBI_DimFact
-          {%- else -%} _eBI_DimFact_rand
+          {%- else -%} eBI_DimFact_rand
           {%- endif -%}
         +tags:
           - "dim"

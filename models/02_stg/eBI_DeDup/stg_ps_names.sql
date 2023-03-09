@@ -38,4 +38,4 @@ SELECT
 
 FROM {{ source( 'datalake-frontoffice-hr_bo', 'PS_NAMES')}}
 
-QUALIFY ROW_NUMBER() OVER (PARTITION BY  emplid ORDER BY effdt DESC) = 1
+QUALIFY ROW_NUMBER() OVER (PARTITION BY  emplid ORDER BY effdt DESC, lastupddttm  desc, insert_datetime desc) = 1

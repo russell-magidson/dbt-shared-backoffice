@@ -21,7 +21,7 @@ SELECT
     , vipayearn.dttime_last_maint
     , vipayearn.insert_datetime as source_insert_datetime
 
-FROM {{ source( 'datalake-frontoffice-hr_bo', 'PS_PAY_EARNINGS')}} as payearn
+FROM {{ ref( 'dm_ps_pay_earnings')}} as payearn
 
 LEFT OUTER JOIN {{ source( 'datalake-frontoffice-fs_bo', 'PS_VI_PAY_EARNINGS')}} as vipayearn
     ON payearn.company = vipayearn.company

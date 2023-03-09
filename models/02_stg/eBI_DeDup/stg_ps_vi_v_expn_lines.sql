@@ -24,7 +24,7 @@ SELECT
     , expnln.dttime_last_maint
     , expnln.insert_datetime as source_insert_datetime
 
-from {{ source( 'datalake-frontoffice-fs_bo', 'PS_VI_V_TIME_CARD')}} as tcard
+from {{ ref( 'dm_ps_vi_v_time_card')}} as tcard
 
 inner join {{ source( 'datalake-frontoffice-fs_bo', 'PS_VI_V_EXPN_LINES')}} as expnln
     ON tcard.business_unit = expnln.business_unit
