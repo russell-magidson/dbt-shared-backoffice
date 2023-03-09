@@ -104,7 +104,7 @@ SELECT
         , psia.remit_addr_seq_num
         , psia.insert_datetime as source_insert_datetime
 
-FROM {{ source( 'datalake-frontoffice-fs_bo', 'PS_ITEM' ) }} as psi
+FROM {{ ref( 'dm_ps_item' ) }} as psi
 
 INNER JOIN {{ source( 'datalake-frontoffice-fs_bo', 'PS_ITEM_ACTIVITY' ) }} as psia
     ON psi.BUSINESS_UNIT = psia.BUSINESS_UNIT

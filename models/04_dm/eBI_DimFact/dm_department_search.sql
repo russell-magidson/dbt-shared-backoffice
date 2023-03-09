@@ -5,8 +5,7 @@
 }}
 
 select *
-from {{ ref( 'stg_department_search')}}
-{# where insert_datetime = ( SELECT max( insert_datetime)
+from {{ ref( 'dwh_department_search')}}
+where insert_datetime = ( SELECT max( insert_datetime)
                         from {{ ref( 'dwh_department_search')}}
                         )
- #}
