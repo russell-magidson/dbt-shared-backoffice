@@ -12,4 +12,4 @@ SELECT
 
 FROM {{ source( 'datalake-frontoffice-rgs', 'PS_CUST_ADDRESS')}} 
 
-QUALIFY ROW_NUMBER() OVER (PARTITION BY setid, cust_id ORDER BY cast( ADDRESS_SEQ_NUM as integer) DESC, EFFDT DESC) = 1
+QUALIFY ROW_NUMBER() OVER (PARTITION BY setid, cust_id ORDER BY cast( ADDRESS_SEQ_NUM as integer) DESC, EFFDT DESC, DATE_LAST_MAINT desc) = 1

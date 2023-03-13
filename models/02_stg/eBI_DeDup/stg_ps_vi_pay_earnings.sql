@@ -35,4 +35,6 @@ LEFT OUTER JOIN {{ source( 'datalake-frontoffice-fs_bo', 'PS_VI_PAY_EARNINGS')}}
 
 WHERE EXTRACT(YEAR FROM vipayearn.pay_end_dt) >= 2021
 
-QUALIFY ROW_NUMBER() OVER (PARTITION BY vipayearn.company, vipayearn.paygroup, vipayearn.pay_end_dt, vipayearn.off_cycle, vipayearn.page_num, vipayearn.line_num, vipayearn.addl_nbr ORDER BY payearn.UPDATE_DT DESC) = 1
+QUALIFY ROW_NUMBER() OVER (PARTITION BY vipayearn.company, vipayearn.paygroup, vipayearn.pay_end_dt, vipayearn.off_cycle
+                            , vipayearn.page_num, vipayearn.line_num, vipayearn.addl_nbr 
+                            ORDER BY payearn.UPDATE_DT DESC, vipayearn.DTTIME_LAST_MAINT desc) = 1

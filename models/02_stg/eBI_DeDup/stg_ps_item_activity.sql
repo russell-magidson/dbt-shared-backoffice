@@ -114,4 +114,5 @@ INNER JOIN {{ source( 'datalake-frontoffice-fs_bo', 'PS_ITEM_ACTIVITY' ) }} as p
 
 WHERE EXTRACT(YEAR FROM psia.post_dt) >= 2021
 
-QUALIFY ROW_NUMBER() OVER (PARTITION BY  psia.business_unit, psia.cust_id, psia.item, psia.item_line, psia.item_seq_num ORDER BY psia.accounting_dt DESC) = 1
+QUALIFY ROW_NUMBER() OVER (PARTITION BY  psia.business_unit, psia.cust_id, psia.item, psia.item_line, psia.item_seq_num 
+                            ORDER BY psia.accounting_dt DESC, post_dt desc) = 1

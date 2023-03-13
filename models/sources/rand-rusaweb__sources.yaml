@@ -92,8 +92,6 @@ sources:
         config:
           enabled: false
       - name: dim_customer
-        config:
-          enabled: false
       - name: dim_date 
         config:
           enabled: false
@@ -138,8 +136,6 @@ sources:
         config:
           enabled: false
       - name: bu_manager_nxtlvl_mgr_live
-        config:
-          enabled: false
       - name: ps_action_tbl
         config:
           enabled: false
@@ -233,8 +229,6 @@ sources:
           enabled: false
       - name: ps_pay_trms_tbl
       - name: ps_personal_data
-        config:
-          enabled: false
       - name: ps_proj_resource
         config:
           enabled: false
@@ -248,11 +242,7 @@ sources:
         config:
           enabled: false
       - name: ps_rna_asgn_po_trk
-        config:
-          enabled: false
       - name: ps_rna_bh_plac_stg
-        config:
-          enabled: false
       - name: ps_rna_cont_tm_prj
         config:
           enabled: false
@@ -283,14 +273,10 @@ sources:
         config:
           enabled: false
       - name: ps_rs_assignment
-        config:
-          enabled: false
       - name: ps_rs_gl_intfc_tbl
         config:
           enabled: false
       - name: ps_vi_ave_master
-        config:
-          enabled: false
       - name: ps_vi_pay_earnings
         config:
           enabled: false
@@ -314,3 +300,15 @@ sources:
       - name: psxlatitem_hr
         config:
           enabled: false
+
+  - name: rand-rusaweb-maps
+    project: | 
+      {%-   if target.name == "sbx_target" -%} rand-rusaweb
+      {%- elif target.name == "dev_target" -%} rand-rusaweb
+      {%- elif target.name == "acc_target" -%} us-ergbq-qa-e523
+      {%- elif target.name == "prd_target" -%} us-ergbq-prd-3693
+      {%- else -%} rand-rusaweb
+      {%- endif -%}
+    schema: Maps
+    tables:
+      - name: BU_MANAGER_NXTLVL_MGR_LIVE

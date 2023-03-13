@@ -1,5 +1,5 @@
 {{ config(
-    tags = ["psxlatitem_fs"], 
+    tags = ["psxlatitem_fs", "psxlatitem", "po_assignments"], 
     alias = 'psxlatitem_fs'
     )
 }}
