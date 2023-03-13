@@ -1,0 +1,143 @@
+{{ config(
+    tags = ["ps_jobcode_tbl"], 
+    alias = 'ps_jobcode_tbl'
+    )
+}}
+
+SELECT
+        setid
+        , jobcode
+        , effdt
+        , eff_status
+        , descr
+        , descrshort
+        , job_function
+        , setid_salary
+        , sal_admin_plan
+        , grade
+        , step
+        , manager_level
+        , survey_salary
+        , survey_job_code
+        , union_cd
+        , retro_rate
+        , retro_percent
+        , currency_cd
+        , std_hours
+        , std_hrs_frequency
+        , comp_frequency
+        , workers_comp_cd
+        , job_family
+        , job_knowhow_points
+        , job_accntab_points
+        , job_probslv_points
+        , job_points_total
+        , job_knowhow_pct
+        , job_accntab_pct
+        , job_probslv_pct
+        , reg_temp
+        , directly_tipped
+        , med_chkup_req
+        , flsa_status
+        , eeo1code
+        , eeo4code
+        , eeo5code
+        , eeo6code
+        , eeo_job_group
+        , us_soc_cd
+        , ipedsscode
+        , us_occ_cd
+        , can_payeq_job_cls
+        , can_noc_cd
+        , seasonal
+        , bps_activity_cd
+        , function_cd
+        , ba_cd
+        , technical
+        , med_surv_req
+        , emp_categry_fra
+        , activity_type_fra
+        , insee_cd_fra
+        , job_ctg_fra_cd
+        , uk_soc_cd
+        , gvt_pay_plan
+        , gvt_occ_series
+        , trn_program
+        , company
+        , gvt_func_class
+        , gvt_posn_title_cd
+        , gvt_official_descr
+        , gvt_org_ttl_cd
+        , gvt_org_ttl_descr
+        , gvt_pay_basis
+        , gvt_sub_agency
+        , gvt_poi
+        , gvt_paren_title
+        , gvt_opm_cert_nbr
+        , gvt_posn_class_std
+        , gvt_posn_sens_cd
+        , gvt_ia_actions
+        , gvt_exec_fin_discl
+        , gvt_emp_fin_int
+        , gvt_patcob_cd
+        , gvt_cls_standard
+        , gvt_classifier_id
+        , gvt_dt_classified
+        , barg_unit
+        , gvt_fund_source
+        , gvt_leo_position
+        , gvt_perf_plan
+        , gvt_target_grade
+        , gvt_pi_upd_ind
+        , gvt_nfc_functn_cd
+        , gvt_off_titleprefx
+        , gvt_nfc_pi_ind_ovr
+        , encumber_indc
+        , posn_mgmt_indc
+        , eg_academic_rank
+        , eg_group
+        , hp_stats_duties
+        , hp_stats_rpt_flag
+        , encumb_sal_optn
+        , encumb_sal_amt
+        , inail_code
+        , asco_cd_aus
+        , pkg_template_id
+        , pkg_rule_id
+        , function_aus
+        , ann_cntact_hrs_aus
+        , teach_weeks_aus
+        , casual_type_aus
+        , work_day_hours
+        , fa_pay_program
+        , election_group
+        , labor_agreement
+        , fp_prof_catg
+        , fp_job_fmly
+        , fp_off_colag
+        , fp_matrix_typ
+        , fp_matrix_cd
+        , fp_business_cd
+        , fp_jobcd_acc
+        , fp_atch_area
+        , fp_job_typ
+        , fp_auto_ratfy
+        , last_update_date
+        , reg_region
+        , sal_range_min_rate
+        , sal_range_mid_rate
+        , sal_range_max_rate
+        , sal_range_currency
+        , sal_range_freq
+        , military_service
+        , mil_rank
+        , job_sub_func
+        , lastupdoprid
+        , lastupddttm
+        , email_user_sw
+        , descrlong
+        , insert_datetime as source_insert_datetime
+
+FROM {{ source( 'datalake-frontoffice-hr_bo', 'PS_JOBCODE_TBL')}}
+
+QUALIFY ROW_NUMBER() OVER (PARTITION BY jobcode ORDER BY effdt DESC) = 1
