@@ -72,6 +72,11 @@ models:
         +schema: staging_eBI_DimFact 
         +tags:
           - "dim"
+      
+      eBI_PO_Assignments:
+        +schema: staging_eBI_PO_Assignments
+        +tags:
+          - "po_assignments"
 
     03_dwh:
       +materialized: incremental
@@ -85,6 +90,10 @@ models:
       +tags: 
         - "dwh"
       +schema: NoneNoSchemaName
+      +partition_by:  
+        field: insert_datetime 
+        data_type: timestamp
+        granularity: day
 
       eBI_DeDup:
         +schema: data_warehouse_eBI_DeDup 
@@ -95,6 +104,11 @@ models:
         +schema: data_warehouse_eBI_DimFact 
         +tags:
           - "dim"
+
+      eBI_PO_Assignments:
+        +schema: data_warehouse_eBI_PO_Assignments
+        +tags:
+          - "po_assignments"
 
     04_dm:
       +database: |        
@@ -141,7 +155,6 @@ models:
           {%- elif target.name == "prd_target" -%} us-ergbq-prd-3693
           {%- else -%} rand-rusaweb
           {%- endif -%}
-        # +schema: "eBI_DimFact_Shared"
         +schema: |
           {%-   if target.name == "sbx_target" -%} eBI_DimFact_rand
           {%- elif target.name == "dev_target" -%} eBI_DimFact
@@ -164,3 +177,8 @@ models:
         +schema: eBI_Logs  # Common table for all record counts
         +tags: 
           - "logs"
+
+      eBI_PO_Assignments:
+        +schema: data_mart_eBI_PO_Assignments
+        +tags:
+          - "po_assignments"

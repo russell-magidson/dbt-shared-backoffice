@@ -1,12 +1,7 @@
 {{ config(
     tags = ["ps_assignment"], 
-    alias = 'ps_assignment', 
-    partition_by = { 
-        "field": "insert_datetime", 
-        "data_type": "timestamp", 
-        "granularity": "day"
-    }
-    )
+    alias = 'ps_assignment'
+)
 }}
 
 select *, current_timestamp() AS insert_datetime

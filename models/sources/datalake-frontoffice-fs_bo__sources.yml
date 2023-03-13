@@ -52,8 +52,6 @@ sources:
         config:
           enabled: false
       - name: PS_FO_ASGN_CMSN_DL
-        config:
-          enabled: false
       - name: PS_FO_PO_APPL_LOG
         config:
           enabled: false
@@ -74,8 +72,6 @@ sources:
         config:
           enabled: false
       - name: PS_RNA_ASGN_PO_TRK
-        config:
-          enabled: false
       - name: PS_RNA_CONTR_OFFER
         config:
           enabled: false
@@ -84,11 +80,7 @@ sources:
       - name: PS_RNA_CUST_OPTION
       - name: PS_RNA_CUST_PO_OPT
       - name: PS_RNA_FO_PO_HDR
-        config:
-          enabled: false
       - name: PS_RNA_INTFCBICMP
-        config:
-          enabled: false
       - name: PS_RNA_INTFC_BI
         config:
           enabled: false
