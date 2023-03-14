@@ -16,14 +16,14 @@ schedules:
 
 - name: eBI_run_all_models_acc
   cron_schedule: "15 8 * * *"
-  description: "eBI DeDup scheduler 30 8 acc"
+  description: "eBI DeDup scheduler 15 8 acc"
   select: "models/*"
   time_zone: "America/New_York"
   dbt_profile: acc
 
 - name: eBI_run_all_models_prd
   cron_schedule: "30 8 * * *"
-  description: "eBI DeDup scheduler 0 9 prd"
+  description: "eBI DeDup scheduler 30 8 prd"
   select: "models/*"
   time_zone: "America/New_York"
   dbt_profile: prd
