@@ -7,23 +7,23 @@ schedules:
 #   time_zone: "America/New_York"
 #   dbt_profile: dev
 
-- name: eBI_run_all_models_dev
+- name: eBI_run_all_models_dev_0_8
   cron_schedule: "0 8 * * *"
-  description: "eBI DeDup scheduler 0 8 dev"
+  description: "eBI_run_all_models_dev_0_8"
   select: "models/*"
   time_zone: "America/New_York"
   dbt_profile: dev
 
-- name: eBI_run_all_models_acc
-  cron_schedule: "15 8 * * *"
-  description: "eBI DeDup scheduler 15 8 acc"
+- name: eBI_run_all_models_acc_30_4
+  cron_schedule: "30 4 * * *"
+  description: "eBI_run_all_models_acc_30_4"
   select: "models/*"
   time_zone: "America/New_York"
   dbt_profile: acc
 
-- name: eBI_run_all_models_prd
-  cron_schedule: "30 8 * * *"
-  description: "eBI DeDup scheduler 30 8 prd"
+- name: eBI_run_all_models_prd_15_4
+  cron_schedule: "15 4 * * *"
+  description: "eBI_run_all_models_prd_15_4"
   select: "models/*"
   time_zone: "America/New_York"
   dbt_profile: prd
