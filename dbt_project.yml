@@ -50,6 +50,8 @@ vars:
       {%- endif -%}
 
 models:
+  +tags:
+    - backoffice 
   dbt_base:
     +materialized: table
     02_stg:
