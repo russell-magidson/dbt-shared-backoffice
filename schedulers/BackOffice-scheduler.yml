@@ -10,20 +10,20 @@ schedules:
 - name: eBI_BackOffice_dev_0_8
   cron_schedule: "0 8 * * 1-5"
   description: "eBI_BackOffice_dev_0_8"
-  select: "tag:backoffice"
+  select: "-s tag:backoffice"
   time_zone: "America/New_York"
   dbt_profile: dev
 
 - name: eBI_BackOffice_acc_10_4
   cron_schedule: "10 4 * * 1-5"
   description: "eBI_BackOffice_acc_10_4"
-  select: "tag:backoffice"
+  select: "-s tag:backoffice"
   time_zone: "America/New_York"
   dbt_profile: acc
 
 - name: eBI_BackOffice_prd_10_4
   cron_schedule: "10 4 * * 1-5"
   description: "eBI_BackOffice_prd_10_4"
-  select: "tag:backoffice"
+  select: "-s tag:backoffice"
   time_zone: "America/New_York"
   dbt_profile: prd
