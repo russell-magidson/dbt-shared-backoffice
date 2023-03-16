@@ -8,11 +8,8 @@ dbt_base:
       location: US
       method: oauth
       priority: interactive
-      # project: us-atlstg-dev-11c7
-      #us-atldm-test-dev-9198
-      #us-atlantadbt-dev-94e0
       threads: 3
-      timeout_seconds: 600
+      timeout_seconds: 1200
       type: bigquery
     dev_target:
       dataset: tst_not_used # unused - default schema
@@ -20,9 +17,8 @@ dbt_base:
       location: US
       method: oauth
       priority: interactive
-      # project: us-atlstg-dev-11c7 #us-atlantadbt-dev-94e0 # specified in dbt_project.yml
       threads: 3
-      timeout_seconds: 600
+      timeout_seconds: 1200
       type: bigquery
     acc_target:
       dataset: acc_not_used # unused - default schema
@@ -30,9 +26,8 @@ dbt_base:
       location: US
       method: oauth
       priority: interactive
-      # project: us-atlstg-dev-11c7 #us-atlantadbt-dev-94e0 # specified in dbt_project.yml
       threads: 3
-      timeout_seconds: 600
+      timeout_seconds: 1200
       type: bigquery
     prd_target:
       dataset: prd_not_used # unused - default schema
@@ -40,7 +35,6 @@ dbt_base:
       location: US
       method: oauth
       priority: interactive
-      # project: us-atlstg-dev-11c7 #us-atlantadbt-prd-1ad0 # specified in dbt_project.yml
       threads: 3
-      timeout_seconds: 600
+      timeout_seconds: 1200
       type: bigquery
