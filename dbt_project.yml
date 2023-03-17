@@ -51,7 +51,7 @@ vars:
 
 models:
   +tags:
-    - backoffice 
+    - dbt-us-backoffice 
   dbt_base:
     +materialized: table
     02_stg:
