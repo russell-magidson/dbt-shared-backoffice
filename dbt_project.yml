@@ -50,10 +50,10 @@ vars:
       {%- endif -%}
 
 models:
-  +tags:
-    - dbt-us-backoffice 
   dbt_base:
     +materialized: table
+    +tags:
+      - "dbt-us-backoffice" 
     02_stg:
       +database: |
         {%-   if target.name == "sbx_target" -%} us-atlstg-dev-11c7
