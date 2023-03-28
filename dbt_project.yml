@@ -42,11 +42,11 @@ vars:
       {%- endif -%}
 
   keys_table_location: |
-      {%- if target.name == "sbx_target" -%} `us-atldm-test-dev-9198.sbx_{{ env_var( 'USER') }}_data_mart_eBI_Keys`
-      {%- elif target.name == "dev_target" -%} `us-atldm-test-dev-9198.data_mart_eBI_Keys`
-      {%- elif target.name == "acc_target" -%} `us-atldm-test-qa-2114.data_mart_eBI_Keys`
-      {%- elif target.name == "prd_target" -%} `us-atldm-test-prd-99b5.data_mart_eBI_Keys`
-      {%- else -%} `us-atldm-test-dev-9198.sbx_{{ env_var( 'USER') }}_data_mart_eBI_Keys`
+      {%- if target.name == "sbx_target" -%} `us-atldm-test-dev-9198.sbx_{{ env_var( 'USER') }}_data_mart_eBI_BO_Keys`
+      {%- elif target.name == "dev_target" -%} `us-atldm-test-dev-9198.data_mart_eBI_BO_Keys`
+      {%- elif target.name == "acc_target" -%} `us-atldm-test-qa-2114.data_mart_eBI_BO_Keys`
+      {%- elif target.name == "prd_target" -%} `us-atldm-test-prd-99b5.data_mart_eBI_BO_Keys`
+      {%- else -%} `us-atldm-test-dev-9198.sbx_{{ env_var( 'USER') }}_data_mart_eBI_BO_Keys`
       {%- endif -%}
 
 models:
@@ -171,7 +171,7 @@ models:
 
       eBI_Keys:
         +materialized: incremental
-        +schema: data_mart_eBI_Keys 
+        +schema: data_mart_eBI_BO_Keys 
         +tags: 
           - "keys"
 
