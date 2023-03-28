@@ -169,7 +169,7 @@ models:
           - "rand"
           - "backoffice"
 
-      eBI_Keys:
+      eBI_BO_Keys:
         +materialized: incremental
         +schema: data_mart_eBI_BO_Keys 
         +tags: 
