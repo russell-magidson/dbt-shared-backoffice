@@ -11,11 +11,11 @@ sources:
       {%- endif -%}
 
     schema: | 
-      {%-   if target.name == "sbx_target" -%} sbx_{{ env_var( 'USER') }}_data_mart_eBI_Keys
-      {%- elif target.name == "dev_target" -%} data_mart_eBI_Keys
-      {%- elif target.name == "acc_target" -%} data_mart_eBI_Keys
-      {%- elif target.name == "prd_target" -%} data_mart_eBI_Keys
-      {%- else -%} sbx_{{ env_var( 'USER') }}_data_mart_eBI_Keys
+      {%-   if target.name == "sbx_target" -%} sbx_{{ env_var( 'USER') }}_data_mart_eBI_BO_Keys
+      {%- elif target.name == "dev_target" -%} tst_data_mart_eBI_BO_Keys
+      {%- elif target.name == "acc_target" -%} acc_data_mart_eBI_BO_Keys
+      {%- elif target.name == "prd_target" -%} prd_data_mart_eBI_BO_Keys
+      {%- else -%} sbx_{{ env_var( 'USER') }}_data_mart_eBI_BO_Keys
       {%- endif -%}
 
     tables:

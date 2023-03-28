@@ -34,19 +34,19 @@ vars:
   # Specify the location of tblRecordCount table based on the environment
   # Not sure how else we can specify this second target location since we perform an INSERT into the table
   tblRecordCount_location: |
-      {%- if target.name == "sbx_target" -%} `us-atldm-test-dev-9198.sbx_{{ env_var( 'USER') }}_eBI_Logs`
-      {%- elif target.name == "dev_target" -%} `us-atldm-test-dev-9198.eBI_Logs`
-      {%- elif target.name == "acc_target" -%} `us-atldm-test-qa-2114.eBI_Logs`
-      {%- elif target.name == "prd_target" -%} `us-atldm-test-prd-99b5.eBI_Logs`
-      {%- else -%} `us-atldm-test-dev-9198.sbx_{{ env_var( 'USER') }}_eBI_Logs`
+      {%- if target.name == "sbx_target" -%} `us-atldm-test-dev-9198.sbx_{{ env_var( 'USER') }}_eBI_BO_Logs`
+      {%- elif target.name == "dev_target" -%} `us-atldm-test-dev-9198.eBI_BO_Logs`
+      {%- elif target.name == "acc_target" -%} `us-atldm-test-qa-2114.eBI_BO_Logs`
+      {%- elif target.name == "prd_target" -%} `us-atldm-test-prd-99b5.eBI_BO_Logs`
+      {%- else -%} `us-atldm-test-dev-9198.sbx_{{ env_var( 'USER') }}_eBI_BO_Logs`
       {%- endif -%}
 
   keys_table_location: |
-      {%- if target.name == "sbx_target" -%} `us-atldm-test-dev-9198.sbx_{{ env_var( 'USER') }}_data_mart_eBI_Keys`
-      {%- elif target.name == "dev_target" -%} `us-atldm-test-dev-9198.data_mart_eBI_Keys`
-      {%- elif target.name == "acc_target" -%} `us-atldm-test-qa-2114.data_mart_eBI_Keys`
-      {%- elif target.name == "prd_target" -%} `us-atldm-test-prd-99b5.data_mart_eBI_Keys`
-      {%- else -%} `us-atldm-test-dev-9198.sbx_{{ env_var( 'USER') }}_data_mart_eBI_Keys`
+      {%- if target.name == "sbx_target" -%} `us-atldm-test-dev-9198.sbx_{{ env_var( 'USER') }}_data_mart_eBI_BO_Keys`
+      {%- elif target.name == "dev_target" -%} `us-atldm-test-dev-9198.tst_data_mart_eBI_BO_Keys`
+      {%- elif target.name == "acc_target" -%} `us-atldm-test-qa-2114.acc_data_mart_eBI_BO_Keys`
+      {%- elif target.name == "prd_target" -%} `us-atldm-test-prd-99b5.prd_data_mart_eBI_BO_Keys`
+      {%- else -%} `us-atldm-test-dev-9198.sbx_{{ env_var( 'USER') }}_data_mart_eBI_BO_Keys`
       {%- endif -%}
 
 models:
@@ -123,6 +123,12 @@ models:
       +tags: 
         - "dm"
 
+      eBI_BO_Keys:
+        +materialized: incremental
+        +schema: data_mart_eBI_BO_Keys 
+        +tags: 
+          - "keys"
+
       eBI_DeDup:
         +database: |        
           {%-   if target.name == "sbx_target" -%} us-atldm-test-dev-9198
@@ -168,12 +174,6 @@ models:
           - "dim"
           - "rand"
           - "backoffice"
-
-      eBI_Keys:
-        +materialized: incremental
-        +schema: data_mart_eBI_Keys 
-        +tags: 
-          - "keys"
 
       eBI_Logs:
         +schema: eBI_Logs  # Common table for all record counts

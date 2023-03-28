@@ -9,13 +9,13 @@
         sbx_{{ env_var( 'USER') }}_{{ custom_schema_name }} 
 
     {%- elif target.name == "dev_target" -%}
-        {{ custom_schema_name }} 
+        tst_{{ custom_schema_name }} 
 
     {%- elif target.name == "acc_target" -%}
-        {{ custom_schema_name }} 
+        acc_{{ custom_schema_name }} 
 
     {%- elif target.name == "prd_target" -%}
-        {{ custom_schema_name }} 
+        prd_{{ custom_schema_name }} 
 
     {%- else -%} 
         {# We don't want these to kick in so we'll set a prefix to allow us to find the tables #}
