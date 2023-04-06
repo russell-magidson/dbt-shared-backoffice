@@ -4,8 +4,5 @@
     )
 }}
 
-select *
-from {{ ref( 'dwh_ps_cust_credit')}}
-where insert_datetime = ( SELECT max( insert_datetime)
-                        from {{ ref( 'dwh_ps_cust_credit')}}
-                        )
+select *, current_timestamp() AS insert_datetime
+from {{ ref( 'stg_ps_cust_credit')}}
