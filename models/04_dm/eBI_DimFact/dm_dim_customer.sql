@@ -4,11 +4,8 @@
     )
 }}
 
-select *
-from {{ ref( 'dwh_dim_customer')}}
-where insert_datetime = ( SELECT max( insert_datetime)
-                        from {{ ref( 'dwh_dim_customer')}}
-                        )
+select *, current_timestamp() AS insert_datetime
+from {{ ref( "stg_dim_customer")}}
 
 UNION ALL
 

@@ -4,8 +4,5 @@
     )
 }}
 
-select *
-from {{ ref( 'dwh_ps_rna_asgn_po_trk')}}
-where insert_datetime = ( SELECT max( insert_datetime)
-                        from {{ ref( 'dwh_ps_rna_asgn_po_trk')}}
-                        )
+select *, current_timestamp() as insert_datetime
+from {{ ref( 'stg_ps_rna_asgn_po_trk')}}
