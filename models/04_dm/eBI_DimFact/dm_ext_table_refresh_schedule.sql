@@ -4,8 +4,5 @@
     )
 }}
 
-select *
-from {{ ref( 'dwh_ext_table_refresh_schedule')}}
-where insert_datetime = ( SELECT max( insert_datetime)
-                        from {{ ref( 'dwh_ext_table_refresh_schedule')}}
-                        )
+select *, current_timestamp() AS insert_datetime
+from {{ ref( "stg_ext_table_refresh_schedule")}}

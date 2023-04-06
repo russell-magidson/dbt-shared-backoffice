@@ -4,8 +4,5 @@
     )
 }}
 
-select *
-from {{ ref( 'dwh_psxlatitem_fs')}}
-where insert_datetime = ( SELECT max( insert_datetime)
-                        from {{ ref( 'dwh_psxlatitem_fs')}}
-                        )
+select *, current_timestamp() AS insert_datetime
+from {{ ref( 'stg_psxlatitem_fs')}}

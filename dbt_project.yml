@@ -1,16 +1,9 @@
-# Name your project! Project names should contain only lowercase characters
-# and underscores. A good package name should reflect your organization's
-# name or the intended use of these models
 name: 'dbt_base'
 version: '1.0.0'
 config-version: 2
 
-# This setting configures which "profile" dbt uses for this project.
 profile: 'dbt_base'
 
-# These configurations specify where dbt should look for different types of files.
-# The `model-paths` config, for example, states that models in this project can be
-# found in the "models/" directory. You probably won't need to change these!
 model-paths: ["models"]
 analysis-paths: ["analysis"]
 test-paths: ["tests"]
@@ -21,14 +14,6 @@ target-path: "target"  # directory which will store compiled SQL files
 clean-targets:         # directories to be removed by `dbt clean`
   - "target"
   - "dbt_modules"
-
-
-# Configuring models
-# Full documentation: https://docs.getdbt.com/docs/configuring-models
-
-# In this example config, we tell dbt to build all models in the example/ directory
-# as tables. These settings can be overridden in the individual model files
-# using the `{{ config(...) }}` macro.
 
 vars:
   # Specify the location of tblRecordCount table based on the environment
@@ -80,37 +65,37 @@ models:
         +tags:
           - "po_assignments"
 
-    03_dwh:
-      +materialized: incremental
-      +database: |        
-        {%-   if target.name == "sbx_target" -%} us-atldwh-dev-1165 
-        {%- elif target.name == "dev_target" -%} us-atldwh-dev-1165 
-        {%- elif target.name == "acc_target" -%} us-atldwh-qa-e9af
-        {%- elif target.name == "prd_target" -%} us-atldwh-prd-60df
-        {%- else -%} us-atldwh-dev-1165
-        {%- endif -%}
-      +tags: 
-        - "dwh"
-      +schema: NoneNoSchemaName
-      +partition_by:  
-        field: insert_datetime 
-        data_type: timestamp
-        granularity: day
+    # 03_dwh:
+    #   +materialized: incremental
+    #   +database: |        
+    #     {%-   if target.name == "sbx_target" -%} us-atldwh-dev-1165 
+    #     {%- elif target.name == "dev_target" -%} us-atldwh-dev-1165 
+    #     {%- elif target.name == "acc_target" -%} us-atldwh-qa-e9af
+    #     {%- elif target.name == "prd_target" -%} us-atldwh-prd-60df
+    #     {%- else -%} us-atldwh-dev-1165
+    #     {%- endif -%}
+    #   +tags: 
+    #     - "dwh"
+    #   +schema: NoneNoSchemaName
+    #   +partition_by:  
+    #     field: insert_datetime 
+    #     data_type: timestamp
+    #     granularity: day
 
-      eBI_DeDup:
-        +schema: data_warehouse_eBI_DeDup 
-        +tags:
-          - "dedup"
+    #   eBI_DeDup:
+    #     +schema: data_warehouse_eBI_DeDup 
+    #     +tags:
+    #       - "dedup"
 
-      eBI_DimFact:
-        +schema: data_warehouse_eBI_DimFact 
-        +tags:
-          - "dim"
+    #   eBI_DimFact:
+    #     +schema: data_warehouse_eBI_DimFact 
+    #     +tags:
+    #       - "dim"
 
-      eBI_PO_Assignments:
-        +schema: data_warehouse_eBI_PO_Assignments
-        +tags:
-          - "po_assignments"
+    #   eBI_PO_Assignments:
+    #     +schema: data_warehouse_eBI_PO_Assignments
+    #     +tags:
+    #       - "po_assignments"
 
     04_dm:
       +database: |        
@@ -128,6 +113,11 @@ models:
         +schema: data_mart_eBI_BO_Keys 
         +tags: 
           - "keys"
+
+      eBI_BO_Logs:
+        +schema: eBI_BO_Logs  # Common table for all record counts
+        +tags: 
+          - "logs"
 
       eBI_DeDup:
         +database: |        
@@ -174,11 +164,6 @@ models:
           - "dim"
           - "rand"
           - "backoffice"
-
-      eBI_Logs:
-        +schema: eBI_Logs  # Common table for all record counts
-        +tags: 
-          - "logs"
 
       eBI_PO_Assignments:
         +schema: data_mart_eBI_PO_Assignments
