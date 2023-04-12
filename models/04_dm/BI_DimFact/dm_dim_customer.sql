@@ -55,6 +55,4 @@ SELECT 'N/A' as setid
     , 'N/A' as rna_vms_sep_pay_bi
     , 'N/A' as do_not_use_flag
     , -1 as cust_key
-    , (SELECT max(insert_datetime) 
-        FROM {{ ref( 'dwh_dim_customer')}}
-        ) as insert_datetime
+    , current_timestamp() as insert_datetime
