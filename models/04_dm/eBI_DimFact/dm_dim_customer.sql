@@ -1,5 +1,5 @@
 {{ config(
-    tags = ["dim_customer"], 
+    tags = ["dim_customer", "po_assignments"], 
     alias = "dim_customer"
     )
 }}

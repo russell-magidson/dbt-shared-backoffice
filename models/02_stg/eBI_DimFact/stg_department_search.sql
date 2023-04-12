@@ -23,7 +23,7 @@ SELECT distinct
     , 1 as Level_Number
     , cast( null as string) as branch_id
     
-    FROM {{ source( 'rand-rusaweb-shared-dim-fact', 'dim_department')}} as dept
+    FROM {{ ref( 'dm_dim_department')}} as dept
     where 1=1
     and UNIT LIKE '%U'
 
@@ -50,7 +50,7 @@ SELECT distinct
         ELSE cast( null as string)
         END as branch_id
 
-FROM {{ source( 'rand-rusaweb-shared-dim-fact', 'dim_department')}} as dept
+FROM {{ ref( 'dm_dim_department')}} as dept
     where 1=1
     and UNIT LIKE '%U'
 
@@ -77,7 +77,7 @@ SELECT distinct
         ELSE cast( null as string)
         END as branch_id
 
-FROM {{ source( 'rand-rusaweb-shared-dim-fact', 'dim_department')}} as dept
+FROM {{ ref( 'dm_dim_department')}} as dept
     where 1=1
     and UNIT LIKE '%U'
 
@@ -102,7 +102,7 @@ SELECT distinct
         ELSE cast( null as string)
         END as branch_id
 
-FROM {{ source( 'rand-rusaweb-shared-dim-fact', 'dim_department')}} as dept
+FROM {{ ref( 'dm_dim_department')}} as dept
     where 1=1
     and UNIT LIKE '%U'
 
@@ -127,7 +127,7 @@ SELECT distinct
         ELSE cast( null as string)
         END as branch_id
 
-FROM {{ source( 'rand-rusaweb-shared-dim-fact', 'dim_department')}} as dept
+FROM {{ ref( 'dm_dim_department')}} as dept
     where 1=1
     and UNIT LIKE '%U'
 
@@ -146,7 +146,7 @@ SELECT distinct
     , 6 as Level_Number
     , cast( null as string) as branch_id
 
-FROM {{ source( 'rand-rusaweb-shared-dim-fact', 'dim_department')}} as dept
+FROM {{ ref( 'dm_dim_department')}} as dept
     where 1=1
     and UNIT LIKE '%U'
 
@@ -168,6 +168,6 @@ SELECT distinct
         ELSE cast( null as string)
         END as branch_id
 
-FROM {{ source( 'rand-rusaweb-shared-dim-fact', 'dim_department')}} as dept
+FROM {{ ref( 'dm_dim_department')}} as dept
     where 1=1
     and UNIT LIKE '%U'

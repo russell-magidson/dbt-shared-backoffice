@@ -103,7 +103,7 @@ SELECT distinct
 
     , dept.branch as branch_code  
 
-from {{ source( 'rand-rusaweb-shared-dim-fact', 'dim_department')}} as dept
+from {{ ref( 'dm_dim_department')}} as dept
 
 where 1=1
     and UNIT LIKE '%U'

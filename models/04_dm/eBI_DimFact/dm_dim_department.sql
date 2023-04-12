@@ -1,5 +1,5 @@
 {{ config(
-    tags = ["dim_department"], 
+    tags = ["dim_department", "po_assignments"], 
     alias = "dim_department"
     )
 }}

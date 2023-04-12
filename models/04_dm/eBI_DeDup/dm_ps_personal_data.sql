@@ -1,5 +1,5 @@
 {{ config(
-    tags = ["ps_personal_data"], 
+    tags = ["ps_personal_data", "po_assignments"], 
     alias = "ps_personal_data"
     )
 }}

@@ -25,7 +25,7 @@ WITH rfph AS
                     WHEN rna_weekday = '6' then 'Friday'
                     WHEN rna_weekday = '7' then 'Saturday' 
                 END AS customer_we
-        FROM {{ source( 'rand-rusaweb-dedup', 'ps_rna_cust_option')}} 
+        FROM {{ ref( 'dm_ps_rna_cust_option')}} 
         WHERE effdt <= CURRENT_DATE()
         QUALIFY ROW_NUMBER() OVER (PARTITION BY setid, cust_id ORDER BY effdt  DESC NULLS LAST) = 1
         )
@@ -57,16 +57,16 @@ WITH rfph AS
             ,STRING_AGG(D.employee_status, '|')    AS producer_status
         FROM latest_effdt_per_assign_id A
         
-        LEFT JOIN {{ source( 'rand-rusaweb-dedup', 'psoprdefn')}} as P1
+        LEFT JOIN {{ ref( 'dm_psoprdefn')}} as P1
                 ON A.oprid = P1.oprid
-        LEFT JOIN {{ source( 'rand-rusaweb-shared-dim-fact', 'dim_employee')}} as D
+        LEFT JOIN {{ ref( 'dm_dim_employee')}} as D
                 ON P1.emplid = D.employee_id
         GROUP BY a.assignment_id
         )
 
 ,rbps_ddup AS 
     (SELECT *
-    FROM {{ source( 'rand-rusaweb-dedup', 'ps_rna_bh_plac_stg')}} as rbps
+    FROM {{ ref( 'dm_ps_rna_bh_plac_stg')}} as rbps
     QUALIFY ROW_NUMBER() OVER (PARTITION BY rna_bh_corp_id, rna_bh_plc_id ORDER BY seqno DESC) = 1
     )
 
@@ -129,20 +129,20 @@ SELECT
     ,rbps.rna_bh_plc_id as bh_placement_id
     ,bmxm.name AS md
     ,(SELECT DATETIME(max(ra.source_insert_datetime), "America/New_York") AS data_as_of_est
-            FROM {{ source( 'rand-rusaweb-dedup', 'ps_rs_assignment')}}
+            FROM {{ ref( 'dm_ps_rs_assignment')}}
         ) as data_as_of_est
     ,cust.cust_key
     ,dept.dept_key
 
-FROM  {{ source( 'rand-rusaweb-dedup', 'ps_rs_assignment')}} as ra
+FROM  {{ ref( 'dm_ps_rs_assignment')}} as ra
 
-LEFT JOIN {{ source( 'rand-rusaweb-dedup', 'ps_personal_data')}} as pd
+LEFT JOIN {{ ref( 'dm_ps_personal_data')}} as pd
     ON ra.emplid = pd.emplid
 
-LEFT JOIN {{ source( 'rand-rusaweb-dedup', 'ps_vi_ave_master')}} as vam
+LEFT JOIN {{ ref( 'dm_ps_vi_ave_master')}} as vam
     ON ra.emplid = vam.vi_aveid
 
-LEFT JOIN {{ source( 'rand-rusaweb-dedup', 'ps_rna_asgn_po_trk')}} as rapt
+LEFT JOIN {{ ref( 'dm_ps_rna_asgn_po_trk')}} as rapt
     ON ra.assignment_id = rapt.assignment_id  
 
 LEFT JOIN rfph 
@@ -151,7 +151,7 @@ LEFT JOIN rfph
 LEFT JOIN {{ source( 'datalake-frontoffice-fs_bo', 'PS_RNA_CUST_PO_OPT')}} as rcpo
     ON ra.CUST_ID = rcpo.CUST_ID
 
-LEFT JOIN {{ source( 'rand-rusaweb-dedup', 'psxlatitem_fs')}} as psxl
+LEFT JOIN {{ ref( 'dm_psxlatitem_fs')}} as psxl
     ON rcpo.RNA_TRACKING_FUNDS = psxl.FIELDVALUE 
     AND psxl.FIELDNAME = 'RNA_TRACKING_FUNDS'
 
@@ -165,16 +165,16 @@ LEFT JOIN avgweekbill
 LEFT JOIN rbps_ddup  AS rbps
     ON ra.project_id = rbps.order_id
 
-LEFT JOIN {{ source( 'rand-rusaweb-dedup', 'bu_manager_nxtlvl_mgr_live')}} as bmxm
+LEFT JOIN {{ ref( 'dm_bu_manager_nxtlvl_mgr_live')}} as bmxm
     ON ra.deptid = bmxm.branch 
 
 LEFT JOIN producer_info pi 
     ON pi.assignment_id = ra.assignment_id
 
-LEFT JOIN {{ source( 'rand-rusaweb-shared-dim-fact', 'dim_customer')}} as cust
+LEFT JOIN {{ ref( 'dm_dim_customer')}} as cust
     ON cust.customer_id =  ra.CUST_ID
 
-LEFT JOIN {{ source( 'rand-rusaweb-shared-dim-fact', 'dim_department')}} as dept
+LEFT JOIN {{ ref( 'dm_dim_department')}} as dept
     ON dept.branch =  ra.DEPTID
     AND dept.UNIT LIKE '%U'
 

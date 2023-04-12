@@ -1,5 +1,5 @@
 {{ config(
-    tags = ["ps_vi_ave_master"], 
+    tags = ["ps_vi_ave_master", "po_assignments"], 
     alias = "ps_vi_ave_master"
     )
 }}

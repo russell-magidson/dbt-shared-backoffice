@@ -1,5 +1,5 @@
 {{ config(
-    tags = ["bu_manager_nxtlvl_mgr_live"], 
+    tags = ["bu_manager_nxtlvl_mgr_live", "po_assignments"], 
     alias = 'bu_manager_nxtlvl_mgr_live'
     )
 }}
