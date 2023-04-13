@@ -78,6 +78,6 @@ SELECT
 
 FROM {{ source( 'datalake-frontoffice-fs_bo', 'PS_CA_CONTR_HDR')}}
     
-WHERE business_unit = 'RTSBU'
+WHERE business_unit IN ('RTSBU', 'CLCBU')
 
 QUALIFY ROW_NUMBER() OVER (PARTITION BY  contract_num ORDER BY lastupddttm DESC) = 1
