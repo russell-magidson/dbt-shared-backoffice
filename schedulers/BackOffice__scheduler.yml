@@ -1,12 +1,5 @@
 schedules:
 
-# - name: eBI_BackOffice_sbx_holder
-#   cron_schedule: "0 0 31 2 *"
-#   description: "eBI_BackOffice_sbx_holder"
-#   select: "tag:dbt-us-backoffice"
-#   time_zone: "America/New_York"
-#   dbt_profile: sbx
-
 - name: eBI_BackOffice_dev_holder
   cron_schedule: "0 0 31 2 *"
   description: "eBI_BackOffice_dev"
