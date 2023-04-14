@@ -1,7 +1,7 @@
 schedules:
 
 - name: test-schedule
-  cron_schedule: "0 0 31 2 *"
+  cron_schedule: "0 0 29 2 *"
   description: "test-schedule"
   select: "tag:dbt-us-rtg-sales"
   time_zone: "America/New_York"
