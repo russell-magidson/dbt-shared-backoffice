@@ -1,5 +1,5 @@
 #Profiles configuration.
-dbt_base:
+dbt_us_backoffice:
   target: sbx_target
   outputs:
     sbx_target:

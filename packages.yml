@@ -1,0 +1,3 @@
+packages:
+  - git: "https://glpat-MFizKCkNoNctw9gVmcxy@eugit.randstadgis.com/russell.magidson/dbt-results.git"
+    revision: 1.0.0
