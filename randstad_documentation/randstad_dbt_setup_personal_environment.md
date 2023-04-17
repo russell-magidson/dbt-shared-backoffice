@@ -64,7 +64,7 @@ Example of folders: dbt-in (India), dbt-es (Spain), dbt-de (Germany), dbt-pt (Po
 ```
 # Inside the "DBT" folder
 python3 -m venv .venv
-source .venv/bin/activate
+source .venv/Scripts/activate
 pip3 install --upgrade pip
 pip3 install -r dbt-{xx}/requirements.txt
 ```
