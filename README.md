@@ -14,7 +14,7 @@ packages:
 
 ## Roadmap
 Future enhancements
- - Support for the project to be accessed from our internal Git server
+ \- Support for the project to be accessed from our internal Git server
 
 ## Contributing
 Feel free to take over ownership
