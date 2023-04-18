@@ -7,7 +7,7 @@ Contains the code that loads common DeDup, dim, fact and keys tables
 ## Installation  
 Add to packages.yml:  
 packages:    
-  \- git: "https://github.com/russell-magidson/dbt_shared_backoffice.git"   
+  \- git: "https://github.com/russell-magidson/dbt-shared-backoffice.git"   
     revision: 1.0.0  
 
 ## Usage  
