@@ -1,30 +1,10 @@
-name: 'dbt_us_backoffice'
+name: 'dbt_shared_backoffice'
 version: '1.0.0'
 config-version: 2
 
-profile: 'dbt_us_backoffice'
-
-model-paths: ["models"]
-analysis-paths: ["analysis"]
-test-paths: ["tests"]
-seed-paths: ["seeds"]
-macro-paths: ["macros", "dbt_packages/dbt_results/macros"]
-snapshot-paths: ["snapshots"]
-target-path: "target"  # directory which will store compiled SQL files
-clean-targets:         # directories to be removed by `dbt clean`
-  - "target"
-  - "dbt_modules"
+profile: 'dbt_shared_backoffice'
 
 vars:
-  # Specify the location of tblRecordCount table based on the environment
-  # Not sure how else we can specify this second target location since we perform an INSERT into the table
-  tblRecordCount_location: |
-      {%- if target.name == "sbx_target" -%} `us-atldm-test-dev-9198.sbx_{{ env_var( 'USER') }}_eBI_BO_Logs`
-      {%- elif target.name == "dev_target" -%} `us-atldm-test-dev-9198.eBI_BO_Logs`
-      {%- elif target.name == "acc_target" -%} `us-atldm-test-qa-2114.eBI_BO_Logs`
-      {%- elif target.name == "prd_target" -%} `us-atldm-test-prd-99b5.eBI_BO_Logs`
-      {%- else -%} `us-atldm-test-dev-9198.sbx_{{ env_var( 'USER') }}_eBI_BO_Logs`
-      {%- endif -%}
 
   keys_table_location: |
       {%- if target.name == "sbx_target" -%} `us-atldm-test-dev-9198.sbx_{{ env_var( 'USER') }}_data_mart_BI_BO_Keys`
@@ -35,8 +15,8 @@ vars:
       {%- endif -%}
 
 models:
-  dbt_us_backoffice:
-    +materialized: table
+  dbt_shared_backoffice:
+    +materialized: view
     +tags:
       - "dbt-us-backoffice" 
     02_stg:
@@ -51,21 +31,22 @@ models:
         - "stg"
 
       BI_DeDup:
-        +schema: staging_BI_DeDup 
+        +schema: staging_shared_BI_DeDup 
         +tags:
           - "dedup"
 
       BI_DimFact:
-        +schema: staging_BI_BO 
+        +schema: staging_shared_BI_BO 
         +tags:
           - "dim"
       
       BI_PO_Assignments:
-        +schema: staging_BI_PO_Assignments
+        +schema: staging_shared_BI_PO_Assignments
         +tags:
           - "po_assignments"
 
     04_dm:
+      +materialized: table
       +database: |        
         {%-   if target.name == "sbx_target" -%} us-atldm-test-dev-9198 
         {%- elif target.name == "dev_target" -%} us-atldm-test-dev-9198
@@ -78,14 +59,9 @@ models:
 
       BI_BO_Keys:
         +materialized: incremental
-        +schema: data_mart_BI_BO_Keys 
+        +schema: data_mart_shared_BI_BO_Keys 
         +tags: 
           - "keys"
-
-      BI_BO_Logs:
-        +schema: BI_BO_Logs  # Common table for all record counts
-        +tags: 
-          - "logs"
 
       BI_DeDup:
         +database: |        
@@ -95,7 +71,7 @@ models:
           {%- elif target.name == "prd_target" -%} us-ergbq-prd-3693
           {%- else -%} rand-rusaweb
           {%- endif -%}
-        +schema: BI_DeDup
+        +schema: shared_BI_DeDup
         +tags: 
           - "dedup"
 
@@ -107,7 +83,7 @@ models:
           {%- elif target.name == "prd_target" -%} us-atldm-test-prd-99b5
           {%- else -%} us-atldm-test-dev-9198
           {%- endif -%}
-        +schema: data_mart_BI_BO
+        +schema: data_mart_shared_BI_BO
         +tags:
           - "dim"
           - "rand"
@@ -121,13 +97,13 @@ models:
           {%- elif target.name == "prd_target" -%} us-ergbq-prd-3693
           {%- else -%} rand-rusaweb
           {%- endif -%}
-        +schema: BI_BackOffice
+        +schema: shared_BI_BackOffice
         +tags:
           - "dim"
           - "rand"
           - "backoffice"
 
       BI_PO_Assignments:
-        +schema: data_mart_BI_PO_Assignments
+        +schema: data_mart_shared_BI_PO_Assignments
         +tags:
           - "po_assignments"
